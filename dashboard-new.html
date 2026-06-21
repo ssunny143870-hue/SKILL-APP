@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SUN SKILLS - Career Preparation Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="dashboard-new.css" />
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="nav-left">
+        <div class="logo">
+          <i class="fas fa-graduation-cap"></i>
+          <span>SUN SKILLS</span>
+        </div>
+      </div>
+      <div class="nav-center">
+        <div class="welcome-message">
+          <p class="welcome-text">Welcome Back!</p>
+          <p class="sub-text">Continue your learning journey.</p>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="dark-mode-toggle" id="darkModeToggle">
+          <i class="fas fa-moon"></i>
+        </button>
+        <div class="profile-icon">
+          <i class="fas fa-user"></i>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Crack Your Dream Job with SUN SKILLS</h1>
+        <p>Practice Interview Questions, Learn Skills, and Take Mock Tests.</p>
+        <button class="cta-button">
+          <i class="fas fa-rocket"></i>
+          Start Learning
+        </button>
+      </div>
+      <div class="hero-illustration">
+        <div class="illustration-container">
+          <i class="fas fa-laptop-code"></i>
+          <i class="fas fa-users"></i>
+          <i class="fas fa-clipboard-check"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Dashboard Cards -->
+  <section class="feature-cards">
+    <div class="feature-card interview-card">
+      <div class="card-icon">
+        <i class="fas fa-briefcase"></i>
+      </div>
+      <h3>Interview Questions</h3>
+      <ul class="card-features">
+        <li><i class="fas fa-check-circle"></i> Technical Questions</li>
+        <li><i class="fas fa-check-circle"></i> HR Questions</li>
+        <li><i class="fas fa-check-circle"></i> Company-wise Questions</li>
+        <li><i class="fas fa-check-circle"></i> Frequently Asked Questions</li>
+      </ul>
+      <button class="card-button">Explore</button>
+    </div>
+
+    <div class="feature-card materials-card">
+      <div class="card-icon">
+        <i class="fas fa-book-open"></i>
+      </div>
+      <h3>Skill Materials</h3>
+      <ul class="card-features">
+        <li><i class="fas fa-check-circle"></i> Java</li>
+        <li><i class="fas fa-check-circle"></i> Python</li>
+        <li><i class="fas fa-check-circle"></i> DSA</li>
+        <li><i class="fas fa-check-circle"></i> SQL</li>
+        <li><i class="fas fa-check-circle"></i> Web Development</li>
+        <li><i class="fas fa-check-circle"></i> Aptitude</li>
+      </ul>
+      <button class="card-button">Learn Now</button>
+    </div>
+
+    <div class="feature-card mock-test-card">
+      <div class="card-icon">
+        <i class="fas fa-clipboard-list"></i>
+      </div>
+      <h3>Mock Tests</h3>
+      <ul class="card-features">
+        <li><i class="fas fa-check-circle"></i> Timed Tests</li>
+        <li><i class="fas fa-check-circle"></i> Topic-wise Tests</li>
+        <li><i class="fas fa-check-circle"></i> Full-Length Exams</li>
+        <li><i class="fas fa-check-circle"></i> Performance Analysis</li>
+      </ul>
+      <button class="card-button">Take Test</button>
+    </div>
+  </section>
+
+  <!-- Quick Statistics Section -->
+  <section class="statistics-section">
+    <h2 class="section-title">Your Progress</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-trophy"></i>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-number" data-target="24">0</h3>
+          <p class="stat-label">Skills Completed</p>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 75%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-clipboard-check"></i>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-number" data-target="18">0</h3>
+          <p class="stat-label">Mock Tests Attempted</p>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 60%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-question-circle"></i>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-number" data-target="156">0</h3>
+          <p class="stat-label">Questions Solved</p>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 85%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-number" data-target="68">0</h3>
+          <p class="stat-label">Overall Progress %</p>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 68%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Learning Categories -->
+  <section class="categories-section">
+    <h2 class="section-title">Learning Categories</h2>
+    <div class="categories-grid">
+      <div class="category-card">
+        <div class="category-icon">
+          <i class="fab fa-java"></i>
+        </div>
+        <h3>Java</h3>
+        <div class="category-progress">
+          <span>75%</span>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 75%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">
+          <i class="fab fa-python"></i>
+        </div>
+        <h3>Python</h3>
+        <div class="category-progress">
+          <span>60%</span>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 60%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">
+          <i class="fas fa-project-diagram"></i>
+        </div>
+        <h3>DSA</h3>
+        <div class="category-progress">
+          <span>45%</span>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 45%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">
+          <i class="fas fa-database"></i>
+        </div>
+        <h3>SQL</h3>
+        <div class="category-progress">
+          <span>80%</span>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 80%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">
+          <i class="fab fa-html5"></i>
+        </div>
+        <h3>HTML</h3>
+        <div class="category-progress">
+          <span>90%</span>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 90%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">
+          <i class="fab fa-css3-alt"></i>
+        </div>
+        <h3>CSS</h3>
+        <div class="category-progress">
+          <span>85%</span>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 85%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">
+          <i class="fab fa-js"></i>
+        </div>
+        <h3>JavaScript</h3>
+        <div class="category-progress">
+          <span>70%</span>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 70%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">
+          <i class="fas fa-brain"></i>
+        </div>
+        <h3>Aptitude</h3>
+        <div class="category-progress">
+          <span>55%</span>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 55%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">
+          <i class="fas fa-comments"></i>
+        </div>
+        <h3>Communication Skills</h3>
+        <div class="category-progress">
+          <span>65%</span>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 65%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Daily Learning Streak -->
+  <section class="streak-section">
+    <div class="streak-card">
+      <div class="streak-icon">
+        <i class="fas fa-fire"></i>
+      </div>
+      <div class="streak-content">
+        <h3>Daily Learning Streak</h3>
+        <p class="streak-count">15 Days</p>
+        <p class="streak-message">Keep it up! You're on fire!</p>
+      </div>
+      <div class="streak-calendar">
+        <div class="streak-day active"><i class="fas fa-check"></i></div>
+        <div class="streak-day active"><i class="fas fa-check"></i></div>
+        <div class="streak-day active"><i class="fas fa-check"></i></div>
+        <div class="streak-day active"><i class="fas fa-check"></i></div>
+        <div class="streak-day active"><i class="fas fa-check"></i></div>
+        <div class="streak-day active"><i class="fas fa-check"></i></div>
+        <div class="streak-day today"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recommended Courses -->
+  <section class="recommended-section">
+    <h2 class="section-title">Recommended Courses</h2>
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-image">
+          <i class="fas fa-code"></i>
+        </div>
+        <div class="course-content">
+          <h3>Full Stack Development</h3>
+          <p>Master React, Node.js, and MongoDB</p>
+          <div class="course-meta">
+            <span><i class="fas fa-clock"></i> 8 weeks</span>
+            <span><i class="fas fa-star"></i> 4.8</span>
+          </div>
+          <button class="course-button">Enroll Now</button>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-image">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="course-content">
+          <h3>Cybersecurity Fundamentals</h3>
+          <p>Learn ethical hacking and security</p>
+          <div class="course-meta">
+            <span><i class="fas fa-clock"></i> 6 weeks</span>
+            <span><i class="fas fa-star"></i> 4.7</span>
+          </div>
+          <button class="course-button">Enroll Now</button>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-image">
+          <i class="fas fa-cloud"></i>
+        </div>
+        <div class="course-content">
+          <h3>AWS Cloud Practitioner</h3>
+          <p>Cloud computing essentials</p>
+          <div class="course-meta">
+            <span><i class="fas fa-clock"></i> 4 weeks</span>
+            <span><i class="fas fa-star"></i> 4.9</span>
+          </div>
+          <button class="course-button">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Activity -->
+  <section class="activity-section">
+    <h2 class="section-title">Recent Activity</h2>
+    <div class="activity-list">
+      <div class="activity-item">
+        <div class="activity-icon completed">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="activity-content">
+          <h4>Completed Java Arrays Quiz</h4>
+          <p>Score: 85%</p>
+        </div>
+        <span class="activity-time">2 hours ago</span>
+      </div>
+
+      <div class="activity-item">
+        <div class="activity-icon in-progress">
+          <i class="fas fa-spinner"></i>
+        </div>
+        <div class="activity-content">
+          <h4>Started Python Data Structures</h4>
+          <p>Progress: 30%</p>
+        </div>
+        <span class="activity-time">5 hours ago</span>
+      </div>
+
+      <div class="activity-item">
+        <div class="activity-icon completed">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="activity-content">
+          <h4>Attended Mock Interview</h4>
+          <p>Technical Round</p>
+        </div>
+        <span class="activity-time">1 day ago</span>
+      </div>
+
+      <div class="activity-item">
+        <div class="activity-icon badge">
+          <i class="fas fa-medal"></i>
+        </div>
+        <div class="activity-content">
+          <h4>Earned "Quick Learner" Badge</h4>
+          <p>Completed 5 lessons in a day</p>
+        </div>
+        <span class="activity-time">2 days ago</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievement Badges -->
+  <section class="badges-section">
+    <h2 class="section-title">Achievement Badges</h2>
+    <div class="badges-grid">
+      <div class="badge-card earned">
+        <div class="badge-icon">
+          <i class="fas fa-fire"></i>
+        </div>
+        <h4>7-Day Streak</h4>
+        <p>Learned for 7 consecutive days</p>
+      </div>
+
+      <div class="badge-card earned">
+        <div class="badge-icon">
+          <i class="fas fa-bolt"></i>
+        </div>
+        <h4>Quick Learner</h4>
+        <p>Completed 5 lessons in a day</p>
+      </div>
+
+      <div class="badge-card earned">
+        <div class="badge-icon">
+          <i class="fas fa-star"></i>
+        </div>
+        <h4>Top Performer</h4>
+        <p>Scored 90% in mock test</p>
+      </div>
+
+      <div class="badge-card locked">
+        <div class="badge-icon">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h4>30-Day Streak</h4>
+        <p>Learn for 30 consecutive days</p>
+      </div>
+
+      <div class="badge-card locked">
+        <div class="badge-icon">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h4>Master</h4>
+        <p>Complete all courses</p>
+      </div>
+
+      <div class="badge-card locked">
+        <div class="badge-icon">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h4>Champion</h4>
+        <p>Top 1% in leaderboard</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="logo">
+          <i class="fas fa-graduation-cap"></i>
+          <span>SUN SKILLS</span>
+        </div>
+        <p>Your path to career success starts here.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="#">About Us</a>
+        <a href="#">Courses</a>
+        <a href="#">Mock Tests</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <a href="#">Blog</a>
+        <a href="#">FAQs</a>
+        <a href="#">Support</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 SUN SKILLS. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="dashboard-new.js"></script>
+</body>
+</html>
