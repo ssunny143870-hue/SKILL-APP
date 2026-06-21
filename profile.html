@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile — SUN Skills Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="dashboard-light.css" />
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="nav-left">
+        <div class="logo">
+          <i class="fas fa-graduation-cap"></i>
+          <span>SUN SKILLS</span>
+        </div>
+      </div>
+      <div class="nav-center">
+        <div class="welcome-message">
+          <p class="welcome-text">Profile</p>
+          <p class="sub-text">Manage your account</p>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="notification-btn">
+          <i class="fas fa-bell"></i>
+          <span class="badge">3</span>
+        </button>
+        <a href="registration.html" class="profile-avatar" style="text-decoration:none;">
+          <i class="fas fa-user"></i>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="content-container" style="padding: 2rem; max-width: 1400px; margin: 0 auto;">
+    <header class="page-header" style="margin-bottom: 2rem;">
+      <div>
+        <p class="eyebrow" style="color: #64748B; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem;">Account</p>
+        <h1 style="font-size: 2rem; font-weight: 700; color: #1E293B; margin-bottom: 0.5rem;">Profile</h1>
+        <p style="color: #64748B; font-size: 1rem;">Manage your learner profile and preferences.</p>
+      </div>
+    </header>
+    <section class="filter-panel" style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08); border: 1px solid #E2E8F0;">
+      <div class="overview-card" style="background: #F8FAFC; padding: 2rem; border-radius: 12px; border: 1px solid #E2E8F0;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+          <div style="width:64px;height:64px;border-radius:50%;background:#EFF6FF;display:grid;place-items:center;border: 1px solid #BFDBFE;">
+            <i class="fas fa-user" style="font-size: 2rem; color: #3B82F6;"></i>
+          </div>
+          <div>
+            <h3 style="margin:0 0 4px; color: #1E293B; font-size: 1.125rem; font-weight: 600;">Your Profile</h3>
+            <p style="margin:0;color:#64748B;font-size:0.9rem;" id="profileEmail">Loading...</p>
+          </div>
+        </div>
+        <p style="color: #64748B; font-size: 0.875rem;">Your profile page is ready for future integration with user settings.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Bottom Navigation (Mobile) -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-items">
+      <a href="index.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="materials.html" class="bottom-nav-item">
+        <i class="fas fa-book"></i>
+        <span>Materials</span>
+      </a>
+      <a href="videos.html" class="bottom-nav-item">
+        <i class="fas fa-play-circle"></i>
+        <span>Videos</span>
+      </a>
+      <a href="mock_tests.html" class="bottom-nav-item">
+        <i class="fas fa-clipboard-list"></i>
+        <span>Tests</span>
+      </a>
+      <a href="profile.html" class="bottom-nav-item active">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </div>
+  </nav>
+
+  <script>
+    (function() {
+      const emailEl = document.getElementById('profileEmail');
+      // Firebase auth state will update this automatically via firebase.js
+      // Fallback to localStorage if not logged in via Firebase
+      if (emailEl && !emailEl.textContent) {
+        emailEl.textContent = localStorage.getItem('learnhub-email') || 'Not logged in';
+      }
+    })();
+  </script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+  <script src="firebase.js"></script>
+    <script src="auth-gate.js"></script>
+</body>
+</html>

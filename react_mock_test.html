@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>React JS Mock Test - 30 Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#f4f7fc;padding:20px;}
+.container{max-width:1000px;margin:auto;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.back-btn{padding:10px 16px;border-radius:12px;background:rgba(97,218,251,0.15);border:1px solid rgba(97,218,251,0.3);color:#0891b2;font-weight:500;cursor:pointer;transition:all 0.2s ease;}
+.back-btn:hover{background:rgba(97,218,251,0.25);}
+h1{text-align:center;margin-bottom:20px;color:#164e63;}
+.question-card{background:#fff;margin-bottom:20px;padding:20px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);border-top:5px solid #06b6d4;}
+.question{font-weight:bold;margin-bottom:15px;color:#164e63;}
+.option{display:block;margin:8px 0;padding:12px;border:2px solid #ddd;border-radius:10px;cursor:pointer;transition:.3s;}
+.option:hover{background:#ecfeff;}
+.correct{background:#22c55e !important;color:#fff;border-color:#22c55e !important;}
+.wrong{background:#ef4444 !important;color:#fff;border-color:#ef4444 !important;}
+#scoreBox{position:sticky;top:10px;background:#164e63;color:white;padding:15px;text-align:center;border-radius:12px;margin-bottom:20px;font-weight:600;}
+.submit-btn{display:block;margin:20px auto;padding:12px 30px;background:linear-gradient(135deg, #06b6d4, #0891b2);color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-size:1rem;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(6,182,212,0.3);}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+    <button class="back-btn" onclick="window.location.href='mock_tests.html'">← Back</button>
+    <h1>React JS Mock Test (30 Questions)</h1>
+    <div style="width:100px;"></div>
+</div>
+<div id="scoreBox">
+Score: <span id="score">0</span> / 30
+</div>
+<div id="quiz"></div>
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+</div>
+
+<script>
+const questions = [
+{q:"What is the primary purpose of React?",o:["Database Management","Building User Interfaces","Operating Systems","Network Programming"],a:1},
+{q:"Which company developed React?",o:["Google","Microsoft","Facebook","Oracle"],a:2},
+{q:"What does JSX stand for?",o:["Java Syntax Extension","JavaScript XML","Java XML","JSON XML"],a:1},
+{q:"Which hook is used to add state in functional components?",o:["useEffect","useState","useContext","useMemo"],a:1},
+{q:"Which hook is used for side effects?",o:["useState","useReducer","useEffect","useRef"],a:2},
+{q:"React follows which architecture?",o:["MVC","Component-Based","Monolithic","Client-Server"],a:1},
+{q:"What is Virtual DOM?",o:["Actual Browser DOM","Copy of Real DOM","Database Model","Server DOM"],a:1},
+{q:"Which method is used to create React elements?",o:["React.createElement()","React.newElement()","createNode()","renderElement()"],a:0},
+{q:"Props in React are:",o:["Mutable","Immutable","Functions","Hooks"],a:1},
+{q:"State in React is:",o:["Read Only","Mutable via Setter","Constant","Static"],a:1},
+{q:"Which hook is used to access DOM elements?",o:["useState","useRef","useMemo","useContext"],a:1},
+{q:"Which hook is used for Context API?",o:["useContext","useState","useEffect","useRef"],a:0},
+{q:"What is lifting state up?",o:["Moving state to parent component","Deleting state","Creating hooks","Using Redux"],a:0},
+{q:"Which hook optimizes expensive calculations?",o:["useEffect","useRef","useMemo","useState"],a:2},
+{q:"Which hook memoizes functions?",o:["useMemo","useCallback","useState","useRef"],a:1},
+{q:"What is reconciliation?",o:["DOM comparison process","Compilation","Rendering CSS","API Calling"],a:0},
+{q:"What is a Fragment used for?",o:["Multiple root elements","API calls","State management","Routing"],a:0},
+{q:"Which package provides routing?",o:["react-dom","react-router-dom","redux","axios"],a:1},
+{q:"What is the default port for React development server?",o:["3000","8080","5000","4200"],a:0},
+{q:"Which command creates a React app?",o:["npm react-app","npx create-react-app","npm create-react","create react"],a:1},
+{q:"What is Redux primarily used for?",o:["Routing","State Management","Styling","Testing"],a:1},
+{q:"Which method updates component state in class components?",o:["updateState()","setState()","changeState()","modifyState()"],a:1},
+{q:"What is JSX compiled into?",o:["HTML","Java","React Elements","CSS"],a:2},
+{q:"Which lifecycle method runs after component mounts?",o:["componentDidMount","componentWillMount","render","constructor"],a:0},
+{q:"Which lifecycle method is called before unmounting?",o:["componentDidUpdate","componentWillUnmount","render","constructor"],a:1},
+{q:"What is React Strict Mode used for?",o:["Styling","Debugging","Routing","State"],a:1},
+{q:"Which hook manages complex state logic?",o:["useState","useReducer","useEffect","useRef"],a:1},
+{q:"What is hydration in React?",o:["Server-rendered HTML becoming interactive","Adding CSS","API call","Data storage"],a:0},
+{q:"Which React feature improves rendering performance?",o:["Memoization","Loops","Variables","Objects"],a:0},
+{q:"What does React.memo do?",o:["Prevents unnecessary re-renders","Creates memos","Stores data","Manages routes"],a:0}
+];
+
+const quiz=document.getElementById("quiz");
+let answered = {};
+
+questions.forEach((item,index)=>{
+    let card=document.createElement("div");
+    card.className="question-card";
+    let html=`<div class="question">Q${index+1}. ${item.q}</div>`;
+    item.o.forEach((opt,i)=>{
+        html+=`<div class="option" onclick="checkAnswer(this,${i},${item.a},${index})">${String.fromCharCode(65+i)}. ${opt}</div>`;
+    });
+    card.innerHTML=html;
+    quiz.appendChild(card);
+});
+
+function checkAnswer(el,selected,correct,index){
+    const parent=el.parentElement;
+    if(parent.dataset.done) return;
+    parent.dataset.done=true;
+    answered[index]=selected===correct;
+    const options=parent.querySelectorAll(".option");
+    options.forEach((op,i)=>{
+        if(i===correct) op.classList.add("correct");
+    });
+    if(selected!==correct) el.classList.add("wrong");
+    updateScore();
+}
+
+function updateScore(){
+    let score=Object.values(answered).filter(v=>v).length;
+    document.getElementById("score").innerText=score;
+}
+
+function submitTest(){
+    let score=Object.values(answered).filter(v=>v).length;
+    alert(`Test Submitted!\nYour Score: ${score}/30`);
+}
+</script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>

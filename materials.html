@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Learning Materials — SUN Skills Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="dashboard-light.css" />
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="nav-left">
+        <div class="logo">
+          <i class="fas fa-graduation-cap"></i>
+          <span>SUN SKILLS</span>
+        </div>
+      </div>
+      <div class="nav-center">
+        <div class="welcome-message">
+          <p class="welcome-text">Materials</p>
+          <p class="sub-text">Interview Questions & Skills</p>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="notification-btn">
+          <i class="fas fa-bell"></i>
+          <span class="badge">3</span>
+        </button>
+        <div class="profile-avatar">
+          <i class="fas fa-user"></i>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="content-container" style="padding: 2rem; max-width: 1400px; margin: 0 auto;">
+    <header class="page-header" style="margin-bottom: 2rem;">
+      <div>
+        <p class="eyebrow" style="color: #64748B; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem;">Library</p>
+        <h1 style="font-size: 2rem; font-weight: 700; color: #1E293B; margin-bottom: 0.5rem;">All Learning Materials</h1>
+        <p style="color: #64748B; font-size: 1rem;">Search among all engineering resources.</p>
+      </div>
+    </header>
+
+    <section class="filter-panel" style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08); margin-bottom: 2rem; border: 1px solid #E2E8F0;">
+      <div class="filter-row" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <select id="categoryFilter" style="padding: 0.75rem; border-radius: 12px; border: 1px solid #E2E8F0; background: #F8FAFC; color: #1E293B; font-size: 0.95rem;">
+          <option value="all">Category</option>
+          <option value="Programming Languages">Programming Languages</option>
+          <option value="Programming">DSA / Programming</option>
+          <option value="Database">Database</option>
+          <option value="Cloud Computing">Cloud Computing</option>
+          <option value="Cybersecurity">Cybersecurity</option>
+          <option value="App Development">App Development</option>
+          <option value="Aptitude & Reasoning">Aptitude & Reasoning</option>
+        </select>
+        <select id="difficultyFilter" style="padding: 0.75rem; border-radius: 12px; border: 1px solid #E2E8F0; background: #F8FAFC; color: #1E293B; font-size: 0.95rem;">
+          <option value="all">Difficulty</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+        <select id="languageFilter" style="padding: 0.75rem; border-radius: 12px; border: 1px solid #E2E8F0; background: #F8FAFC; color: #1E293B; font-size: 0.95rem;">
+          <option value="all">Language / Topic</option>
+          <option value="Python">Python</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="Java">Java</option>
+          <option value="C">C</option>
+          <option value="C#/.NET">C# / .NET</option>
+          <option value="SQL/Database">SQL / Database</option>
+          <option value="AWS/Cloud">AWS / Cloud</option>
+          <option value="Aptitude">Aptitude</option>
+          <option value="Cybersecurity">Cybersecurity</option>
+          <option value="Linux">Linux</option>
+          <option value="MongoDB">MongoDB</option>
+          <option value="SAP">SAP</option>
+          <option value="Networking">Networking</option>
+          <option value="English">English / HR</option>
+        </select>
+        <select id="sortFilter" style="padding: 0.75rem; border-radius: 12px; border: 1px solid #E2E8F0; background: #F8FAFC; color: #1E293B; font-size: 0.95rem;">
+          <option value="newest">Newest</option>
+          <option value="popular">Popular</option>
+          <option value="saved">Saved</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="materials-grid" id="materialsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;"></section>
+  </div>
+
+    <!-- Fullscreen PDF viewer for materials list -->
+  <div id="materialsViewer" style="position:fixed;inset:0;display:none;z-index:9999;background:#f5f5f5;align-items:center;justify-content:center;flex-direction:column;">
+    <div style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:#fff;border-bottom:1px solid #e2e8f0;box-shadow:0 2px 4px rgba(0,0,0,0.08);">
+      <div style="color:#1e293b;font-weight:700;font-size:1.1rem">PDF Preview</div>
+      <div>
+        <button id="materialsViewerClose" style="padding:10px 16px;border-radius:8px;border:1px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;font-weight:600;transition:all 0.2s">Close</button>
+      </div>
+    </div>
+    <iframe id="materialsPdfViewer" src="" style="width:95%;height:auto;min-height:900px;border:none;border-radius:8px;margin:12px;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,0.15);color:#000;filter:brightness(1.05) contrast(1.1);flex-shrink:0;"></iframe>
+
+  <!-- Bottom Navigation (Mobile) -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-items">
+      <a href="index.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="materials.html" class="bottom-nav-item active">
+        <i class="fas fa-book"></i>
+        <span>Materials</span>
+      </a>
+      <a href="videos.html" class="bottom-nav-item">
+        <i class="fas fa-play-circle"></i>
+        <span>Videos</span>
+      </a>
+      <a href="mock_tests.html" class="bottom-nav-item">
+        <i class="fas fa-clipboard-list"></i>
+        <span>Tests</span>
+      </a>
+      <a href="profile.html" class="bottom-nav-item">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </div>
+  </nav>
+
+  <script>
+    (function() {
+    })();
+  </script>
+  <script src="script.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+  <script src="firebase.js"></script>
+    <script src="auth-gate.js"></script>
+</body>
+</html>

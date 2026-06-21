@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Core Java Mock Test - 50 Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#f4f7fc;padding:20px;}
+.container{max-width:1000px;margin:auto;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.back-btn{padding:10px 16px;border-radius:12px;background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);color:#dc2626;font-weight:500;cursor:pointer;transition:all 0.2s ease;}
+.back-btn:hover{background:rgba(220,38,38,0.25);}
+h1{text-align:center;margin-bottom:20px;color:#7f1d1d;}
+.question-card{background:#fff;margin-bottom:20px;padding:20px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);border-top:5px solid #dc2626;}
+.question{font-weight:bold;margin-bottom:15px;color:#7f1d1d;}
+.option{display:block;margin:8px 0;padding:12px;border:2px solid #ddd;border-radius:10px;cursor:pointer;transition:.3s;}
+.option:hover{background:#fef2f2;}
+.correct{background:#22c55e !important;color:#fff;border-color:#22c55e !important;}
+.wrong{background:#ef4444 !important;color:#fff;border-color:#ef4444 !important;}
+#scoreBox{position:sticky;top:10px;background:#7f1d1d;color:white;padding:15px;text-align:center;border-radius:12px;margin-bottom:20px;font-weight:600;}
+.submit-btn{display:block;margin:20px auto;padding:12px 30px;background:linear-gradient(135deg, #dc2626, #b91c1c);color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-size:1rem;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(220,38,38,0.3);}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+    <button class="back-btn" onclick="window.location.href='mock_tests.html'">← Back</button>
+    <h1>Core Java Mock Test (50 Questions)</h1>
+    <div style="width:100px;"></div>
+</div>
+<div id="scoreBox">
+Score: <span id="score">0</span> / 50
+</div>
+<div id="quiz"></div>
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+</div>
+
+<script>
+const questions = [
+{q:"Which keyword is used to create an object in Java?",o:["create","new","class","object"],a:1},
+{q:"Which concept combines data and methods together?",o:["Inheritance","Polymorphism","Encapsulation","Abstraction"],a:2},
+{q:"Which method is the entry point of Java program?",o:["start()","run()","main()","init()"],a:2},
+{q:"What is an object?",o:["Blueprint","Variable","Instance of class","Method"],a:2},
+{q:"A class is a __ of objects.",o:["Copy","Blueprint","Function","Constructor"],a:1},
+{q:"Constructor name must be same as?",o:["Method","Package","Class","Variable"],a:2},
+{q:"Constructor has which return type?",o:["int","void","No return type","String"],a:2},
+{q:"Default constructor is provided by?",o:["Programmer","Compiler","JVM","OS"],a:1},
+{q:"Parameterized constructor is used to?",o:["Delete object","Initialize values","Destroy object","Create package"],a:1},
+{q:"Which keyword refers current object?",o:["super","static","this","self"],a:2},
+{q:"Which keyword refers parent class?",o:["this","parent","super","extends"],a:2},
+{q:"Which keyword is used for inheritance?",o:["implement","extends","inherits","super"],a:1},
+{q:"Inheritance represents which relationship?",o:["HAS-A","USES-A","IS-A","PART-OF"],a:2},
+{q:"Java supports multiple inheritance through?",o:["Classes","Interfaces","Objects","Packages"],a:1},
+{q:"Which type of inheritance forms a chain?",o:["Hierarchical","Hybrid","Multilevel","Multiple"],a:2},
+{q:"Method Overloading is example of?",o:["Runtime Polymorphism","Compile-time Polymorphism","Abstraction","Inheritance"],a:1},
+{q:"Method Overriding is example of?",o:["Runtime Polymorphism","Compile-time Polymorphism","Static Binding","Package"],a:0},
+{q:"Overloaded methods differ by?",o:["Return Type Only","Parameters","Access Modifier","Package"],a:1},
+{q:"Method overriding requires?",o:["Different method names","Same method signature","Static method","Private method"],a:1},
+{q:"Which keyword prevents inheritance?",o:["const","final","static","private"],a:1},
+{q:"Static members belong to?",o:["Object","Method","Class","Constructor"],a:2},
+{q:"Static method can access?",o:["Only static members","Only instance members","Constructors","Objects only"],a:0},
+{q:"Which block executes before main()?",o:["Method Block","Static Block","Instance Block","Constructor"],a:1},
+{q:"Which keyword is used for abstraction?",o:["abstract","static","extends","implements"],a:0},
+{q:"Can abstract class have constructor?",o:["No","Yes","Only private","Only protected"],a:1},
+{q:"Abstract method contains?",o:["Implementation","Body","No body","Variable"],a:2},
+{q:"Interface achieves?",o:["Inheritance","Abstraction","Compilation","Packaging"],a:1},
+{q:"Which keyword implements interface?",o:["extends","implements","inherit","interface"],a:1},
+{q:"All interface methods are by default?",o:["Private","Protected","Public Abstract","Static"],a:2},
+{q:"Package is used to?",o:["Store Objects","Group Classes","Execute Code","Compile Program"],a:1},
+{q:"Which package is imported automatically?",o:["java.io","java.lang","java.util","java.sql"],a:1},
+{q:"Which access modifier provides widest access?",o:["private","protected","default","public"],a:3},
+{q:"Which access modifier provides least access?",o:["public","private","protected","default"],a:1},
+{q:"Which feature hides implementation details?",o:["Encapsulation","Abstraction","Inheritance","Package"],a:1},
+{q:"Getter and Setter methods support?",o:["Inheritance","Abstraction","Encapsulation","Package"],a:2},
+{q:"Object creation allocates memory in?",o:["Stack","Heap","Register","ROM"],a:1},
+{q:"JVM stands for?",o:["Java Variable Machine","Java Virtual Machine","Java Verified Machine","Joint Virtual Machine"],a:1},
+{q:"Which keyword is used to inherit interface?",o:["implements","extends","inherits","super"],a:0},
+{q:"Can constructor be overloaded?",o:["No","Yes","Only Static","Only Abstract"],a:1},
+{q:"Can constructor be overridden?",o:["Yes","No","Sometimes","Only Abstract"],a:1},
+{q:"Which concept allows same method name different forms?",o:["Encapsulation","Polymorphism","Package","Object"],a:1},
+{q:"What is compile-time polymorphism?",o:["Method Overriding","Method Overloading","Inheritance","Interface"],a:1},
+{q:"What is runtime polymorphism?",o:["Method Overloading","Constructor","Method Overriding","Package"],a:2},
+{q:"Which keyword calls parent constructor?",o:["this()","super()","parent()","base()"],a:1},
+{q:"Which keyword calls current class constructor?",o:["this()","super()","parent()","base()"],a:0},
+{q:"Can abstract class contain normal methods?",o:["No","Yes","Only Static","Only Final"],a:1},
+{q:"Which keyword creates package?",o:["package","import","include","namespace"],a:0},
+{q:"Which keyword imports package?",o:["include","using","import","package"],a:2},
+{q:"Java supports dynamic method dispatch through?",o:["Overloading","Overriding","Package","Constructor"],a:1},
+{q:"Which OOP feature promotes code reusability?",o:["Inheritance","Package","Constructor","Variable"],a:0}
+];
+
+const quiz=document.getElementById("quiz");
+let answered = {};
+
+questions.forEach((item,index)=>{
+    let card=document.createElement("div");
+    card.className="question-card";
+    let html=`<div class="question">Q${index+1}. ${item.q}</div>`;
+    item.o.forEach((opt,i)=>{
+        html+=`<div class="option" onclick="checkAnswer(this,${i},${item.a},${index})">${String.fromCharCode(65+i)}. ${opt}</div>`;
+    });
+    card.innerHTML=html;
+    quiz.appendChild(card);
+});
+
+function checkAnswer(el,selected,correct,index){
+    const parent=el.parentElement;
+    if(parent.dataset.done) return;
+    parent.dataset.done=true;
+    answered[index]=selected===correct;
+    const options=parent.querySelectorAll(".option");
+    options.forEach((op,i)=>{
+        if(i===correct) op.classList.add("correct");
+    });
+    if(selected!==correct) el.classList.add("wrong");
+    updateScore();
+}
+
+function updateScore(){
+    let score=Object.values(answered).filter(v=>v).length;
+    document.getElementById("score").innerText=score;
+}
+
+function submitTest(){
+    let score=Object.values(answered).filter(v=>v).length;
+    alert(`Test Submitted!\nYour Score: ${score}/50`);
+}
+</script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>

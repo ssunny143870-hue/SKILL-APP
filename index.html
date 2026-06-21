@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SUN SKILLS — Placement Preparation Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="dashboard-modern.css" />
+</head>
+<body>
+  <!-- shared SVG gradient for progress rings -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4F46E5" />
+        <stop offset="50%" stop-color="#8B5CF6" />
+        <stop offset="100%" stop-color="#06B6D4" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="scrim" id="scrim"></div>
+
+  <div class="app">
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="logo-badge"><i class="fas fa-graduation-cap"></i></div>
+        <div class="brand-name">SUN<span> SKILLS</span></div>
+      </div>
+
+      <div class="nav-group-label">Menu</div>
+      <a href="index.html" class="nav-item active"><i class="fas fa-grip"></i> Dashboard</a>
+      <a href="roadmaps.html" class="nav-item"><i class="fas fa-map"></i> Roadmaps</a>
+      <a href="materials.html" class="nav-item"><i class="fas fa-book-open"></i> Materials</a>
+      <a href="ai-tools.html" class="nav-item"><i class="fas fa-robot"></i> AI Tools <span class="pill">500+</span></a>
+      <a href="mock_tests.html" class="nav-item"><i class="fas fa-clipboard-list"></i> Mock Tests</a>
+      <a href="videos.html" class="nav-item"><i class="fas fa-play-circle"></i> Courses</a>
+
+      
+      <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+
+      <div class="nav-group-label" style="margin-top:auto;">Account</div>
+      <a href="registration.html" class="nav-item" id="sidebarAuthLink"><i class="fas fa-sign-in-alt"></i> <span id="sidebarAuthText">Log In / Sign Up</span></a>
+
+    </aside>
+
+    <!-- ===================== MAIN ===================== -->
+    <main class="main">
+      <!-- Topbar -->
+      <header class="topbar">
+        <button class="icon-btn hamburger" id="hamburger" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+
+        <div class="search">
+          <i class="fas fa-search"></i>
+          <input id="topSearch" type="text" placeholder="Search materials, courses, tests…" />
+        </div>
+
+        <div class="topbar-right">
+          <button class="icon-btn" id="themeToggle" aria-label="Toggle theme"></button>
+
+          <div class="dd-wrap">
+            <button class="icon-btn dd-btn" data-dd="notifDD" aria-label="Notifications">
+              <i class="fas fa-bell"></i><span class="dot">3</span>
+            </button>
+            <div class="dropdown" id="notifDD">
+              <div class="dd-head"><strong>Notifications</strong><a href="#">Mark all read</a></div>
+              <div class="dd-item">
+                <div class="dd-ic" style="background:linear-gradient(135deg,#4F46E5,#818CF8)"><i class="fas fa-trophy"></i></div>
+                <div class="dd-tx"><p>New badge unlocked: Aptitude Master</p><span>Keep your streak going!</span></div>
+                <span class="dd-time">2h</span>
+              </div>
+              <div class="dd-item">
+                <div class="dd-ic" style="background:linear-gradient(135deg,#06B6D4,#22D3EE)"><i class="fas fa-video"></i></div>
+                <div class="dd-tx"><p>3 new video courses added</p><span>Java, SQL &amp; Cybersecurity</span></div>
+                <span class="dd-time">5h</span>
+              </div>
+              
+            </div>
+          </div>
+
+          <!-- Login Button (shown when not logged in) -->
+          <a href="registration.html" class="topbar-login-btn" id="topbarLoginBtn">
+            <i class="fas fa-sign-in-alt"></i> Log In
+          </a>
+
+          <!-- Profile Dropdown (shown when logged in, hidden by default) -->
+          <div class="dd-wrap" id="profileWrap" style="display:none;">
+            <button class="avatar dd-btn" data-dd="profileDD" aria-label="Profile" id="avatarBtn">OM</button>
+            <div class="dropdown" id="profileDD">
+              <div class="dd-head">
+                <strong id="ddUserName">User</strong>
+              </div>
+              <a class="dd-item" href="profile.html">
+                <div class="dd-ic" style="background:linear-gradient(135deg,#4F46E5,#818CF8)"><i class="fas fa-user"></i></div>
+                <div class="dd-tx"><p>My Profile</p><span>View your dashboard</span></div>
+              </a>
+              <a class="dd-item" id="authLink" href="#">
+                <div class="dd-ic" style="background:linear-gradient(135deg,#EF4444,#F87171)"><i class="fas fa-sign-out-alt"></i></div>
+                <div class="dd-tx"><p>Log Out</p><span id="authLinkSub">user@email.com</span></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Hero -->
+        <section class="hero reveal">
+          <div class="hero-floats">
+            <i class="fas fa-laptop-code"></i>
+            <i class="fas fa-java"></i>
+            <i class="fab fa-python"></i>
+            <i class="fas fa-database"></i>
+          </div>
+          <span class="eyebrow"><span class="live"></span> Placement Prep 2026 · Updated daily</span>
+          <h1>Learn smarter, prepare better, get hired faster. <span class="wave">👋</span></h1>
+          <p class="lead">Master Coding • Aptitude • AI Tools · Roadmaps · Mock Tests · Placement Training — everything you need to get job-ready, in one place.</p>
+          <div class="cta-row">
+            <button class="btn btn-primary" id="ctaStart"><i class="fas fa-rocket"></i> Start Learning</button>
+          </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="stats-grid reveal" id="statsSection">
+          <div class="stat-card">
+            <div class="stat-ic" style="background:linear-gradient(135deg,#4F46E5,#818CF8)"><i class="fas fa-book-open"></i></div>
+            <div class="stat-val">40+</div>
+              <div class="stat-label">Study Materials</div>
+            <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 12 added this week</div>
+            <i class="fas fa-book stat-spark"></i>
+          </div>
+          <div class="stat-card">
+            <div class="stat-ic" style="background:linear-gradient(135deg,#F43F5E,#FB7185)"><i class="fas fa-robot"></i></div>
+            <div class="stat-val">50+</div>
+            <div class="stat-label">AI Tools</div>
+            <div class="stat-trend up"><i class="fas fa-arrow-up"></i> Curated directory</div>
+            <i class="fas fa-microchip stat-spark"></i>
+          </div>
+          <div class="stat-card">
+            <div class="stat-ic" style="background:linear-gradient(135deg,#06B6D4,#22D3EE)"><i class="fas fa-play-circle"></i></div>
+            <div class="stat-val">30+</div>
+            <div class="stat-label">Video Courses</div>
+            <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 31 new courses</div>
+            <i class="fas fa-film stat-spark"></i>
+          </div>
+          <div class="stat-card">
+            <div class="stat-ic" style="background:linear-gradient(135deg,#F59E0B,#FBBF24)"><i class="fas fa-clipboard-list"></i></div>
+            <div class="stat-val">10+</div>
+            <div class="stat-label">Mock Tests</div>
+            <div class="stat-trend up"><i class="fas fa-arrow-up"></i> Topic-wise &amp; full-length</div>
+            <i class="fas fa-pen stat-spark"></i>
+          </div>
+        </section>
+
+        <!-- Two-column dashboard -->
+        <div class="dash-grid">
+          <!-- LEFT COLUMN -->
+          <div style="display:flex;flex-direction:column;gap:22px">
+
+            <!-- Premium feature cards -->
+            <section class="reveal">
+              <div class="section-head">
+                <div>
+                  <h2 class="section-title">Explore the Platform</h2>
+                  <p class="section-sub">Pick a track and start preparing</p>
+                </div>
+              </div>
+              <div class="cards-grid" style="margin-top:14px">
+                <article class="premium-card cv-indigo" onclick="window.location.href='materials.html'">
+                  <div class="pc-icon"><i class="fas fa-book-open"></i></div>
+                  <h3>Materials</h3>
+                  <p class="pc-desc">Interview questions, PDF notes &amp; study guides for every subject.</p>
+                  <div class="pc-meta"><span class="pc-tag">40+ resources</span><span class="pc-tag">All subjects</span></div>
+                  <button class="pc-btn" onclick="event.stopPropagation();window.location.href='materials.html'">Open Materials <i class="fas fa-arrow-right"></i></button>
+                </article>
+
+                <article class="premium-card cv-rose" onclick="window.location.href='ai-tools.html'">
+                  <div class="pc-icon"><i class="fas fa-robot"></i></div>
+                  <h3>AI Tools</h3>
+                  <p class="pc-desc">ChatGPT, AI coders, image generators, resume &amp; interview assistants.</p>
+                  <div class="pc-meta"><span class="pc-tag">50+ tools</span><span class="pc-tag">Curated</span></div>
+                  <button class="pc-btn" onclick="event.stopPropagation();window.location.href='ai-tools.html'">Explore AI Tools <i class="fas fa-arrow-right"></i></button>
+                </article>
+
+                <article class="premium-card cv-cyan" onclick="window.location.href='videos.html'">
+                  <div class="pc-icon"><i class="fas fa-play-circle"></i></div>
+                  <h3>Video Courses</h3>
+                  <p class="pc-desc">Curated YouTube courses for all languages — play right inside the app.</p>
+                  <div class="pc-meta"><span class="pc-tag">14 languages</span><span class="pc-tag">30+ videos</span></div>
+                  <button class="pc-btn" onclick="event.stopPropagation();window.location.href='videos.html'">Explore All Videos <i class="fas fa-arrow-right"></i></button>
+                </article>
+
+                <article class="premium-card cv-amber" onclick="window.location.href='mock_tests.html'">
+                  <div class="pc-icon"><i class="fas fa-clipboard-list"></i></div>
+                  <h3>Mock Tests</h3>
+                  <p class="pc-desc">Aptitude, technical &amp; full-length placement exams with instant scores.</p>
+                  <div class="pc-meta"><span class="pc-tag">10+ tests</span><span class="pc-tag">Timed</span></div>
+                  <button class="pc-btn" onclick="event.stopPropagation();window.location.href='mock_tests.html'">Explore All Tests <i class="fas fa-arrow-right"></i></button>
+                </article>
+
+                <article class="premium-card cv-violet" onclick="window.location.href='roadmaps.html'">
+                  <div class="pc-icon"><i class="fas fa-map"></i></div>
+                  <h3>Roadmaps</h3>
+                  <p class="pc-desc">Guided If→Then career paths — DSA, Java, Python, Full Stack &amp; more.</p>
+                  <div class="pc-meta"><span class="pc-tag">20+ tracks</span><span class="pc-tag">Step-by-step</span></div>
+                  <button class="pc-btn" onclick="event.stopPropagation();window.location.href='roadmaps.html'">Open Roadmaps <i class="fas fa-arrow-right"></i></button>
+                </article>
+
+                <article class="premium-card cv-emerald" onclick="window.location.href='software-interview-roadmap.html'">
+                  <div class="pc-icon"><i class="fas fa-briefcase"></i></div>
+                  <h3>Interview Path</h3>
+                  <p class="pc-desc">Complete placement journey: Programming → DSA → Projects → CS Fundamentals → Interviews → Offer.</p>
+                  <div class="pc-meta"><span class="pc-tag">DSA</span><span class="pc-tag">Interviews</span><span class="pc-tag">Placement</span></div>
+                  <button class="pc-btn" onclick="event.stopPropagation();window.location.href='software-interview-roadmap.html'">Start Path <i class="fas fa-arrow-right"></i></button>
+                </article>
+              </div>
+            </section>
+
+            <!-- Learning progress -->
+            <section class="panel reveal">
+              <div class="section-head">
+                <div>
+                  <h2 class="section-title">📈 Learning Progress</h2>
+                  <p class="section-sub">Your skill mastery across tracks</p>
+                </div>
+                <a class="section-link" href="progress.html">View all</a>
+              </div>
+
+              <div class="overall-prog" style="margin-top:16px">
+                <div class="ring" data-ring="75">
+                  <svg width="96" height="96" viewBox="0 0 96 96">
+                    <circle class="bg" cx="48" cy="48" r="40"></circle>
+                    <circle class="fg" cx="48" cy="48" r="40"></circle>
+                  </svg>
+                  <div class="ring-val">0%</div>
+                </div>
+                <div class="op-txt">
+                  <h4>Overall Mastery</h4>
+                  <p>You're 75% placement-ready. Keep the momentum!</p>
+                </div>
+              </div>
+
+              <div class="progress-list">
+                <div class="prog-row">
+                  <div class="prog-top"><span><i class="fab fa-java" style="color:#f59e0b"></i> Java</span><span>80%</span></div>
+                  <div class="bar"><div class="fill" data-value="80"></div></div>
+                </div>
+                <div class="prog-row">
+                  <div class="prog-top"><span><i class="fab fa-python" style="color:#06b6d4"></i> Python</span><span>90%</span></div>
+                  <div class="bar"><div class="fill" data-value="90"></div></div>
+                </div>
+                <div class="prog-row">
+                  <div class="prog-top"><span><i class="fas fa-project-diagram" style="color:#8b5cf6"></i> DSA</span><span>60%</span></div>
+                  <div class="bar"><div class="fill" data-value="60"></div></div>
+                </div>
+                <div class="prog-row">
+                  <div class="prog-top"><span><i class="fas fa-database" style="color:#10b981"></i> SQL</span><span>70%</span></div>
+                  <div class="bar"><div class="fill" data-value="70"></div></div>
+                </div>
+                <div class="prog-row">
+                  <div class="prog-top"><span><i class="fas fa-brain" style="color:#f43f5e"></i> Aptitude</span><span>55%</span></div>
+                  <div class="bar"><div class="fill" data-value="55"></div></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Recommended -->
+            <section class="panel reveal">
+              <div class="section-head">
+                <div>
+                  <h2 class="section-title">Recommended Learning</h2>
+                  <p class="section-sub">Continue where you left off</p>
+                </div>
+              </div>
+              <div style="margin-top:8px">
+                <div class="course-row" onclick="window.location.href='java_mock_test.html'">
+                  <div class="cr-ic" style="background:linear-gradient(135deg,#F59E0B,#FBBF24)"><i class="fab fa-java"></i></div>
+                  <div class="cr-tx">
+                    <h5>Java Programming Complete</h5>
+                    <div class="mini-bar"><i style="width:75%"></i></div>
+                  </div>
+                  <span class="cr-pct">75%</span>
+                </div>
+                <div class="course-row" onclick="window.location.href='sql_mock_test.html'">
+                  <div class="cr-ic" style="background:linear-gradient(135deg,#10B981,#34D399)"><i class="fas fa-database"></i></div>
+                  <div class="cr-tx">
+                    <h5>SQL Database Mastery</h5>
+                    <div class="mini-bar"><i style="width:45%"></i></div>
+                  </div>
+                  <span class="cr-pct">45%</span>
+                </div>
+                <div class="course-row" onclick="window.location.href='dsa_mock_test.html'">
+                  <div class="cr-ic" style="background:linear-gradient(135deg,#8B5CF6,#C084FC)"><i class="fas fa-project-diagram"></i></div>
+                  <div class="cr-tx">
+                    <h5>DSA Fundamentals</h5>
+                    <div class="mini-bar"><i style="width:30%"></i></div>
+                  </div>
+                  <span class="cr-pct">30%</span>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- RIGHT COLUMN -->
+          <div>
+
+            <!-- Achievements -->
+            <section class="widget reveal">
+              <h4>🏆 Your Achievements</h4>
+              <div class="ach-list">
+                <div class="ach-item">
+                  <div class="ach-ic" style="background:linear-gradient(135deg,#06B6D4,#22D3EE)"><i class="fab fa-python"></i></div>
+                  <div class="ach-tx"><p>Python Beginner</p><span>Completed basics track</span></div>
+                </div>
+                <div class="ach-item">
+                  <div class="ach-ic" style="background:linear-gradient(135deg,#F59E0B,#FBBF24)"><i class="fas fa-brain"></i></div>
+                  <div class="ach-tx"><p>Aptitude Master</p><span>90% in mock tests</span></div>
+                </div>
+                <div class="ach-item">
+                  <div class="ach-ic" style="background:linear-gradient(135deg,#10B981,#34D399)"><i class="fas fa-database"></i></div>
+                  <div class="ach-tx"><p>SQL Expert</p><span>Solved 50 queries</span></div>
+                </div>
+                <div class="ach-item locked">
+                  <div class="ach-ic"><i class="fas fa-lock"></i></div>
+                  <div class="ach-tx"><p>Interview Champion</p><span>Complete all prep</span></div>
+                </div>
+              </div>
+              <div style="margin-top:14px">
+                <span class="rank-pill"><i class="fas fa-trophy"></i> Current Rank: #45</span>
+              </div>
+            </section>
+
+            <!-- Streak -->
+            <section class="widget reveal">
+              <h4>🔥 7-Day Streak</h4>
+              <div style="display:flex;gap:6px;margin-top:6px">
+                <span style="flex:1;height:34px;border-radius:8px;background:var(--grad-brand);display:grid;place-items:center;color:#fff;font-size:.7rem;font-weight:700">M</span>
+                <span style="flex:1;height:34px;border-radius:8px;background:var(--grad-brand);display:grid;place-items:center;color:#fff;font-size:.7rem;font-weight:700">T</span>
+                <span style="flex:1;height:34px;border-radius:8px;background:var(--grad-brand);display:grid;place-items:center;color:#fff;font-size:.7rem;font-weight:700">W</span>
+                <span style="flex:1;height:34px;border-radius:8px;background:var(--grad-brand);display:grid;place-items:center;color:#fff;font-size:.7rem;font-weight:700">T</span>
+                <span style="flex:1;height:34px;border-radius:8px;background:var(--grad-brand);display:grid;place-items:center;color:#fff;font-size:.7rem;font-weight:700">F</span>
+                <span style="flex:1;height:34px;border-radius:8px;background:var(--grad-brand);display:grid;place-items:center;color:#fff;font-size:.7rem;font-weight:700">S</span>
+                <span style="flex:1;height:34px;border-radius:8px;background:var(--surface-2);border:1px dashed var(--border-strong);display:grid;place-items:center;color:var(--text-faint);font-size:.7rem;font-weight:700">S</span>
+              </div>
+              <p class="section-sub" style="margin-top:10px">Practice today to keep your streak alive!</p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+  <!-- Mobile bottom nav -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="active"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="materials.html"><i class="fas fa-book"></i><span>Materials</span></a>
+    <a href="videos.html"><i class="fas fa-play-circle"></i><span>Videos</span></a>
+    <a href="mock_tests.html"><i class="fas fa-clipboard-list"></i><span>Tests</span></a>
+    <a href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a>
+  </nav>
+
+  <script src="dashboard-modern.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+  <script src="firebase.js"></script>
+</body>
+</html>

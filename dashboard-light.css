@@ -1,0 +1,406 @@
+/* ============================================================
+   SUN SKILLS — List Page & Mock Test Stylesheet (Theme Aware)
+   ============================================================ */
+
+:root {
+  --bg-main: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-surface-2: #F1F5F9;
+  --border-color: rgba(15, 23, 42, 0.06);
+  --border-strong: rgba(15, 23, 42, 0.12);
+  --text-main: #0F172A;
+  --text-muted: #475569;
+  --text-faint: #94A3B8;
+
+  --primary: #2563EB;
+  --primary-glow: rgba(37, 99, 235, 0.1);
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+
+  --grad-brand: linear-gradient(135deg, #2563EB, #3B82F6, #06B6D4);
+  --shadow-main: 0 10px 30px -10px rgba(37, 99, 235, 0.08);
+  --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+}
+
+/* ---------- Dark Mode Override ---------- */
+body.dark-mode, html[data-theme="dark"] body {
+  --bg-main: #0B0F19;
+  --bg-surface: #151E2E;
+  --bg-surface-2: #1E293B;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --text-faint: #64748B;
+
+  --primary: #3B82F6;
+  --primary-glow: rgba(59, 130, 246, 0.15);
+
+  --grad-brand: linear-gradient(135deg, #3B82F6, #60A5FA, #22D3EE);
+  --shadow-main: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Reset & Base ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.5;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ---------- Layout Top Header & Nav ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-card);
+  transition: background-color 0.3s ease;
+}
+
+.navbar {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-left .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.nav-left .logo i {
+  color: var(--primary);
+  font-size: 1.4rem;
+}
+
+.nav-center .welcome-message {
+  text-align: center;
+}
+.welcome-text {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.sub-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notification-btn, .dark-mode-toggle {
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.notification-btn:hover, .dark-mode-toggle:hover {
+  color: var(--text-main);
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+.notification-btn .badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: var(--danger);
+  color: #FFFFFF;
+  font-size: 0.65rem;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--bg-surface);
+}
+
+.profile-avatar, .profile-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--grad-brand);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.15);
+}
+
+/* ---------- Content Wrapper ---------- */
+.content-container, .page-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+/* ---------- Filter Panel ---------- */
+.filter-panel {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-card);
+}
+
+.filter-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-row select {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface-2);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.filter-row select:hover {
+  border-color: var(--border-strong);
+}
+
+/* ---------- Materials Grid & Cards ---------- */
+.materials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.material-card {
+  background-color: var(--bg-surface) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 20px !important;
+  padding: 24px !important;
+  box-shadow: var(--shadow-card) !important;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.material-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-strong) !important;
+  box-shadow: var(--shadow-main) !important;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.material-card h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main) !important;
+  margin-bottom: 8px;
+}
+.material-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted) !important;
+  margin-bottom: 16px;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.badge-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.badge-row .badge {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+.card-actions button {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+/* ---------- Fullscreen Viewer Modal ---------- */
+#materialsViewer, #fullscreenViewer {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(11, 15, 25, 0.8) !important;
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999 !important;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#materialsViewer[style*="display: flex"], #fullscreenViewer.active {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.viewer-header {
+  width: 95%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: var(--shadow-card);
+}
+.viewer-header h3, .viewer-title {
+  color: var(--text-main);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.viewer-close-btn, #materialsViewerClose {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface-2);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+.viewer-close-btn:hover, #materialsViewerClose:hover {
+  color: var(--text-main);
+  border-color: var(--border-strong);
+}
+
+#materialsPdfViewer, #fullscreenPdfViewer {
+  width: 95%;
+  max-width: 1400px;
+  height: 80vh !important;
+  min-height: 500px !important;
+  border: none;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  box-shadow: var(--shadow-main);
+}
+
+/* ---------- Mobile Bottom Navigation Bar ---------- */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+  z-index: 1500;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.bottom-nav-items {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.bottom-nav-item i {
+  font-size: 1.2rem;
+}
+.bottom-nav-item.active {
+  color: var(--primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .navbar {
+    padding: 12px 16px;
+  }
+  .welcome-message {
+    display: none;
+  }
+  .content-container, .page-wrapper {
+    padding: 20px 16px;
+  }
+  .filter-panel {
+    padding: 16px;
+  }
+  .filter-row select {
+    width: 100%;
+  }
+  #materialsPdfViewer, #fullscreenPdfViewer {
+    height: 70vh !important;
+  }
+}

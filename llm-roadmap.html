@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM Development Roadmap 2026 — SUN SKILLS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="roadmap-modern.css" />
+  <style>
+    body { --accent: #2563eb; --accent-2: #60a5fa; --accent-rgb: 37,99,235; }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <a class="back-btn" href="roadmaps.html"><i class="fas fa-arrow-left"></i> All Roadmaps</a>
+    <div class="tb-brand">SUN<span> SKILLS</span></div>
+    <div class="tb-spacer"></div>
+    <span class="tb-pill"><i class="fas fa-fire"></i> 7 Phases</span>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero reveal">
+    <div class="hero-emoji">🧠</div>
+    <h1>LLM Development Roadmap 2026</h1>
+    <p>Build applications with Large Language Models — from fundamentals to fine-tuning and production LLM apps.</p>
+    <div class="hero-progress">
+      <div class="hp-label"><span>Curriculum Progress</span><span>7 Phases · ~90h</span></div>
+      <div class="hp-bar"><div class="hp-fill" data-w="100"></div></div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Phases -->
+    <div class="section-label reveal"><i class="fas fa-layer-group"></i> Learning Phases</div>
+    <div class="phase-grid">
+
+      <div class="phase-card reveal">
+        <div class="phase-head">
+          <div class="phase-num">1</div>
+          <h3>AI Foundations</h3>
+        </div>
+        <ul>
+          <li>Python</li>
+          <li>Machine Learning</li>
+          <li>Deep Learning</li>
+          <li>Transformers</li>
+        </ul>
+      </div>
+
+      <div class="phase-card reveal">
+        <div class="phase-head">
+          <div class="phase-num">2</div>
+          <h3>LLM Fundamentals</h3>
+        </div>
+        <ul>
+          <li>What are LLMs?</li>
+          <li>Tokenization</li>
+          <li>Embeddings</li>
+          <li>Context Window</li>
+          <li>Inference</li>
+        </ul>
+      </div>
+
+      <div class="phase-card reveal">
+        <div class="phase-head">
+          <div class="phase-num">3</div>
+          <h3>Popular Models</h3>
+        </div>
+        <ul>
+          <li>GPT (OpenAI)</li>
+          <li>Llama (Meta)</li>
+          <li>Mistral</li>
+          <li>Claude (Anthropic)</li>
+          <li>Gemma (Google)</li>
+        </ul>
+      </div>
+
+      <div class="phase-card reveal">
+        <div class="phase-head">
+          <div class="phase-num">4</div>
+          <h3>Prompt Engineering</h3>
+        </div>
+        <ul>
+          <li>Zero Shot</li>
+          <li>One Shot</li>
+          <li>Few Shot</li>
+          <li>Chain of Thought</li>
+        </ul>
+      </div>
+
+      <div class="phase-card reveal">
+        <div class="phase-head">
+          <div class="phase-num">5</div>
+          <h3>API Integration</h3>
+        </div>
+        <ul>
+          <li>OpenAI API</li>
+          <li>Gemini API</li>
+          <li>Claude API</li>
+          <li>Function Calling</li>
+        </ul>
+      </div>
+
+      <div class="phase-card reveal">
+        <div class="phase-head">
+          <div class="phase-num">6</div>
+          <h3>Fine Tuning</h3>
+        </div>
+        <ul>
+          <li>Dataset Preparation</li>
+          <li>Model Training</li>
+          <li>Evaluation</li>
+          <li>Optimization</li>
+        </ul>
+      </div>
+
+      <div class="phase-card reveal">
+        <div class="phase-head">
+          <div class="phase-num">7</div>
+          <h3>Advanced LLM Apps</h3>
+        </div>
+        <ul>
+          <li>ChatGPT Clone</li>
+          <li>AI Coding Assistant</li>
+          <li>Document Q&amp;A</li>
+          <li>Research Assistant</li>
+          <li>Customer Support Bot</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Projects highlight -->
+    <div class="section-label reveal"><i class="fas fa-rocket"></i> Capstone Projects</div>
+    <div class="phase-grid">
+      <div class="project-card reveal">
+        <div class="pc-glow"></div>
+        <h3><i class="fas fa-robot"></i> ChatGPT Clone</h3>
+        <p>Build a full-featured chat interface with streaming responses, memory, and context management.</p>
+        <div class="project-tags"><span class="project-tag">OpenAI API</span><span class="project-tag">Streaming</span><span class="project-tag">React</span></div>
+      </div>
+      <div class="project-card reveal">
+        <div class="pc-glow"></div>
+        <h3><i class="fas fa-file-alt"></i> Document Q&amp;A</h3>
+        <p>Upload PDFs and ask questions — powered by RAG with vector embeddings and retrieval.</p>
+        <div class="project-tags"><span class="project-tag">RAG</span><span class="project-tag">Embeddings</span><span class="project-tag">LangChain</span></div>
+      </div>
+      <div class="project-card reveal">
+        <div class="pc-glow"></div>
+        <h3><i class="fas fa-headset"></i> Customer Support Bot</h3>
+        <p>Deploy an AI-powered support agent with function calling and knowledge base integration.</p>
+        <div class="project-tags"><span class="project-tag">Fine-tuning</span><span class="project-tag">FastAPI</span><span class="project-tag">Deploy</span></div>
+      </div>
+    </div>
+
+    <!-- Career roles -->
+    <div class="section-label reveal"><i class="fas fa-briefcase"></i> Career Roles</div>
+    <div class="career-grid">
+      <div class="career-card reveal"><div class="cc-icon"><i class="fas fa-brain"></i></div><div class="cc-name">LLM Engineer</div></div>
+      <div class="career-card reveal"><div class="cc-icon"><i class="fas fa-robot"></i></div><div class="cc-name">AI Engineer</div></div>
+      <div class="career-card reveal"><div class="cc-icon"><i class="fas fa-language"></i></div><div class="cc-name">NLP Engineer</div></div>
+      <div class="career-card reveal"><div class="cc-icon"><i class="fas fa-flask"></i></div><div class="cc-name">Applied AI Engineer</div></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-banner reveal">
+      <h3>Ready to start building?</h3>
+      <p>Explore AI tools and study materials to accelerate your LLM development journey.</p>
+      <a class="cta-btn" href="ai-tools.html"><i class="fas fa-robot"></i> Explore AI Tools</a>
+      <a class="cta-btn ghost" href="materials.html"><i class="fas fa-book-open"></i> Study Materials</a>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+      setTimeout(function() {
+        var f = document.querySelector('.hp-fill');
+        if (f) f.style.width = f.getAttribute('data-w') + '%';
+      }, 300);
+    })();
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLM Development Roadmap 2026</title>
+
+n<style>
+body{
+font-family:Arial,sans-serif;
+margin:0;
+background:#f4f7fc;
+line-height:1.7;
+}
+header{
+background:#2563eb;
+color:white;
+padding:50px;
+text-align:center;
+}
+.container{
+width:90%;
+max-width:1100px;
+margin:20px auto;
+}
+.card{
+background:white;
+padding:20px;
+margin-bottom:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+h2{
+color:#2563eb;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+<h1>🧠 LLM Development Roadmap 2026</h1>
+<p>Build Applications with Large Language Models</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+<div class="icon-card">
+		<div class="premium-badge"> 
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.09 4.26L18 6l-2.18 2.01L16.82 12 12 9.77 7.18 12l1-3.99L6 6l3.91.26L12 2z"/></svg>
+			Premium
+		</div>
+	<div style="font-size:40px">🧠</div>
+	<div>
+		<strong>LLM Development</strong>
+		<div style="color:#666">Models • Tokenization • APIs</div>
+	</div>
+</div>
+
+<div class="card">
+<h2>Phase 1: AI Foundations</h2>
+<ul>
+<li>Python</li>
+<li>Machine Learning</li>
+<li>Deep Learning</li>
+<li>Transformers</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Phase 2: LLM Fundamentals</h2>
+<ul>
+<li>What are LLMs?</li>
+<li>Tokenization</li>
+<li>Embeddings</li>
+<li>Context Window</li>
+<li>Inference</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Phase 3: Popular Models</h2>
+<ul>
+<li>GPT</li>
+<li>Llama</li>
+<li>Mistral</li>
+<li>Claude</li>
+<li>Gemma</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Phase 4: Prompt Engineering</h2>
+<ul>
+<li>Zero Shot</li>
+<li>One Shot</li>
+<li>Few Shot</li>
+<li>Chain of Thought</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Phase 5: API Integration</h2>
+<ul>
+<li>OpenAI API</li>
+<li>Gemini API</li>
+<li>Claude API</li>
+<li>Function Calling</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Phase 6: Fine Tuning</h2>
+<ul>
+<li>Dataset Preparation</li>
+<li>Model Training</li>
+<li>Evaluation</li>
+<li>Optimization</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Phase 7: Advanced LLM Apps</h2>
+<ul>
+<li>ChatGPT Clone</li>
+<li>AI Coding Assistant</li>
+<li>Document Q&A</li>
+<li>Research Assistant</li>
+<li>Customer Support Bot</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Career Roles</h2>
+<ul>
+<li>LLM Engineer</li>
+<li>AI Engineer</li>
+<li>NLP Engineer</li>
+<li>Applied AI Engineer</li>
+</ul>
+</div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>

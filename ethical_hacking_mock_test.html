@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethical Hacking Mock Test - 40 Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#0a0f0d;padding:20px;}
+.container{max-width:1000px;margin:auto;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.back-btn{padding:10px 16px;border-radius:12px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#10b981;font-weight:500;cursor:pointer;transition:all 0.2s ease;}
+.back-btn:hover{background:rgba(16,185,129,0.25);}
+h1{text-align:center;margin-bottom:20px;color:#34d399;}
+.question-card{background:#111827;margin-bottom:20px;padding:20px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.3);border-top:5px solid #10b981;}
+.question{font-weight:bold;margin-bottom:15px;color:#ecfdf5;}
+.option{display:block;margin:8px 0;padding:12px;border:2px solid #1f2937;border-radius:10px;cursor:pointer;transition:.3s;color:#d1fae5;}
+.option:hover{background:rgba(16,185,129,0.1);border-color:#10b981;}
+.correct{background:#059669 !important;color:#fff;border-color:#059669 !important;}
+.wrong{background:#dc2626 !important;color:#fff;border-color:#dc2626 !important;}
+#scoreBox{position:sticky;top:10px;background:#064e3b;color:#a7f3d0;padding:15px;text-align:center;border-radius:12px;margin-bottom:20px;font-weight:600;border:1px solid rgba(16,185,129,0.3);}
+.submit-btn{display:block;margin:20px auto;padding:12px 30px;background:linear-gradient(135deg, #10b981, #059669);color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-size:1rem;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(16,185,129,0.3);}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+    <button class="back-btn" onclick="window.location.href='mock_tests.html'">← Back</button>
+    <h1>Ethical Hacking Mock Test (40 Questions)</h1>
+    <div style="width:100px;"></div>
+</div>
+<div id="scoreBox">
+Score: <span id="score">0</span> / 40
+</div>
+<div id="quiz"></div>
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+</div>
+
+<script>
+const questions = [
+{q:"Which hacker is authorized to test security systems legally?",o:["Black Hat","White Hat","Script Kiddie","Hacktivist"],a:1},
+{q:"A hacker who uses technology to promote political or social messages is called?",o:["Cracker","Hacktivist","Blue Hat","Elite Hacker"],a:1},
+{q:"What is a Script Kiddie?",o:["Expert Hacker","Security Consultant","Non-expert using automated tools","Network Admin"],a:2},
+{q:"Which hacker is new to hacking and has little experience?",o:["Elite Hacker","Blue Hat","Neophyte","Cracker"],a:2},
+{q:"Jonathan James became famous for hacking which organization?",o:["Microsoft","NASA","IBM","Google"],a:1},
+{q:"Who created the Linux operating system?",o:["Kevin Mitnick","Robert Morris","Linus Torvalds","Mark Abene"],a:2},
+{q:"Robert Morris is known for creating?",o:["Linux","Metasploit","Morris Worm","Nmap"],a:2},
+{q:"What is a Botnet?",o:["Network Scanner","Group of infected computers","Firewall","Antivirus"],a:1},
+{q:"Which attack repeatedly tries username-password combinations?",o:["Phishing","SQL Injection","Brute Force Attack","Spoofing"],a:2},
+{q:"A hidden entry that bypasses authentication is called?",o:["Firewall","Backdoor","Exploit","Trojan"],a:1},
+{q:"What does DoS stand for?",o:["Data of Security","Domain of Service","Denial of Service","Distributed Security"],a:2},
+{q:"DDoS stands for?",o:["Data Driven Operating System","Distributed Denial of Service","Domain Denial System","Direct Denial Server"],a:1},
+{q:"Malware designed to secretly record keystrokes is?",o:["Rootkit","Keylogger","Firewall","Bot"],a:1},
+{q:"Which attack tricks users into revealing credentials through fake emails?",o:["Spoofing","Phishing","Sniffing","ARP Poisoning"],a:1},
+{q:"SQL Injection targets?",o:["Hardware","Operating System","Database Queries","Network Cables"],a:2},
+{q:"A weakness that can be exploited is called?",o:["Threat","Vulnerability","Patch","Firewall"],a:1},
+{q:"Which tool is widely used for network discovery and security auditing?",o:["Metasploit","Burp Suite","Nmap","Ettercap"],a:2},
+{q:"Which tool is famous for exploitation and penetration testing?",o:["Wireshark","Metasploit","Tcpdump","EtherPeek"],a:1},
+{q:"Burp Suite is mainly used for?",o:["Database Design","Web Application Security Testing","Firewall Management","DNS Hosting"],a:1},
+{q:"Cain & Abel is primarily used for?",o:["Password Recovery","Network Routing","DNS Management","VPN Creation"],a:0},
+{q:"Which tool is used for Man-in-the-Middle attacks?",o:["Ettercap","Nmap","Nessus","OpenVAS"],a:0},
+{q:"Which phase of ethical hacking gathers information about a target?",o:["Scanning","Reconnaissance","Exploitation","Reporting"],a:1},
+{q:"Which phase actively probes systems for vulnerabilities?",o:["Scanning","Reporting","Reconnaissance","Maintaining Access"],a:0},
+{q:"Metasploit is commonly used during which phase?",o:["Gaining Access","Reporting","Footprinting","Reconnaissance"],a:0},
+{q:"Installing backdoors after compromise belongs to?",o:["Reporting","Maintaining Access","Scanning","Footprinting"],a:1},
+{q:"Which phase involves compiling findings and vulnerabilities?",o:["Scanning","Reconnaissance","Reporting","Exploitation"],a:2},
+{q:"Reviewing a company website is an example of?",o:["Active Footprinting","Passive Footprinting","Spoofing","Enumeration"],a:1},
+{q:"Which website is commonly used for WHOIS domain lookups?",o:["archive.org","whois.com","tcpdump.org","nmap.org"],a:1},
+{q:"Which command can identify a website IP address?",o:["arp","ifconfig","ping","route"],a:2},
+{q:"OS fingerprinting helps identify?",o:["MAC Address","Operating System","Password","Firewall Rules"],a:1},
+{q:"Which Nmap option is used for OS detection?",o:["-A","-P","-O","-X"],a:2},
+{q:"What is a Ping Sweep used for?",o:["Password Cracking","Finding Live Hosts","DNS Poisoning","ARP Spoofing"],a:1},
+{q:"DNS Enumeration gathers information about?",o:["DNS Records","Passwords","Firewall Rules","Cookies"],a:0},
+{q:"Sniffing is the process of?",o:["Encrypting Data","Capturing Network Traffic","Deleting Logs","Scanning Ports"],a:1},
+{q:"In passive sniffing, traffic is?",o:["Modified","Blocked","Monitored Only","Encrypted"],a:2},
+{q:"Which protocol sends usernames and passwords in clear text?",o:["SSH","HTTPS","Telnet","IPsec"],a:2},
+{q:"ARP Poisoning is also known as?",o:["DNS Spoofing","ARP Spoofing","SQL Injection","Session Hijacking"],a:1},
+{q:"MITM stands for?",o:["Machine In Traffic Mode","Man In The Middle","Memory Interface Tool","Multi Internet Transfer Method"],a:1},
+{q:"DNS Poisoning redirects users to?",o:["Correct Server","Backup Server","Fraudulent Server","VPN Gateway"],a:2},
+{q:"Which protocol is recommended instead of Telnet for security?",o:["FTP","SMTP","SSH","POP3"],a:2}
+];
+
+const quiz=document.getElementById("quiz");
+let answered = {};
+
+questions.forEach((item,index)=>{
+    let card=document.createElement("div");
+    card.className="question-card";
+    let html=`<div class="question">${item.q}</div>`;
+    item.o.forEach((opt,i)=>{
+        html+=`<div class="option" onclick="checkAnswer(this,${i},${item.a},${index})">${String.fromCharCode(65+i)}. ${opt}</div>`;
+    });
+    card.innerHTML=html;
+    quiz.appendChild(card);
+});
+
+function checkAnswer(el,selected,correct,index){
+    const parent=el.parentElement;
+    if(parent.dataset.done) return;
+    parent.dataset.done=true;
+    answered[index]=selected===correct;
+    const options=parent.querySelectorAll(".option");
+    options.forEach((op,i)=>{
+        if(i===correct) op.classList.add("correct");
+    });
+    if(selected!==correct) el.classList.add("wrong");
+    updateScore();
+}
+
+function updateScore(){
+    let score=Object.values(answered).filter(v=>v).length;
+    document.getElementById("score").innerText=score;
+}
+
+function submitTest(){
+    let score=Object.values(answered).filter(v=>v).length;
+    alert(`Test Submitted!\nYour Score: ${score}/40`);
+}
+</script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>

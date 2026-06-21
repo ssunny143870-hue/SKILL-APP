@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Tools</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Page-specific: force light background for AI Tools page */
+    body{background:#ffffff !important; color:#111 !important}
+    body::before{display:none !important}
+    .hero-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(circle at 10% 15%, rgba(56,189,248,.14), transparent 12%),radial-gradient(circle at 80% 10%, rgba(168,85,247,.16), transparent 14%),radial-gradient(circle at 50% 80%, rgba(34,211,238,.08), transparent 20%),linear-gradient(180deg,#050816 0%,#0f172a 45%,#070b1c 100%)}
+    .hero-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 15%, rgba(56,189,248,.12), transparent 0 120px),radial-gradient(circle at 80% 25%, rgba(168,85,247,.12), transparent 0 160px),radial-gradient(circle at 50% 75%, rgba(34,211,238,.1), transparent 0 180px);filter:blur(80px);mix-blend-mode:screen;opacity:.95}
+    .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.04),transparent 35%,rgba(0,0,0,.46));pointer-events:none}
+    .bg-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(56,189,248,.06) 1px, transparent 1px),linear-gradient(90deg, rgba(168,85,247,.05) 1px, transparent 1px);background-size:130px 130px;opacity:.22;mix-blend-mode:overlay;animation:gridMove 22s linear infinite}
+    .bg-lines{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 20% 20%, rgba(56,189,248,.18), transparent 0 140px),radial-gradient(circle at 82% 18%, rgba(168,85,247,.16), transparent 0 160px),radial-gradient(circle at 45% 72%, rgba(34,211,238,.14), transparent 0 180px);opacity:.9;mix-blend-mode:color-dodge}
+    .bg-node{position:absolute;border-radius:999px;pointer-events:none;box-shadow:0 0 30px rgba(56,189,248,.35),0 0 80px rgba(168,85,247,.2)}
+    .bg-node-1{width:18px;height:18px;left:12%;top:22%;background:rgba(56,189,248,.96);animation:floatOrb 8s ease-in-out infinite}
+    .bg-node-2{width:16px;height:16px;left:68%;top:30%;background:rgba(168,85,247,.9);animation:floatOrb 10s ease-in-out infinite .8s}
+    .bg-node-3{width:20px;height:20px;left:35%;top:62%;background:rgba(34,211,238,.9);animation:floatOrb 9s ease-in-out infinite .4s}
+    .bg-node-4{width:12px;height:12px;left:85%;top:70%;background:rgba(255,255,255,.75);animation:floatOrb 11s ease-in-out infinite .2s}
+    .page-wrap{max-width:1100px;margin:48px auto;padding:30px;background:rgba(7,11,30,.82);backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,.08);box-shadow:0 32px 90px rgba(0,0,0,.35);border-radius:32px;color:#e5e7eb}
+    .tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:#fff;border-radius:16px;padding:18px;text-align:center;box-shadow:0 8px 20px rgba(10,20,40,0.06);display:flex;flex-direction:column;align-items:center}
+    .tool-icon{width:80px;height:80px;display:block;margin:0 auto 12px;object-fit:contain;background:transparent;padding:6px;border-radius:12px}
+    .card{background:#fff;border-radius:20px;padding:20px;box-shadow:0 8px 20px rgba(0,0,0,.08);transition:.3s}
+    .card:hover{transform:translateY(-5px)}
+    .verified{display:inline-block;padding:5px 10px;border-radius:20px;font-size:12px;margin-bottom:10px;background:#dcfce7;color:#15803d}
+    .gold{background:#fef3c7;color:#b45309}
+    .stats{margin-top:10px;font-weight:600;color:#555}
+    .tool-title{font-size:22px;margin:10px 0}
+    .tool-desc{color:#555;line-height:1.6}
+    .tool-tags{margin-top:10px}
+    .tool-stats{margin-top:12px;font-weight:600}
+    .free{display:inline-block;margin-bottom:8px;padding:6px 10px;background:#ecfccb;color:#14532d;border-radius:999px;font-weight:700;font-size:0.8rem}
+    .title{margin:6px 0;font-size:1.05rem}
+    .desc{color:#475569;font-size:0.95rem;line-height:1.3}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+    .tag{background:rgba(59,130,246,0.06);padding:6px 10px;border-radius:999px;font-size:0.85rem}
+    .visit-btn{display:block;text-align:center;padding:10px 12px;margin-top:14px;color:#fff;text-decoration:none;border-radius:10px;background:linear-gradient(135deg,#2563eb,#3b82f6);font-weight:600}
+    .visit-btn:hover{opacity:0.95}
+    .category-title{grid-column:1/-1;margin:40px 0 18px;font-size:1.6rem;font-weight:700;color:#e2e8f0;letter-spacing:.02em;position:relative}
+    .category-title::before{content:'';position:absolute;left:0;bottom:-8px;width:60px;height:3px;background:linear-gradient(90deg,#38bdf8,#a855f7);border-radius:999px}
+    /* use icon-style images for consistency */
+    .tool-img{width:80px;height:80px;object-fit:contain;border-radius:12px;margin-bottom:12px}
+    .card{background:#ffffff;color:#111;border:1px solid rgba(0,0,0,0.06)}
+    /* Ensure any img inside a card appears as a small icon */
+    .card img{width:80px;height:80px;object-fit:contain;border-radius:12px;margin-bottom:12px}
+    @media (max-width:1000px){.tool-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.tool-grid{grid-template-columns:repeat(1,1fr)}}
+    @keyframes gridMove{0%{background-position:0 0}100%{background-position:260px 260px}}
+    @keyframes floatOrb{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-18px) translateX(10px)}}
+  </style>
+</head>
+<body>
+  <div class="hero-bg">
+    <div class="bg-grid"></div>
+    <div class="bg-lines"></div>
+    <span class="bg-node bg-node-1"></span>
+    <span class="bg-node bg-node-2"></span>
+    <span class="bg-node bg-node-3"></span>
+    <span class="bg-node bg-node-4"></span>
+  </div>
+  <div class="page-wrap">
+    <h1>Explore AI Tools</h1>
+    <p>Curated tools and links to try AI-powered apps.</p>
+
+    <div class="tool-grid">
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Shoomble" class="tool-icon">
+        <span class="free">FREE</span>
+        <h3 class="title">Shoomble</h3>
+        <p class="desc">Chat with AI characters, AI girlfriends, AI boyfriends, and anime-inspired companions.</p>
+        <div class="tags"><span class="tag">AI Characters</span><span class="tag">Roleplay</span></div>
+        <a href="https://shoomble.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Face AI" class="tool-icon">
+        <span class="free">FREE</span>
+        <h3 class="title">Face AI</h3>
+        <p class="desc">Face-based image editing and fun AI filters.</p>
+        <div class="tags"><span class="tag">Images</span><span class="tag">Filters</span></div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+
+      <div class="category-title">AI Assistants</div>
+      <!-- Compact Directory Additions -->
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968885.png" class="tool-img" alt="ChatGPT">
+        <h3>ChatGPT</h3>
+        <p>The world's most famous conversational assistant.</p>
+        <a href="https://chatgpt.com" target="_blank" class="visit-btn">Visit</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968672.png" class="tool-img" alt="Gemini">
+        <h3>Gemini AI</h3>
+        <p>Google's powerful AI assistant.</p>
+        <a href="https://gemini.google.com" target="_blank" class="visit-btn">Visit</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" class="tool-img" alt="Claude">
+        <h3>Claude AI</h3>
+        <p>Advanced AI assistant by Anthropic.</p>
+        <a href="https://claude.ai" target="_blank" class="visit-btn">Visit</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png" class="tool-img" alt="Microsoft Copilot">
+        <h3>Microsoft Copilot</h3>
+        <p>AI assistant from Microsoft.</p>
+        <a href="https://copilot.microsoft.com" target="_blank" class="visit-btn">Visit</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968520.png" class="tool-img" alt="Adobe Podcast">
+        <h3>Adobe Podcast</h3>
+        <p>AI audio editing and podcast enhancement.</p>
+        <a href="https://podcast.adobe.com" target="_blank" class="visit-btn">Visit</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/906/906334.png" class="tool-img" alt="Visily AI">
+        <h3>Visily AI</h3>
+        <p>Build applications without coding.</p>
+        <a href="https://www.visily.ai" target="_blank" class="visit-btn">Visit</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2721/2721297.png" class="tool-img" alt="Dora">
+        <h3>Dora</h3>
+        <p>Create no-code websites and animations.</p>
+        <a href="https://www.dora.run" target="_blank" class="visit-btn">Visit</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" class="tool-img" alt="Canva">
+        <h3>Canva Creative OS</h3>
+        <p>Design, marketing and AI content creation.</p>
+        <a href="https://www.canva.com" target="_blank" class="visit-btn">Visit</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" class="tool-img" alt="Replit">
+        <h3>Replit Agent</h3>
+        <p>AI coding assistant and app builder.</p>
+        <a href="https://replit.com" target="_blank" class="visit-btn">Visit</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968885.png" class="tool-img" alt="OpenAI AgentKit">
+        <h3>OpenAI AgentKit</h3>
+        <p>Create and deploy AI agents.</p>
+        <a href="https://platform.openai.com" target="_blank" class="visit-btn">Visit</a>
+      </div>
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="VCF Converter" class="tool-icon">
+        <span class="free">FREE</span>
+        <h3 class="title">VCF Converter</h3>
+        <p class="desc">Convert contact formats and manage exports with AI-assisted mapping.</p>
+        <div class="tags"><span class="tag">Utility</span><span class="tag">Converter</span></div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" alt="Capafy" class="tool-icon">
+        <span class="free">FREE</span>
+        <h3 class="title">Capafy</h3>
+        <p class="desc">AI-powered captioning and short-form content helpers.</p>
+        <div class="tags"><span class="tag">Content</span><span class="tag">Captions</span></div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/4616/4616734.png" alt="MAI Thinking" class="tool-icon">
+        <span class="free">FREE</span>
+        <h3 class="title">MAI Thinking</h3>
+        <p class="desc">Idea generation and brainstorming assistant.</p>
+        <div class="tags"><span class="tag">Ideas</span><span class="tag">Brainstorm</span></div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/6062/6062646.png" alt="Grok Build" class="tool-icon">
+        <span class="free">FREE</span>
+        <h3 class="title">Grok Build</h3>
+        <p class="desc">AI assistant for coding questions and examples.</p>
+        <div class="tags"><span class="tag">Coding</span><span class="tag">Assistant</span></div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" alt="Machineko" class="tool-icon">
+        <span class="free">FREE</span>
+        <h3 class="title">Machineko</h3>
+        <p class="desc">Machine learning playground for quick experiments.</p>
+        <div class="tags"><span class="tag">ML</span><span class="tag">Playground</span></div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Friend2Chat" class="tool-icon">
+        <span class="free">FREE</span>
+        <h3 class="title">Friend2Chat</h3>
+        <p class="desc">Casual chatbots and conversational experiences.</p>
+        <div class="tags"><span class="tag">Chat</span><span class="tag">Bots</span></div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3659/3659784.png" alt="Stable Audio" class="tool-icon">
+        <span class="free">FREE</span>
+        <h3 class="title">Stable Audio</h3>
+        <p class="desc">AI-driven audio generation and editing tools.</p>
+        <div class="tags"><span class="tag">Audio</span><span class="tag">Generation</span></div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3659/3659899.png" alt="HY World" class="tool-icon">
+        <span class="free">FREE</span>
+        <h3 class="title">HY World</h3>
+        <p class="desc">Generative worlds and avatar builders.</p>
+        <div class="tags"><span class="tag">Avatars</span><span class="tag">Generative</span></div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2103/2103832.png" alt="ERNIE" class="tool-icon">
+        <span class="free">FREE</span>
+        <h3 class="title">ERNIE</h3>
+        <p class="desc">Multimodal AI assistant and research tools.</p>
+        <div class="tags"><span class="tag">Multimodal</span><span class="tag">Research</span></div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+        <div class="card">
+          <img src="https://cdn-icons-png.flaticon.com/512/2784/2784487.png" alt="AI Math Solver" class="tool-icon">
+          <span class="free">FREE</span>
+          <h3 class="title">AI Math Solver</h3>
+          <p class="desc">Solve math problems step-by-step with symbolic reasoning.</p>
+          <div class="tags"><span class="tag">Math</span><span class="tag">Solver</span></div>
+          <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+        </div>
+
+        <!-- User-provided AI Agents (local image references) -->
+        <div class="card">
+          <img src="images/replit-agent.svg" class="tool-icon" alt="Replit Agent">
+          <div class="content"><h3>Replit Agent</h3><p>An AI assistant for developers that creates applications from text descriptions.</p><span class="tag">Free Trial</span><span class="tag">AI Agents</span><a href="https://replit.com" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/storm.svg" class="tool-icon" alt="Storm">
+          <div class="content"><h3>Storm</h3><p>Research assistant that writes Wikipedia-style articles from verified sources.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/nvidia.svg" class="tool-icon" alt="NVIDIA Nemotron 3">
+          <div class="content"><h3>NVIDIA Nemotron 3</h3><p>Build specialized AI agents with open-source models and 1M token context.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/chatgpt-agent.svg" class="tool-icon" alt="ChatGPT Agent">
+          <div class="content"><h3>ChatGPT Agent</h3><p>Autonomous assistant for research, analysis and task automation.</p><span class="tag">AI Agents</span><a href="https://chatgpt.com" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="category-title">AI Agents</div>
+        <div class="card">
+          <img src="images/mistral.svg" class="tool-icon" alt="Mistral Medium 3.5">
+          <div class="content"><h3>Mistral Medium 3.5</h3><p>Advanced coding and reasoning model with 256K context window.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/hermes.svg" class="tool-icon" alt="Hermes Agent">
+          <div class="content"><h3>Hermes Agent</h3><p>Open-source agent with memory, web automation and API integration.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/owl.svg" class="tool-icon" alt="OWL by Camel AI">
+          <div class="content"><h3>OWL by Camel AI</h3><p>Coordinate multiple AI agents for automation and analysis.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/openmanus.svg" class="tool-icon" alt="OpenManus">
+          <div class="content"><h3>OpenManus</h3><p>Open-source alternative to Manus AI for autonomous tasks.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/agentopus.svg" class="tool-icon" alt="Agent Opus">
+          <div class="content"><h3>Agent Opus</h3><p>Create complete videos from prompts with AI-powered production.</p><span class="tag">Freemium</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/deerflow.svg" class="tool-icon" alt="DeerFlow">
+          <div class="content"><h3>DeerFlow</h3><p>ByteDance multi-agent framework for coding and content creation.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/magentic.svg" class="tool-icon" alt="Magentic-One">
+          <div class="content"><h3>Magentic-One</h3><p>Multi-agent system for solving complex tasks automatically.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/lindy.svg" class="tool-icon" alt="Lindy.ai">
+          <div class="content"><h3>Lindy.ai</h3><p>AI agent creator for automating emails, meetings and support.</p><span class="tag">Freemium</span><span class="tag">AI Agents</span><a href="https://www.lindy.ai" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/kogents.svg" class="tool-icon" alt="Kogents AI">
+          <div class="content"><h3>Kogents AI</h3><p>Deploy intelligent agents for sales, HR and customer service.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/proactive.svg" class="tool-icon" alt="Proactive AI">
+          <div class="content"><h3>Proactive AI</h3><p>Meeting assistant that summarizes and suggests actions in real-time.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/anijam.svg" class="tool-icon" alt="Anijam AI">
+          <div class="content"><h3>Anijam AI</h3><p>AI-powered animation workflow from script to final video.</p><span class="tag">Freemium</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/autogen.svg" class="tool-icon" alt="AutoGen">
+          <div class="content"><h3>AutoGen</h3><p>Microsoft framework for creating powerful multi-agent AI systems.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/capafy.svg" class="tool-icon" alt="Capafy">
+          <div class="content"><h3>Capafy</h3><p>Marketplace for AI agent skills and integrations.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/manusbrowser.svg" class="tool-icon" alt="Manus Browser Operator">
+          <div class="content"><h3>Manus Browser Operator</h3><p>AI browser operator that fills forms and performs tasks automatically.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/browserharness.svg" class="tool-icon" alt="Browser Harness">
+          <div class="content"><h3>Browser Harness</h3><p>Self-healing browser automation harness for LLMs.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/heygen.svg" class="tool-icon" alt="HeyGen Agent">
+          <div class="content"><h3>HeyGen Agent</h3><p>Create complete videos automatically from simple prompts.</p><span class="tag">Freemium</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/hyperpilot.svg" class="tool-icon" alt="HyperPilot">
+          <div class="content"><h3>HyperPilot</h3><p>Platform for testing and comparing AI navigation agents.</p><span class="tag">Free</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/qoder.svg" class="tool-icon" alt="Qoder">
+          <div class="content"><h3>Qoder</h3><p>Alibaba AI platform that generates production-ready code.</p><span class="tag">Free Trial</span><span class="tag">AI Agents</span><a href="#" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/sintra.svg" class="tool-icon" alt="Sintra.ai">
+          <div class="content"><h3>Sintra.ai</h3><p>Business automation platform powered by specialized AI agents.</p><span class="tag">Paid</span><span class="tag">AI Agents</span><a href="https://sintra.ai" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+
+        <div class="card">
+          <img src="images/bika.svg" class="tool-icon" alt="Bika.ai">
+          <div class="content"><h3>Bika.ai</h3><p>AI organizer for projects, databases, automations and workflows.</p><span class="tag">Freemium</span><span class="tag">AI Agents</span><a href="https://bika.ai" target="_blank" class="visit-btn">Visit Tool</a></div>
+        </div>
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" class="tool-icon" alt="Manus">
+        <span class="verified gold">★ Gold Verified</span>
+        <h3 class="tool-title">Manus AI Agent</h3>
+        <p class="tool-desc">An AI agent that executes advanced tasks without human intervention. From travel planning to financial analysis, it can navigate the web and complete tasks autonomously.</p>
+        <div class="tool-tags"><span class="tag">Free</span><span class="tag">AI Agents</span></div>
+        <div class="stats">⬆ 205 Upvotes</div>
+        <a href="https://manus.im" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/6062/6062646.png" class="tool-icon" alt="OpenClaw">
+        <h3 class="tool-title">OpenClaw</h3>
+        <p class="tool-desc">Open-source personal AI assistant with persistent memory and full system access. Works with WhatsApp, Telegram, Discord, Slack and more.</p>
+        <div class="tool-tags"><span class="tag">Free</span><span class="tag">AI Agents</span></div>
+        <div class="stats">⬆ 142 Upvotes</div>
+        <a href="https://github.com/openclaw/openclaw" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" class="tool-icon" alt="i10X">
+        <span class="verified gold">★ Gold Verified</span>
+        <h3 class="tool-title">i10X</h3>
+        <p class="tool-desc">Access ChatGPT, Claude, Perplexity and hundreds of AI tools with a single subscription.</p>
+        <div class="tool-tags"><span class="tag">Freemium</span><span class="tag">AI Agents</span></div>
+        <div class="stats">⬆ 535 Upvotes</div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png" class="tool-icon" alt="Browser Use">
+        <h3 class="tool-title">Browser Use</h3>
+        <p class="tool-desc">Python library that enables AI agents to interact naturally with websites and web applications.</p>
+        <div class="tool-tags"><span class="tag">Free</span><span class="tag">AI Agents</span></div>
+        <div class="stats">⬆ 65 Upvotes</div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" class="tool-icon" alt="AutoGPT">
+        <h3 class="tool-title">AutoGPT</h3>
+        <p class="tool-desc">Open-source autonomous GPT agent that performs tasks and makes decisions with minimal human intervention.</p>
+        <div class="tool-tags"><span class="tag">Free</span><span class="tag">AI Agents</span></div>
+        <div class="stats">⬆ 65 Upvotes</div>
+        <a href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" class="tool-icon" alt="Replit Agent">
+        <span class="verified">✓ Verified</span>
+        <h3 class="tool-title">Replit Agent</h3>
+        <p class="tool-desc">An AI assistant for developers that creates applications from text descriptions. Prototype, code in 50+ languages and deploy projects with AI assistance.</p>
+        <div class="tool-tags"><span class="tag">Free Trial</span><span class="tag">AI Agents</span></div>
+        <div class="tool-stats">⬆ 63 Upvotes</div>
+        <a href="https://replit.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="tool-icon" alt="Storm">
+        <h3 class="tool-title">Storm</h3>
+        <p class="tool-desc">Research assistant that writes Wikipedia-style articles from verified web sources.</p>
+        <div class="tool-tags"><span class="tag">Free</span><span class="tag">AI Agents</span></div>
+        <div class="tool-stats">⬆ 46 Upvotes</div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" class="tool-icon" alt="ChatGPT Agent">
+        <span class="verified gold">★ Gold Verified</span>
+        <h3 class="tool-title">ChatGPT Agent</h3>
+        <p class="tool-desc">Autonomous AI assistant for research, analysis, scheduling, documents and workflow automation.</p>
+        <div class="tool-tags"><span class="tag">Paid</span><span class="tag">AI Agents</span></div>
+        <div class="tool-stats">⬆ 87 Upvotes</div>
+        <a href="https://chatgpt.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <!-- User-added tools: Hippocratic, Synthflow, Autotab, Fini, AgentLLM, SWE-agent, OpenAGI, DreamGPT, GoalGPT, ChatArena, LoopGPT -->
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200?text=Hippocratic+AI" alt="Hippocratic AI" class="tool-icon">
+        <span class="badge paid">Paid</span>
+        <h3 class="title">Hippocratic AI</h3>
+        <p class="desc">A medical platform offering over 300 specialized AI agents across 25 healthcare fields for healthcare professionals.</p>
+        <div class="tags"><span class="tag">AI Agents</span><span class="tag">Healthcare</span></div>
+        <a href="https://www.hippocraticai.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200?text=Synthflow+AI" alt="Synthflow AI" class="tool-icon">
+        <span class="badge trial">Free Trial</span>
+        <h3 class="title">Synthflow AI</h3>
+        <p class="desc">AI voice assistant that automates calls 24/7 for sales, support, and appointment scheduling.</p>
+        <div class="tags"><span class="tag">AI Agents</span><span class="tag">Voice AI</span></div>
+        <a href="https://synthflow.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200?text=Autotab+AI" alt="Autotab AI" class="tool-icon">
+        <span class="badge paid">Paid</span>
+        <h3 class="title">Autotab AI</h3>
+        <p class="desc">Browser automation agent that performs repetitive tasks automatically.</p>
+        <div class="tags"><span class="tag">AI Agents</span><span class="tag">Automation</span></div>
+        <a href="https://autotab.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200?text=Fini+AI" alt="Fini AI" class="tool-icon">
+        <span class="badge trial">Free Trial</span>
+        <h3 class="title">Fini AI</h3>
+        <p class="desc">Turn your knowledge base into a conversational AI assistant for customer support.</p>
+        <div class="tags"><span class="tag">AI Agents</span><span class="tag">Customer Support</span></div>
+        <a href="https://www.usefini.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200?text=AgentLLM" alt="AgentLLM" class="tool-icon">
+        <span class="badge free">Free</span>
+        <h3 class="title">AgentLLM</h3>
+        <p class="desc">Open-source autonomous AI agent framework powered by LLAMA.</p>
+        <div class="tags"><span class="tag">AI Agents</span><span class="tag">Open Source</span></div>
+        <a href="https://github.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200?text=SWE-agent" alt="SWE-agent" class="tool-icon">
+        <span class="badge free">Free</span>
+        <h3 class="title">SWE-agent</h3>
+        <p class="desc">AI agent that automatically fixes bugs in GitHub repositories.</p>
+        <div class="tags"><span class="tag">AI Agents</span><span class="tag">Coding</span></div>
+        <a href="https://github.com/SWE-agent" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200?text=OpenAGI" alt="OpenAGI" class="tool-icon">
+        <span class="badge free">Free</span>
+        <h3 class="title">OpenAGI</h3>
+        <p class="desc">Autonomous multimodal AI capable of manipulating images and performing advanced tasks.</p>
+        <div class="tags"><span class="tag">AI Agents</span><span class="tag">Multimodal</span></div>
+        <a href="https://github.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200?text=DreamGPT" alt="DreamGPT" class="tool-icon">
+        <span class="badge free">Free</span>
+        <h3 class="title">DreamGPT</h3>
+        <p class="desc">Creative AI project that generates new ideas and concepts.</p>
+        <div class="tags"><span class="tag">AI Agents</span><span class="tag">Creativity</span></div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200?text=GoalGPT" alt="GoalGPT" class="tool-icon">
+        <span class="badge freemium">Freemium</span>
+        <h3 class="title">GoalGPT</h3>
+        <p class="desc">Autonomous AI connected to OpenAI APIs capable of executing tasks.</p>
+        <div class="tags"><span class="tag">AI Agents</span></div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200?text=ChatArena" alt="ChatArena" class="tool-icon">
+        <span class="badge free">Free</span>
+        <h3 class="title">ChatArena</h3>
+        <p class="desc">Study and simulate social interactions between autonomous agents.</p>
+        <div class="tags"><span class="tag">AI Agents</span><span class="tag">Research</span></div>
+        <a href="#" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200?text=LoopGPT" alt="LoopGPT" class="tool-icon">
+        <span class="badge free">Free</span>
+        <h3 class="title">LoopGPT</h3>
+        <p class="desc">Autonomous multi-task AI agent with pause and resume capabilities.</p>
+        <div class="tags"><span class="tag">AI Agents</span><span class="tag">Automation</span></div>
+        <a href="https://github.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="category-title">AI Chat & Assistant Tools</div>
+      <!-- Local-image Chat & Assistant cards (user provided) -->
+      <div class="card">
+        <img src="images/chatgpt.svg" alt="ChatGPT" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">ChatGPT</div>
+        <p class="desc">The world's most famous conversational assistant. Ask questions and get precise answers.</p>
+        <span class="tag">AI Chat</span>
+        <span class="tag">Assistant</span>
+        <a href="https://chat.openai.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/gemini.svg" alt="Gemini AI" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">Gemini AI</div>
+        <p class="desc">Google's powerful AI assistant that rivals ChatGPT.</p>
+        <span class="tag">AI Chat</span>
+        <a href="https://gemini.google.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/grok.svg" alt="Grok 4" class="tool-img">
+        <span class="free">Paid</span>
+        <div class="title">Grok 4</div>
+        <p class="desc">Advanced reasoning AI from xAI specialized in logic and mathematics.</p>
+        <span class="tag">AI Chat</span>
+        <a href="https://grok.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/claude.svg" alt="Claude 4" class="tool-img">
+        <span class="free">Freemium</span>
+        <div class="title">Claude 4</div>
+        <p class="desc">Powerful AI assistant for coding and advanced reasoning.</p>
+        <span class="tag">AI Assistant</span>
+        <a href="https://claude.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/deepseek.svg" alt="DeepSeek-R1" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">DeepSeek-R1</div>
+        <p class="desc">Open-source AI model for coding and mathematical reasoning.</p>
+        <span class="tag">AI Chat</span>
+        <a href="https://chat.deepseek.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/copilot.svg" alt="Microsoft Copilot" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">Microsoft Copilot</div>
+        <p class="desc">Microsoft's AI assistant for productivity and daily tasks.</p>
+        <span class="tag">AI Assistant</span>
+        <a href="https://copilot.microsoft.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/poe.svg" alt="Poe" class="tool-img">
+        <span class="free">Paid</span>
+        <div class="title">Poe</div>
+        <p class="desc">Access GPT, Claude and many AI models in one platform.</p>
+        <span class="tag">AI Chat</span>
+        <a href="https://poe.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/huggingchat.svg" alt="HuggingChat" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">HuggingChat</div>
+        <p class="desc">Open-source conversational AI by Hugging Face.</p>
+        <span class="tag">AI Chat</span>
+        <a href="https://huggingface.co/chat" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <!-- User-provided Chat & Assistant tools -->
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" class="tool-icon" alt="ChatGPT">
+        <div class="title">ChatGPT</div>
+        <div class="type">Free</div>
+        <p class="desc">World's most popular AI assistant for chat, coding, learning and productivity.</p>
+        <a class="visit-btn" href="https://chatgpt.com" target="_blank">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_1920x1080_8c3c0a6c1f.png" class="tool-icon" alt="Gemini AI">
+        <div class="title">Gemini AI</div>
+        <div class="type">Free</div>
+        <p class="desc">Google's advanced AI assistant with multimodal capabilities.</p>
+        <a class="visit-btn" href="https://gemini.google.com" target="_blank">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/XAI_logo.svg/512px-XAI_logo.svg.png" class="tool-icon" alt="Grok 4">
+        <div class="title">Grok 4</div>
+        <div class="type">Paid</div>
+        <p class="desc">xAI's reasoning-focused AI model for complex tasks.</p>
+        <a class="visit-btn" href="https://grok.com" target="_blank">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn.simpleicons.org/anthropic" class="tool-icon" alt="Claude 4">
+        <div class="title">Claude 4</div>
+        <div class="type">Freemium</div>
+        <p class="desc">Anthropic's powerful AI model for coding and reasoning.</p>
+        <a class="visit-btn" href="https://claude.ai" target="_blank">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn.simpleicons.org/alibabacloud" class="tool-icon" alt="Qwen 3">
+        <div class="title">Qwen 3</div>
+        <div class="type">Free</div>
+        <p class="desc">Multilingual AI model from Alibaba for coding and reasoning.</p>
+        <a class="visit-btn" href="https://chat.qwen.ai" target="_blank">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://avatars.githubusercontent.com/u/148330874?s=200&v=4" class="tool-icon" alt="DeepSeek-R1">
+        <div class="title">DeepSeek-R1</div>
+        <div class="type">Free</div>
+        <p class="desc">Open-source AI model specialized in programming and math.</p>
+        <a class="visit-btn" href="https://chat.deepseek.com" target="_blank">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_Copilot_Icon.svg" class="tool-icon" alt="Microsoft Copilot">
+        <div class="title">Microsoft Copilot</div>
+        <div class="type">Free</div>
+        <p class="desc">Microsoft AI assistant integrated with Windows and Office.</p>
+        <a class="visit-btn" href="https://copilot.microsoft.com" target="_blank">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://kimi.moonshot.cn/favicon.ico" class="tool-icon" alt="Kimi.ai">
+        <div class="title">Kimi.ai</div>
+        <div class="type">Free</div>
+        <p class="desc">Multimodal AI assistant with strong document analysis.</p>
+        <a class="visit-btn" href="https://kimi.moonshot.cn" target="_blank">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn.simpleicons.org/amazon" class="tool-icon" alt="Amazon Nova">
+        <div class="title">Amazon Nova</div>
+        <div class="type">Free</div>
+        <p class="desc">Amazon's family of multimodal AI models.</p>
+        <a class="visit-btn" href="https://aws.amazon.com/ai/generative-ai/nova/" target="_blank">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn.simpleicons.org/mistralai" class="tool-icon" alt="Le Chat by Mistral AI">
+        <div class="title">Le Chat by Mistral AI</div>
+        <div class="type">Free</div>
+        <p class="desc">Official AI assistant from Mistral AI.</p>
+        <a class="visit-btn" href="https://chat.mistral.ai" target="_blank">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://writesonic.com/favicon.ico" class="tool-icon" alt="ChatSonic">
+        <div class="title">ChatSonic</div>
+        <div class="type">Free</div>
+        <p class="desc">Business-focused AI assistant with web search and image generation.</p>
+        <a class="visit-btn" href="https://writesonic.com/chat" target="_blank">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Meta-Logo.png" class="tool-icon" alt="Meta AI">
+        <div class="title">Meta AI</div>
+        <div class="type">Free</div>
+        <p class="desc">AI assistant powered by Meta's Llama models.</p>
+        <a class="visit-btn" href="https://www.meta.ai" target="_blank">Visit Tool</a>
+      </div>
+
+      <!-- Audio Tools (batch 2) -->
+      <div class="card">
+        <img src="images/image2sfx.svg" class="tool-img" alt="Image2SFX">
+        <span class="free">Free</span>
+        <h3>Image2SFX</h3>
+        <p>Generate sound effects automatically from a single image.</p>
+        <a href="https://image2sfx.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/audioseal.svg" class="tool-img" alt="AudioSeal">
+        <span class="free">Free</span>
+        <h3>AudioSeal by Meta AI</h3>
+        <p>Add watermarks and detect AI-generated audio in real time.</p>
+        <a href="https://github.com/facebookresearch/audioseal" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/dolbyon.svg" class="tool-img" alt="Dolby On">
+        <span class="free">Free</span>
+        <h3>Dolby On</h3>
+        <p>Professional-quality audio recording and enhancement app.</p>
+        <a href="https://dolby.com/apps/dolby-on" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/podsum.svg" class="tool-img" alt="Podsum">
+        <span class="free">Free</span>
+        <h3>Podsum</h3>
+        <p>Summarize podcasts and convert content into quick insights.</p>
+        <a href="https://podsum.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/emo.svg" class="tool-img" alt="EMO">
+        <span class="free">Free</span>
+        <h3>Emote Portrait Alive (EMO)</h3>
+        <p>Create talking and singing videos from a single image.</p>
+        <a href="https://github.com/HumanAIGC/EMO" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/optimizerai.svg" class="tool-img" alt="OptimizerAI">
+        <span class="free">Free</span>
+        <h3>OptimizerAI</h3>
+        <p>Create custom sound effects instantly using AI.</p>
+        <a href="https://optimizerai.xyz" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/openvino.svg" class="tool-img" alt="OpenVINO">
+        <span class="free">Free</span>
+        <h3>OpenVINO by Audacity</h3>
+        <p>AI-powered Audacity plugins for editing and enhancement.</p>
+        <a href="https://audacityteam.org" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/vocalistai.svg" class="tool-img" alt="Vocalist.ai">
+        <span class="free">Free</span>
+        <h3>Vocalist.ai</h3>
+        <p>Transform your voice into professional singing vocals.</p>
+        <a href="https://vocalist.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/texttosfx.svg" class="tool-img" alt="Text to Sound Effects">
+        <span class="free">Free</span>
+        <h3>Text to Sound Effects</h3>
+        <p>Generate realistic sound effects from text prompts.</p>
+        <a href="https://elevenlabs.io/sound-effects" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/v2a.svg" class="tool-img" alt="V2A">
+        <span class="free">Free</span>
+        <h3>V2A by Google DeepMind</h3>
+        <p>Create audio tracks from videos using AI prompts.</p>
+        <a href="https://deepmind.google" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/voiceisolator.svg" class="tool-img" alt="Voice Isolator">
+        <span class="free">Free</span>
+        <h3>ElevenLabs Voice Isolator</h3>
+        <p>Remove noise and isolate voices from recordings.</p>
+        <a href="https://elevenlabs.io/voice-isolator" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/morpho.svg" class="tool-img" alt="Morpho">
+        <span class="free">Free</span>
+        <h3>Morpho by Neutone</h3>
+        <p>Transform sounds in real time using AI audio models.</p>
+        <a href="https://neutone.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <!-- More user-provided tools -->
+      <div class="card">
+        <img src="images/goody2.svg" alt="Goody-2" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">Goody-2</div>
+        <p class="desc">An intelligent conversational assistant focused on ethics, safety, and responsible AI interactions.</p>
+        <span class="tag">AI Chat</span>
+        <span class="tag">Assistant</span>
+        <a href="https://goody2.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/duckduckgo-ai.svg" alt="DuckDuckGo AI Chat" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">DuckDuckGo AI Chat</div>
+        <p class="desc">Private AI chat powered by GPT and Claude with no conversation tracking.</p>
+        <span class="tag">AI Chat</span>
+        <a href="https://duckduckgo.com/?q=ai+chat" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/chathub.svg" alt="ChatHub" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">ChatHub</div>
+        <p class="desc">Use ChatGPT, Claude, Gemini, and other AI chatbots in one interface.</p>
+        <span class="tag">Chrome Extension</span>
+        <span class="tag">AI Chat</span>
+        <a href="https://chathub.gg" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/amazon-q.svg" alt="Amazon Q" class="tool-img">
+        <span class="free">Paid</span>
+        <div class="title">Amazon Q</div>
+        <p class="desc">AI assistant designed for business productivity and enterprise workflows.</p>
+        <span class="tag">Business AI</span>
+        <a href="https://aws.amazon.com/q" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/chatgod.svg" alt="ChatGod" class="tool-img">
+        <span class="free">Freemium</span>
+        <div class="title">ChatGod</div>
+        <p class="desc">Access AI assistants directly through WhatsApp and Telegram.</p>
+        <span class="tag">Messaging AI</span>
+        <a href="https://chatgod.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/gemini.svg" alt="Bard AI" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">Bard AI (Gemini)</div>
+        <p class="desc">Google's AI assistant for search, productivity, coding, and reasoning.</p>
+        <span class="tag">AI Chat</span>
+        <a href="https://gemini.google.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/oppenheimergpt.svg" alt="OppenheimerGPT" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">OppenheimerGPT</div>
+        <p class="desc">MacOS app for using ChatGPT and Gemini together in one place.</p>
+        <span class="tag">MacOS</span>
+        <span class="tag">AI Chat</span>
+        <a href="https://oppenheimergpt.vercel.app" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/yelp-ai.svg" alt="Yelp AI Assistant" class="tool-img">
+        <span class="free">Freemium</span>
+        <div class="title">Yelp AI Assistant</div>
+        <p class="desc">Find service providers and manage businesses using AI-powered recommendations.</p>
+        <span class="tag">Business AI</span>
+        <span class="tag">Assistant</span>
+        <a href="https://www.yelp.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <!-- Audio-focused tools -->
+      <div class="card">
+        <img src="images/adobe-podcast.svg" alt="Adobe Podcast" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">Adobe Podcast</div>
+        <p class="desc">AI-powered podcast editing with noise removal, echo reduction, and audio enhancement.</p>
+        <span class="tag">Audio Editing</span>
+        <a href="https://podcast.adobe.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/singify.svg" alt="Fineshare Singify" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">Fineshare Singify</div>
+        <p class="desc">Create AI cover songs and generate music using 1000+ AI voice models.</p>
+        <span class="tag">Audio Editing</span>
+        <a href="https://singify.fineshare.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/jammable.svg" alt="Jammable" class="tool-img">
+        <span class="free">Paid</span>
+        <div class="title">Jammable</div>
+        <p class="desc">Replace voices in songs and create AI-powered music covers.</p>
+        <span class="tag">Audio Editing</span>
+        <a href="https://www.jammable.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/vocal-remover.svg" alt="Vocal Remover" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">Vocal Remover</div>
+        <p class="desc">Separate vocals and instrumental tracks automatically using AI.</p>
+        <span class="tag">Audio Editing</span>
+        <a href="https://vocalremover.org" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/covers-ai.svg" alt="Covers AI" class="tool-img">
+        <span class="free">Freemium</span>
+        <div class="title">Covers AI</div>
+        <p class="desc">Generate AI music covers from songs or voice samples.</p>
+        <span class="tag">Audio Editing</span>
+        <a href="https://covers.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/veed-audio.svg" alt="Audio Editor by VEED" class="tool-img">
+        <span class="free">Free Trial</span>
+        <div class="title">Audio Editor by VEED</div>
+        <p class="desc">Edit, cut, clean, and enhance audio online with AI tools.</p>
+        <span class="tag">Audio Editing</span>
+        <a href="https://www.veed.io" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/elevenlabs-dubbing.svg" alt="AI Dubbing by ElevenLabs" class="tool-img">
+        <span class="free">Freemium</span>
+        <div class="title">AI Dubbing by ElevenLabs</div>
+        <p class="desc">Translate and dub videos using realistic AI voices in 60+ languages.</p>
+        <span class="tag">Audio Editing</span>
+        <a href="https://elevenlabs.io/dubbing" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/audio-cleaner.svg" alt="Audio Cleaner AI" class="tool-img">
+        <span class="free">Free Trial</span>
+        <div class="title">Audio Cleaner AI</div>
+        <p class="desc">Remove noise, silence, and unwanted sounds from recordings.</p>
+        <span class="tag">Audio Editing</span>
+        <a href="https://audiocleaner.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/voice-ai.svg" alt="Voice AI" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">Voice AI</div>
+        <p class="desc">Real-time voice changer for gaming, streaming, Discord, and Zoom.</p>
+        <span class="tag">Voice Changer</span>
+        <a href="https://voice.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/voicemod.svg" alt="Voicemod" class="tool-img">
+        <span class="free">Freemium</span>
+        <div class="title">Voicemod</div>
+        <p class="desc">Transform your voice instantly with AI-powered voice effects.</p>
+        <span class="tag">Audio Editing</span>
+        <a href="https://www.voicemod.net" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/fugatto.svg" alt="Fugatto Nvidia" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">Fugatto Nvidia</div>
+        <p class="desc">Generate and transform sounds, music, and voices using AI commands.</p>
+        <span class="tag">Audio Editing</span>
+        <a href="https://www.nvidia.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/stable-audio.svg" alt="Stable Audio 2.5" class="tool-img">
+        <span class="free">Free</span>
+        <div class="title">Stable Audio 2.5</div>
+        <p class="desc">Generate high-quality music and sound effects in seconds.</p>
+        <span class="tag">Audio Editing</span>
+        <a href="https://stableaudio.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+      <div class="category-title">AI Chat & ChatBot Tools</div>
+      <!-- AI Chat & ChatBot Tools (batch) -->
+      <div class="card">
+        <img src="images/andi.svg" class="tool-img" alt="Andi">
+        <h3>Andi</h3>
+        <p>The assistant that answers all your questions like a search engine.</p>
+        <a href="https://andisearch.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/chatsonic.svg" class="tool-img" alt="ChatSonic">
+        <h3>ChatSonic</h3>
+        <p>Business AI assistant with web search, PDF analysis and image generation.</p>
+        <a href="https://writesonic.com/chat" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/chatgpt.svg" class="tool-img" alt="ChatGPT">
+        <h3>ChatGPT</h3>
+        <p>The world's most famous conversational AI assistant.</p>
+        <a href="https://chatgpt.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/liveai.svg" class="tool-img" alt="LiveAI Bot">
+        <h3>LiveAI Bot</h3>
+        <p>AI chatbot for keeping online communities active and engaged.</p>
+        <a href="https://liveai.bot" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/evelynai.svg" class="tool-img" alt="EvelynAI">
+        <h3>EvelynAI</h3>
+        <p>Telegram AI assistant for creating tweets, messages and content.</p>
+        <a href="https://t.me/EvelynAI_bot" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/travelchat.svg" class="tool-img" alt="Vacation Travel Chat">
+        <h3>Vacation & Travel Chat</h3>
+        <p>Get travel recommendations, restaurants and activities.</p>
+        <a href="https://vacation.chat" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/samurai.svg" class="tool-img" alt="SamurAI">
+        <h3>SamurAI</h3>
+        <p>Grow and manage your Discord community with AI.</p>
+        <a href="https://samurai.bot" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/ingestai.svg" class="tool-img" alt="IngestAI">
+        <h3>IngestAI</h3>
+        <p>Create AI chatbots for WhatsApp, Telegram, Discord and Slack.</p>
+        <a href="https://ingestai.io" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/superpowergpt.svg" class="tool-img" alt="Superpower GPT">
+        <h3>Superpower GPT</h3>
+        <p>Add powerful features to ChatGPT like search and export.</p>
+        <a href="https://superpowerdaily.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/myaskai.svg" class="tool-img" alt="My AskAI">
+        <h3>My AskAI</h3>
+        <p>Create a custom AI chatbot trained on your own content.</p>
+        <a href="https://myaskai.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/chatwizard.svg" class="tool-img" alt="ChatWizard">
+        <h3>ChatWizard</h3>
+        <p>Train and customize AI chatbots for customer support.</p>
+        <a href="https://chatwizard.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/chatmosphere.svg" class="tool-img" alt="Chatmosphere">
+        <h3>Chatmosphere</h3>
+        <p>Create AI chat rooms with custom characters and personalities.</p>
+        <a href="https://chatmosphere.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <!-- No-Code / Website Builder Tools -->
+      <div class="card">
+        <img src="images/visily.svg" class="tool-img" alt="Visily AI">
+        <h3>Visily AI</h3>
+        <p>Build applications with professional design without coding.</p>
+        <a href="https://www.visily.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/miniapps.svg" class="tool-img" alt="Miniapps AI">
+        <h3>Miniapps.ai</h3>
+        <p>Create AI-powered applications without coding knowledge.</p>
+        <a href="https://miniapps.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/dora.svg" class="tool-img" alt="Dora">
+        <h3>Dora</h3>
+        <p>Create no-code websites and 3D animations easily.</p>
+        <a href="https://www.dora.run" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/aibackdrop.svg" class="tool-img" alt="AI Backdrop">
+        <h3>AI Backdrop</h3>
+        <p>Generate realistic backgrounds for marketing content.</p>
+        <a href="https://aibackdrop.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/pagegenie.svg" class="tool-img" alt="PageGenie">
+        <h3>PageGenie</h3>
+        <p>Convert business ideas into landing pages instantly.</p>
+        <a href="https://pagegenie.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/locofy.svg" class="tool-img" alt="Locofy">
+        <h3>Locofy</h3>
+        <p>Convert Figma and Adobe XD designs into code.</p>
+        <a href="https://www.locofy.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/dreamsands.svg" class="tool-img" alt="Dreamsands IO">
+        <h3>Dreamsands IO</h3>
+        <p>Turn sketches and images into working websites.</p>
+        <a href="https://dreamsands.io" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/seamlessstudio.svg" class="tool-img" alt="Seamless Studio">
+        <h3>Seamless Studio</h3>
+        <p>Generate professional mockups with AI assistance.</p>
+        <a href="https://seamless.studio" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/sivi.svg" class="tool-img" alt="Sivi AI">
+        <h3>Sivi AI</h3>
+        <p>Create banners, ads and social media graphics from text.</p>
+        <a href="https://sivi.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/aiter.svg" class="tool-img" alt="Aiter">
+        <h3>Aiter</h3>
+        <p>Generate marketing content and strategies from URLs.</p>
+        <a href="https://aiter.io" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/sitesgpt.svg" class="tool-img" alt="SitesGPT">
+        <h3>SitesGPT</h3>
+        <p>Create websites, blogs and portfolios using GPT.</p>
+        <a href="https://sitesgpt.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/domainhuntai.svg" class="tool-img" alt="DomainHuntAI">
+        <h3>DomainHuntAI</h3>
+        <p>Find the perfect AI-generated domain name.</p>
+        <a href="https://domainhuntai.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/exoname.svg" class="tool-img" alt="Exoname">
+        <h3>Exoname</h3>
+        <p>Generate creative domain names using AI prompts.</p>
+        <a href="https://exoname.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/aipage.svg" class="tool-img" alt="AIPage.dev">
+        <h3>AIPage.dev</h3>
+        <p>Create AI-powered landing pages without coding.</p>
+        <a href="https://aipage.dev" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/typper.svg" class="tool-img" alt="Typper">
+        <h3>Typper</h3>
+        <p>Improve designs with AI suggestions and brainstorming.</p>
+        <a href="https://typper.io" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/talkform.svg" class="tool-img" alt="TalkForm AI">
+        <h3>TalkForm AI</h3>
+        <p>Create and analyze forms using conversational AI.</p>
+        <a href="https://talkform.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/domainwoohoo.svg" class="tool-img" alt="DomainWoohoo">
+        <h3>DomainWoohoo</h3>
+        <p>Check domain availability and get AI suggestions.</p>
+        <a href="https://domainwoohoo.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/piktochart.svg" class="tool-img" alt="Piktochart AI">
+        <h3>Piktochart AI</h3>
+        <p>Create editable infographics from text prompts.</p>
+        <a href="https://piktochart.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/mobirise.svg" class="tool-img" alt="Mobirise">
+        <h3>Mobirise</h3>
+        <p>Build websites automatically from prompts.</p>
+        <a href="https://mobirise.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/drawmyui.svg" class="tool-img" alt="Draw My UI">
+        <h3>Draw My UI</h3>
+        <p>Convert sketches into professional UI designs.</p>
+        <a href="https://drawmyui.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/screenshottocode.svg" class="tool-img" alt="Screenshot To Code">
+        <h3>Screenshot To Code</h3>
+        <p>Generate code automatically from screenshots.</p>
+        <a href="https://github.com/abi/screenshot-to-code" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/bannergpt.svg" class="tool-img" alt="Banner GPT">
+        <h3>Banner GPT</h3>
+        <p>Create professional blog banners using AI.</p>
+        <a href="https://bannergpt.com" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/mageai.svg" class="tool-img" alt="MAGE AI">
+        <h3>MAGE AI</h3>
+        <p>Develop web applications using GPT and Wasp.</p>
+        <a href="https://mage.ai" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+      <div class="card">
+        <img src="images/svgio.svg" class="tool-img" alt="SVG.io">
+        <h3>SVG.io</h3>
+        <p>Create SVG graphics from simple text prompts.</p>
+        <a href="https://svg.io" target="_blank" class="visit-btn">Visit Tool</a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const iconMap = {
+        "chatgpt": "openai",
+        "chatgpt agent": "openai",
+        "openai agentkit": "openai",
+        "gemini ai": "googlegemini",
+        "gemini": "googlegemini",
+        "bard ai": "googlegemini",
+        "claude ai": "anthropic",
+        "claude 4": "anthropic",
+        "microsoft copilot": "microsoftcopilot",
+        "copilot": "microsoftcopilot",
+        "adobe podcast": "adobe",
+        "visily ai": "figma",
+        "dora": "dora",
+        "canva creative os": "canva",
+        "replit agent": "replit",
+        "replit": "replit",
+        "stable audio": "stabilityai",
+        "stable audio 2.5": "stabilityai",
+        "ernie": "baidu",
+        "ai math solver": "wolfram",
+        "storm": "wikipedia",
+        "nvidia nemotron 3": "nvidia",
+        "nvidia": "nvidia",
+        "mistral medium 3.5": "mistralai",
+        "le chat by mistral ai": "mistralai",
+        "openmanus": "github",
+        "autogen": "microsoft",
+        "heygen agent": "googleplay",
+        "sintra.ai": "googleplay",
+        "bika.ai": "airtable",
+        "manus ai agent": "browserless",
+        "openclaw": "github",
+        "browser use": "python",
+        "autogpt": "github",
+        "hippocratic ai": "redhat",
+        "synthflow ai": "twilio",
+        "autotab ai": "googlechrome",
+        "fini ai": "intercom",
+        "agentllm": "meta",
+        "swe-agent": "github",
+        "openagi": "github",
+        "dreamgpt": "openai",
+        "goalgpt": "openai",
+        "chatarena": "discord",
+        "loopgpt": "github",
+        "deepseek-r1": "deepseek",
+        "deepseek": "deepseek",
+        "poe": "quora",
+        "huggingchat": "huggingface",
+        "huggingface": "huggingface",
+        "duckduckgo ai chat": "duckduckgo",
+        "chathub": "googlechrome",
+        "amazon q": "amazon",
+        "amazon nova": "amazon",
+        "chatgod": "whatsapp",
+        "oppenheimergpt": "apple",
+        "yelp ai assistant": "yelp",
+        "fineshare singify": "deezer",
+        "jammable": "spotify",
+        "vocal remover": "soundcloud",
+        "covers ai": "bandcamp",
+        "audio editor by veed": "vimeo",
+        "ai dubbing by elevenlabs": "elevenlabs",
+        "audio cleaner ai": "audacity",
+        "voice ai": "discord",
+        "voicemod": "twitch",
+        "fugatto nvidia": "nvidia",
+        "andi": "duckduckgo",
+        "chatsonic": "writesonic",
+        "liveai bot": "discord",
+        "evelynai": "telegram",
+        "vacation travel chat": "tripadvisor",
+        "samurai": "discord",
+        "ingestai": "slack",
+        "superpower gpt": "openai",
+        "my askai": "intercom",
+        "chatwizard": "zendesk",
+        "chatmosphere": "slack",
+        "miniapps.ai": "googleplay",
+        "aibackdrop": "unsplash",
+        "pagegenie": "webflow",
+        "locofy": "figma",
+        "dreamsands io": "sketch",
+        "seamless studio": "adobephotoshop",
+        "sivi ai": "canva",
+        "aiter": "hubspot",
+        "sitesgpt": "wordpress",
+        "domainhuntai": "godaddy",
+        "exoname": "godaddy",
+        "aipage.dev": "wix",
+        "typper": "figma",
+        "talkform ai": "typeform",
+        "domainwoohoo": "namecheap",
+        "piktochart ai": "canva",
+        "mobirise": "bootstrap",
+        "draw my ui": "figma",
+        "screenshot to code": "github",
+        "banner gpt": "unsplash",
+        "mage ai": "github",
+        "svg.io": "inkscape"
+      };
+
+      const images = document.querySelectorAll(".card img, .card .tool-icon, .card .tool-img");
+      const colors = ["#2563eb", "#3b82f6", "#10b981", "#8b5cf6", "#ec4899", "#f59e0b", "#14b8a6", "#6366f1", "#06b6d4", "#f43f5e"];
+
+      function getInitialsSvg(title) {
+        const charCodeSum = title.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0);
+        const color = colors[charCodeSum % colors.length];
+        const initials = title.split(" ").map(w => w[0]).join("").substring(0, 2).toUpperCase();
+        
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="80" height="80" class="tool-icon" style="border-radius:12px; background:${color}; display:block; margin:0 auto 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+          <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="38" font-weight="bold">${initials}</text>
+        </svg>`;
+      }
+
+      images.forEach(img => {
+        const card = img.closest(".card");
+        if (!card) return;
+
+        const titleEl = card.querySelector("h3, .title, .tool-title");
+        const title = titleEl ? titleEl.textContent.trim() : "AI Tool";
+        const src = img.getAttribute("src") || "";
+
+        const replaceWithFallback = () => {
+          const svgMarkup = getInitialsSvg(title);
+          const container = document.createElement("div");
+          container.innerHTML = svgMarkup.trim();
+          img.replaceWith(container.firstChild);
+        };
+
+        const normalizedTitle = title.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim();
+        let simpleIconSlug = null;
+        
+        for (const key in iconMap) {
+          if (normalizedTitle.includes(key) || key.includes(normalizedTitle)) {
+            simpleIconSlug = iconMap[key];
+            break;
+          }
+        }
+
+        if (simpleIconSlug) {
+          img.src = `https://cdn.simpleicons.org/${simpleIconSlug}`;
+        } else if (src.startsWith("images/") || src.includes("placeholder.com") || src === "" || src === "#") {
+          replaceWithFallback();
+          return;
+        }
+
+        img.addEventListener("error", replaceWithFallback);
+
+        if (img.complete && img.naturalWidth === 0) {
+          replaceWithFallback();
+        }
+      });
+
+      /* ---- Make the whole card clickable to open the tool directly ---- */
+      const toolUrlMap = {
+        "grok build": "https://grok.com",
+        "stable audio": "https://stableaudio.com",
+        "ernie": "https://yiyan.baidu.com",
+        "storm": "https://storm.genie.stanford.edu",
+        "nvidia nemotron 3": "https://build.nvidia.com/nemotron",
+        "mistral medium 3.5": "https://mistral.ai",
+        "hermes agent": "https://github.com/NousResearch/Hermes",
+        "owl by camel ai": "https://github.com/camel-ai/owl",
+        "openmanus": "https://github.com/OpenManusAI/OpenManus",
+        "deerflow": "https://github.com/bytedance/deerflow",
+        "magentic one": "https://github.com/microsoft/autogen",
+        "autogen": "https://github.com/microsoft/autogen",
+        "manus browser operator": "https://manus.im",
+        "heygen agent": "https://www.heygen.com",
+        "i10x": "https://i10x.ai",
+        "browser use": "https://github.com/browser-use/browser-use",
+        "chatarena": "https://github.com/chatarena/chatarena"
+      };
+
+      const normKey = (s) => s.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
+
+      document.querySelectorAll(".card").forEach(card => {
+        const btn = card.querySelector(".visit-btn");
+        if (!btn) return;
+
+        // Fill placeholder ("#") links with a real URL when the tool is known
+        let href = btn.getAttribute("href") || "";
+        if (!href || href === "#") {
+          const titleEl = card.querySelector("h3, .title, .tool-title");
+          const norm = titleEl ? normKey(titleEl.textContent) : "";
+          if (norm) {
+            for (const key in toolUrlMap) {
+              if (norm.includes(normKey(key))) {
+                href = toolUrlMap[key];
+                btn.setAttribute("href", href);
+                break;
+              }
+            }
+          }
+        }
+
+        // Make the entire card act as a link to the tool
+        card.style.cursor = "pointer";
+        card.addEventListener("click", (e) => {
+          // Let the Visit Tool button handle its own native click
+          if (e.target.closest(".visit-btn")) return;
+          if (href && href !== "#") {
+            window.open(href, "_blank", "noopener,noreferrer");
+          }
+        });
+      });
+    });
+  </script>
+  <style>
+    /* Compact / List view styles */
+    .category-list{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0 28px}
+    .category-list .card{flex:0 0 220px;max-width:220px;padding:12px;border-radius:12px;text-align:left;align-items:flex-start}
+    .category-list .card img.tool-img,.category-list .card img.tool-icon{width:48px;height:48px;margin:0 12px 0 0}
+    .category-list .card h3,.category-list .card .title{font-size:1rem;margin:0 0 6px}
+    .category-list .card p,.category-list .card .desc{font-size:0.85rem;margin:0}
+    .view-toggle{display:flex;justify-content:flex-end;margin-bottom:12px;color:#cbd5e1}
+    .compact-list .tool-grid{display:block}
+    .compact-list .category-list{display:block}
+    .compact-list .category-list .card{display:flex;align-items:center;padding:10px;margin:6px 0;border-radius:10px}
+  </style>
+
+  <script>
+    // Wrap category cards into lists and add a Compact List View toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const titles = Array.from(document.querySelectorAll('.category-title'));
+        titles.forEach(title => {
+          const container = document.createElement('div');
+          container.className = 'category-list';
+          let el = title.nextElementSibling;
+          const cards = [];
+          while (el && !el.classList.contains('category-title')) {
+            const next = el.nextElementSibling;
+            if (el.classList && el.classList.contains('card')) cards.push(el);
+            el = next;
+          }
+          if (cards.length) {
+            cards.forEach(c => container.appendChild(c));
+            title.parentNode.insertBefore(container, title.nextElementSibling);
+          }
+        });
+
+        // insert toggle
+        const toolbar = document.createElement('div');
+        toolbar.className = 'view-toggle';
+        toolbar.innerHTML = '<label style="cursor:pointer"><input id="compactToggle" type="checkbox" style="margin-right:8px"> Compact List View</label>';
+        const pageWrap = document.querySelector('.page-wrap');
+        if (pageWrap) pageWrap.insertBefore(toolbar, pageWrap.querySelector('h1').nextSibling);
+
+        const toggle = document.getElementById('compactToggle');
+        if (toggle) {
+          toggle.addEventListener('change', (e) => {
+            document.body.classList.toggle('compact-list', e.target.checked);
+          });
+        }
+      } catch (err) {
+        console.error('Category grouping failed', err);
+      }
+    });
+  </script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+  <script src="firebase.js"></script>
+    <script src="auth-gate.js"></script>
+</body>
+</html>

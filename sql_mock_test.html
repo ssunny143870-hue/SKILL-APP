@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Mock Test - 22 Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#f4f7fc;padding:20px;}
+.container{max-width:1000px;margin:auto;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.back-btn{padding:10px 16px;border-radius:12px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#10b981;font-weight:500;cursor:pointer;transition:all 0.2s ease;}
+.back-btn:hover{background:rgba(16,185,129,0.25);}
+h1{text-align:center;margin-bottom:20px;color:#064e3b;}
+.question-card{background:#fff;margin-bottom:20px;padding:20px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);border-top:5px solid #10b981;}
+.question{font-weight:bold;margin-bottom:15px;color:#064e3b;}
+.option{display:block;margin:8px 0;padding:12px;border:2px solid #ddd;border-radius:10px;cursor:pointer;transition:.3s;}
+.option:hover{background:#ecfdf5;}
+.correct{background:#22c55e !important;color:#fff;border-color:#22c55e !important;}
+.wrong{background:#ef4444 !important;color:#fff;border-color:#ef4444 !important;}
+#scoreBox{position:sticky;top:10px;background:#064e3b;color:white;padding:15px;text-align:center;border-radius:12px;margin-bottom:20px;font-weight:600;}
+.submit-btn{display:block;margin:20px auto;padding:12px 30px;background:linear-gradient(135deg, #10b981, #059669);color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-size:1rem;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(16,185,129,0.3);}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+    <button class="back-btn" onclick="window.location.href='mock_tests.html'">← Back</button>
+    <h1>SQL Mock Test (22 Questions)</h1>
+    <div style="width:100px;"></div>
+</div>
+<div id="scoreBox">
+Score: <span id="score">0</span> / 22
+</div>
+<div id="quiz"></div>
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+</div>
+
+<script>
+const questions = [
+{q:"Which SQL statement removes duplicate rows when combining results from two SELECT statements?",o:["UNION ALL","MERGE","UNION","JOIN"],a:2},
+{q:"Which statement includes duplicate records while combining result sets?",o:["UNION","UNION ALL","INTERSECT","DISTINCT"],a:1},
+{q:"What is the primary purpose of SELECT INTO?",o:["Delete records","Create a backup table","Modify columns","Create indexes"],a:1},
+{q:"Which statement creates a new database?",o:["MAKE DATABASE mydb","NEW DATABASE mydb","CREATE DATABASE mydb","ADD DATABASE mydb"],a:2},
+{q:"Which constraint prevents NULL values?",o:["UNIQUE","DEFAULT","NOT NULL","CHECK"],a:2},
+{q:"How many PRIMARY KEY constraints can a table have?",o:["Unlimited","2","1","Depends on columns"],a:2},
+{q:"Which constraint automatically implies uniqueness?",o:["CHECK","DEFAULT","PRIMARY KEY","FOREIGN KEY"],a:2},
+{q:"Which constraint allows multiple per table?",o:["PRIMARY KEY","UNIQUE","AUTO_INCREMENT","IDENTITY"],a:1},
+{q:"What does a FOREIGN KEY reference?",o:["Unique column","Another FOREIGN KEY","Primary Key in another table","Index"],a:2},
+{q:"Which constraint restricts values based on a condition?",o:["DEFAULT","CHECK","UNIQUE","PRIMARY KEY"],a:1},
+{q:"What will CHECK(P_Id > 0) enforce?",o:["Only negative values","Only values greater than 0","Only even numbers","Only NULL values"],a:1},
+{q:"Which constraint inserts a value automatically when none is specified?",o:["CHECK","UNIQUE","DEFAULT","NOT NULL"],a:2},
+{q:"What is the default value function commonly used for current date/time in SQL Server?",o:["TODAY()","CURRENT()","GETDATE()","NOWDATE()"],a:2},
+{q:"Why are indexes created?",o:["Reduce storage","Increase security","Speed up searches","Create backups"],a:2},
+{q:"Which index does NOT allow duplicate values?",o:["NORMAL INDEX","CREATE INDEX","CREATE UNIQUE INDEX","DROP INDEX"],a:2},
+{q:"Which statement removes all rows but keeps the table structure?",o:["DELETE TABLE","DROP TABLE","TRUNCATE TABLE","REMOVE TABLE"],a:2},
+{q:"Which statement permanently deletes a table?",o:["TRUNCATE TABLE","DELETE TABLE","DROP TABLE","CLEAR TABLE"],a:2},
+{q:"ALTER TABLE is mainly used to:",o:["Insert records","Add/Delete/Modify columns","Create views","Create databases"],a:1},
+{q:"Which command adds a column to an existing table?",o:["ALTER TABLE ADD","MODIFY COLUMN","CREATE COLUMN","INSERT COLUMN"],a:0},
+{q:"In MySQL, which keyword enables auto-increment?",o:["IDENTITY","AUTOINCREMENT","AUTO_INCREMENT","SEQUENCE"],a:2},
+{q:"In SQL Server, which keyword provides auto-increment functionality?",o:["AUTO_INCREMENT","IDENTITY","SEQUENCE","SERIAL"],a:1},
+{q:"Which database object is a virtual table based on a query?",o:["Index","Constraint","View","Trigger"],a:2}
+];
+
+const quiz=document.getElementById("quiz");
+let answered = {};
+
+questions.forEach((item,index)=>{
+    let card=document.createElement("div");
+    card.className="question-card";
+    let html=`<div class="question">Q${index+1}. ${item.q}</div>`;
+    item.o.forEach((opt,i)=>{
+        html+=`<div class="option" onclick="checkAnswer(this,${i},${item.a},${index})">${String.fromCharCode(65+i)}. ${opt}</div>`;
+    });
+    card.innerHTML=html;
+    quiz.appendChild(card);
+});
+
+function checkAnswer(el,selected,correct,index){
+    const parent=el.parentElement;
+    if(parent.dataset.done) return;
+    parent.dataset.done=true;
+    answered[index]=selected===correct;
+    const options=parent.querySelectorAll(".option");
+    options.forEach((op,i)=>{
+        if(i===correct) op.classList.add("correct");
+    });
+    if(selected!==correct) el.classList.add("wrong");
+    updateScore();
+}
+
+function updateScore(){
+    let score=Object.values(answered).filter(v=>v).length;
+    document.getElementById("score").innerText=score;
+}
+
+function submitTest(){
+    let score=Object.values(answered).filter(v=>v).length;
+    alert(`Test Submitted!\nYour Score: ${score}/22`);
+}
+</script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>

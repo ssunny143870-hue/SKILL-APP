@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python for Data Analytics Mock Test - 30 Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#f4f7fc;padding:20px;}
+.container{max-width:1000px;margin:auto;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.back-btn{padding:10px 16px;border-radius:12px;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);color:#7c3aed;font-weight:500;cursor:pointer;transition:all 0.2s ease;}
+.back-btn:hover{background:rgba(139,92,246,0.25);}
+h1{text-align:center;margin-bottom:20px;color:#4c1d95;}
+.question-card{background:#fff;margin-bottom:20px;padding:20px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);border-top:5px solid #7c3aed;}
+.question{font-weight:bold;margin-bottom:15px;color:#4c1d95;}
+.option{display:block;margin:8px 0;padding:12px;border:2px solid #ddd;border-radius:10px;cursor:pointer;transition:.3s;}
+.option:hover{background:#f5f3ff;}
+.correct{background:#22c55e !important;color:#fff;border-color:#22c55e !important;}
+.wrong{background:#ef4444 !important;color:#fff;border-color:#ef4444 !important;}
+#scoreBox{position:sticky;top:10px;background:#4c1d95;color:white;padding:15px;text-align:center;border-radius:12px;margin-bottom:20px;font-weight:600;}
+.submit-btn{display:block;margin:20px auto;padding:12px 30px;background:linear-gradient(135deg, #7c3aed, #6d28d9);color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-size:1rem;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(124,58,237,0.3);}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+    <button class="back-btn" onclick="window.location.href='mock_tests.html'">← Back</button>
+    <h1>Python for Data Analytics (30 Questions)</h1>
+    <div style="width:100px;"></div>
+</div>
+<div id="scoreBox">
+Score: <span id="score">0</span> / 30
+</div>
+<div id="quiz"></div>
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+</div>
+
+<script>
+const questions = [
+{q:"Which phase of Data Analytics determines how results will be delivered to end users?",o:["Data Preparation","Deployment","Exploration","Transformation"],a:1},
+{q:"Which Python data structure is immutable?",o:["List","Dictionary","Tuple","Set"],a:2},
+{q:"Which operator is used for exponentiation in Python?",o:["^","**","//","%"],a:1},
+{q:"What is the output of len({1,2,2,3})?",o:["4","3","2","Error"],a:1},
+{q:"Which phase follows Data Exploration?",o:["Monitoring","Deployment","Transformation and Selection","Problem Definition"],a:2},
+{q:"Which symbol starts a single-line comment in Python?",o:["//","#","/*","--"],a:1},
+{q:"Which magic command measures execution time repeatedly?",o:["%run","%paste","%timeit","%debug"],a:2},
+{q:"Which collection stores key-value pairs?",o:["Tuple","Set","Dictionary","List"],a:2},
+{q:"What does // represent?",o:["Division","Floor Division","Exponent","Modulo"],a:1},
+{q:"Which command clears all variables in IPython?",o:["%reset","%run","%debug","%paste"],a:0},
+{q:"Which structure allows duplicate values?",o:["Set","Dictionary Keys","List","Frozen Set"],a:2},
+{q:"What is the result of 17 % 5?",o:["3","2","4","1"],a:1},
+{q:"Which statement is used for exception handling?",o:["catch","error","try","exceptonly"],a:2},
+{q:"Which lifecycle phase builds analytical models?",o:["Data Prep","Analytical Modeling","Deployment","Monitoring"],a:1},
+{q:"What is the type of (5,)?",o:["List","Integer","Tuple","Set"],a:2},
+{q:"Which IPython feature provides command history?",o:["History Manager","Debugger","Bookmark","Shell Access"],a:0},
+{q:"Which keyword creates a function?",o:["define","function","func","def"],a:3},
+{q:"What is output of bool([])?",o:["True","False","Error","None"],a:1},
+{q:"Which phase evaluates data quality?",o:["Preparation","Deployment","Monitoring","Modeling"],a:0},
+{q:"Which data type removes duplicates automatically?",o:["Tuple","Set","List","Dictionary"],a:1},
+{q:"What does %debug do?",o:["Deletes bugs","Starts debugger","Compiles code","Runs script"],a:1},
+{q:"Which operator checks equality?",o:["=","===","==","<>"],a:2},
+{q:"What is output of type({})?",o:["list","tuple","set","dict"],a:3},
+{q:"Which phase continuously tracks model performance?",o:["Monitoring","Preparation","Selection","Exploration"],a:0},
+{q:"What is returned by range(3)?",o:["0,1,2","1,2,3","0,1,2,3","3"],a:0},
+{q:"Which keyword exits a loop?",o:["continue","pass","stop","break"],a:3},
+{q:"Which method adds an element to a set?",o:["append()","insert()","add()","push()"],a:2},
+{q:"Which command executes a Python script in IPython?",o:["%run","%timeit","%reset","%bookmark"],a:0},
+{q:"What is the output of len('Analytics')?",o:["8","9","10","7"],a:1},
+{q:"Which phase defines business objectives and requirements?",o:["Modeling","Problem Definition","Monitoring","Deployment"],a:1}
+];
+
+const quiz=document.getElementById("quiz");
+let answered = {};
+
+questions.forEach((item,index)=>{
+    let card=document.createElement("div");
+    card.className="question-card";
+    let html=`<div class="question">${item.q}</div>`;
+    item.o.forEach((opt,i)=>{
+        html+=`<div class="option" onclick="checkAnswer(this,${i},${item.a},${index})">${String.fromCharCode(65+i)}. ${opt}</div>`;
+    });
+    card.innerHTML=html;
+    quiz.appendChild(card);
+});
+
+function checkAnswer(el,selected,correct,index){
+    const parent=el.parentElement;
+    if(parent.dataset.done) return;
+    parent.dataset.done=true;
+    answered[index]=selected===correct;
+    const options=parent.querySelectorAll(".option");
+    options.forEach((op,i)=>{
+        if(i===correct) op.classList.add("correct");
+    });
+    if(selected!==correct) el.classList.add("wrong");
+    updateScore();
+}
+
+function updateScore(){
+    let score=Object.values(answered).filter(v=>v).length;
+    document.getElementById("score").innerText=score;
+}
+
+function submitTest(){
+    let score=Object.values(answered).filter(v=>v).length;
+    alert(`Test Submitted!\nYour Score: ${score}/30`);
+}
+</script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>

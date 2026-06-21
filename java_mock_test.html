@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java Mock Test - 25 Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#f4f7fc;padding:20px;}
+.container{max-width:1000px;margin:auto;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.back-btn{padding:10px 16px;border-radius:12px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#3b82f6;font-weight:500;cursor:pointer;transition:all 0.2s ease;}
+.back-btn:hover{background:rgba(59,130,246,0.25);}
+h1{text-align:center;margin-bottom:20px;color:#1e3a8a;}
+.question-card{background:#fff;margin-bottom:20px;padding:20px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);border-top:5px solid #e97a1f;}
+.question{font-weight:bold;margin-bottom:15px;color:#1e3a8a;}
+.option{display:block;margin:8px 0;padding:12px;border:2px solid #ddd;border-radius:10px;cursor:pointer;transition:.3s;}
+.option:hover{background:#fff7ed;}
+.correct{background:#22c55e !important;color:#fff;border-color:#22c55e !important;}
+.wrong{background:#ef4444 !important;color:#fff;border-color:#ef4444 !important;}
+#scoreBox{position:sticky;top:10px;background:#e97a1f;color:white;padding:15px;text-align:center;border-radius:12px;margin-bottom:20px;font-weight:600;}
+.submit-btn{display:block;margin:20px auto;padding:12px 30px;background:linear-gradient(135deg, #e97a1f, #f59e0b);color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-size:1rem;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(233,122,31,0.3);}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+    <button class="back-btn" onclick="window.location.href='mock_tests.html'">← Back</button>
+    <h1>Java Mock Test (25 Questions)</h1>
+    <div style="width:100px;"></div>
+</div>
+<div id="scoreBox">
+Score: <span id="score">0</span> / 25
+</div>
+<div id="quiz"></div>
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+</div>
+
+<script>
+const questions = [
+{q:"What will be the output for input 'Software Services' in the First Non-Repeated Character program?",o:["S","o","f","t"],a:1},
+{q:"What is the time complexity of the nested-loop approach used to find the first non-repeated character?",o:["O(n)","O(log n)","O(n²)","O(n log n)"],a:2},
+{q:"What is the output after removing duplicates from 'banaans'?",o:["bans","banas","bns","bana"],a:0},
+{q:"Which duplicate characters are printed for 'Programming'?",o:["r g m","p r g","g m","r m"],a:0},
+{q:"What is the highest occurring character in 'aaaaabbcddddd'?",o:["a","b","c","d"],a:0},
+{q:"What is the output after removing character 'a' from 'nacre Software'?",o:["ncre Softwre","ncre Software","ncre Softare","ncre Sofwre"],a:0},
+{q:"Which condition correctly checks whether a character is a digit?",o:["ch>='0' && ch<='9'","Character.isLetter(ch)","ch>='a' && ch<='z'","Character.isAlphabetic(ch)"],a:0},
+{q:"What is the output of the vowel checking program for 'nacre123'?",o:["It Contains Vowels","It Doesn't Contain Vowels","Error","Null"],a:0},
+{q:"For 'Nacre@123%', how many special characters are present?",o:["1","2","3","4"],a:1},
+{q:"For 'Nacre Software', how many capital letters exist?",o:["1","2","3","4"],a:1},
+{q:"For the string 'Nacre', how many consonants exist?",o:["2","3","4","5"],a:1},
+{q:"What is the character percentage in 'Nacre@123%'?",o:["40%","50%","60%","70%"],a:1},
+{q:"What is the vowel percentage in 'Consonents'?",o:["20%","30%","40%","50%"],a:1},
+{q:"What is the sorted output of 'avinash'?",o:["aahinsv","aaivnsh","aahisnv","aaishnv"],a:0},
+{q:"Which pair is an anagram according to the material?",o:["reaction & creation","java & python","apple & orange","code & coder"],a:0},
+{q:"How many times does 'a' occur in 'Today is Monday'?",o:["1","2","3","4"],a:1},
+{q:"Replacing 'i' with '#' in 'This is giil' results in:",o:["Th#s #s g##l","Th#s is g##l","This #s g##l","Th#s #s giil"],a:0},
+{q:"Which of the following is a palindrome?",o:["java","software","madam","program"],a:2},
+{q:"Reverse sentence output of 'Java is best programming language' is:",o:["language programming best is Java","egaugnal gnimmargorp tseb si avaJ","Java language programming best is","programming language Java best is"],a:0},
+{q:"Reverse words output of 'Today is Monday' is:",o:["Monday is Today","yadoT si yadnoM","yadnoM si yadoT","Monday Today is"],a:1},
+{q:"What is the short name of 'Sanjeeva Reddy Nagar'?",o:["SRN","SR Nagar","S R Nagar","Nagar SR"],a:2},
+{q:"What is the output after swapping first and last characters of 'NacrE'?",o:["EacrN","ENacr","ErcaN","NacrE"],a:0},
+{q:"What is the second highest number in array [1,8,7,6,9,4,3,2,5,6]?",o:["9","8","7","6"],a:1},
+{q:"How many permutations are possible for the string 'abc'?",o:["3","4","5","6"],a:3},
+{q:"What is the clockwise rotation result of matrix 1 2 3 / 4 5 6 / 7 8 9?",o:["7 4 1 | 8 5 2 | 9 6 3","3 6 9 | 2 5 8 | 1 4 7","1 4 7 | 2 5 8 | 3 6 9","9 8 7 | 6 5 4 | 3 2 1"],a:0}
+];
+
+const quiz=document.getElementById("quiz");
+let answered = {};
+
+questions.forEach((item,index)=>{
+    let card=document.createElement("div");
+    card.className="question-card";
+    let html=`<div class="question">Q${index+1}. ${item.q}</div>`;
+    item.o.forEach((opt,i)=>{
+        html+=`<div class="option" onclick="checkAnswer(this,${i},${item.a},${index})">${String.fromCharCode(65+i)}. ${opt}</div>`;
+    });
+    card.innerHTML=html;
+    quiz.appendChild(card);
+});
+
+function checkAnswer(el,selected,correct,index){
+    const parent=el.parentElement;
+    if(parent.dataset.done) return;
+    parent.dataset.done=true;
+    answered[index]=selected===correct;
+    const options=parent.querySelectorAll(".option");
+    options.forEach((op,i)=>{
+        if(i===correct) op.classList.add("correct");
+    });
+    if(selected!==correct) el.classList.add("wrong");
+    updateScore();
+}
+
+function updateScore(){
+    let score=Object.values(answered).filter(v=>v).length;
+    document.getElementById("score").innerText=score;
+}
+
+function submitTest(){
+    let score=Object.values(answered).filter(v=>v).length;
+    alert(`Test Submitted!\nYour Score: ${score}/25`);
+}
+</script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>

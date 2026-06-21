@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSA Mock Test - 40 Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#f4f7fc;padding:20px;}
+.container{max-width:1000px;margin:auto;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.back-btn{padding:10px 16px;border-radius:12px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#6366f1;font-weight:500;cursor:pointer;transition:all 0.2s ease;}
+.back-btn:hover{background:rgba(99,102,241,0.25);}
+h1{text-align:center;margin-bottom:20px;color:#312e81;}
+.question-card{background:#fff;margin-bottom:20px;padding:20px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);border-top:5px solid #6366f1;}
+.question{font-weight:bold;margin-bottom:15px;color:#312e81;}
+.option{display:block;margin:8px 0;padding:12px;border:2px solid #ddd;border-radius:10px;cursor:pointer;transition:.3s;}
+.option:hover{background:#eef2ff;}
+.correct{background:#22c55e !important;color:#fff;border-color:#22c55e !important;}
+.wrong{background:#ef4444 !important;color:#fff;border-color:#ef4444 !important;}
+#scoreBox{position:sticky;top:10px;background:#312e81;color:white;padding:15px;text-align:center;border-radius:12px;margin-bottom:20px;font-weight:600;}
+.submit-btn{display:block;margin:20px auto;padding:12px 30px;background:linear-gradient(135deg, #6366f1, #4338ca);color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-size:1rem;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(99,102,241,0.3);}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+    <button class="back-btn" onclick="window.location.href='mock_tests.html'">← Back</button>
+    <h1>DSA Mock Test (40 Questions)</h1>
+    <div style="width:100px;"></div>
+</div>
+<div id="scoreBox">
+Score: <span id="score">0</span> / 40
+</div>
+<div id="quiz"></div>
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+</div>
+
+<script>
+const questions = [
+{q:"Which data structure follows LIFO principle?",o:["Queue","Stack","Tree","Graph"],a:1},
+{q:"Which data structure follows FIFO principle?",o:["Stack","Queue","Heap","BST"],a:1},
+{q:"Time complexity of Binary Search?",o:["O(n)","O(log n)","O(n log n)","O(1)"],a:1},
+{q:"Worst case complexity of Quick Sort?",o:["O(n²)","O(log n)","O(n log n)","O(n)"],a:0},
+{q:"Which sorting algorithm is stable?",o:["Quick Sort","Heap Sort","Merge Sort","Selection Sort"],a:2},
+{q:"Height of a balanced BST with n nodes?",o:["O(n)","O(log n)","O(n²)","O(1)"],a:1},
+{q:"Which traversal gives sorted output in BST?",o:["Preorder","Postorder","Level Order","Inorder"],a:3},
+{q:"Which data structure is used in BFS?",o:["Stack","Queue","Heap","Array"],a:1},
+{q:"Which data structure is used in DFS?",o:["Queue","Array","Stack","Heap"],a:2},
+{q:"Best case complexity of Bubble Sort?",o:["O(n²)","O(n log n)","O(n)","O(log n)"],a:2},
+{q:"Which sorting algorithm uses divide and conquer?",o:["Merge Sort","Bubble Sort","Insertion Sort","Selection Sort"],a:0},
+{q:"Maximum children of binary tree node?",o:["1","2","3","Unlimited"],a:1},
+{q:"Which graph traversal uses recursion naturally?",o:["BFS","DFS","Dijkstra","Kruskal"],a:1},
+{q:"Dijkstra Algorithm is used for?",o:["MST","Shortest Path","Sorting","Searching"],a:1},
+{q:"Which algorithm finds MST?",o:["Binary Search","Kruskal","DFS","BFS"],a:1},
+{q:"Time complexity of Heap Sort?",o:["O(n²)","O(n)","O(log n)","O(n log n)"],a:3},
+{q:"Which data structure is used in recursion?",o:["Queue","Stack","Tree","Graph"],a:1},
+{q:"AVL Tree is?",o:["Balanced BST","Heap","Graph","Queue"],a:0},
+{q:"Red Black Tree height complexity?",o:["O(log n)","O(n)","O(n²)","O(1)"],a:0},
+{q:"Collision occurs in?",o:["Tree","Hashing","Queue","Stack"],a:1},
+{q:"Which probing technique is used in hashing?",o:["Linear Probing","DFS","BFS","Heapify"],a:0},
+{q:"Which structure stores key-value pairs?",o:["Hash Table","Queue","Stack","Heap"],a:0},
+{q:"Time complexity of searching in balanced BST?",o:["O(log n)","O(n²)","O(n)","O(1)"],a:0},
+{q:"Which tree is used in databases?",o:["AVL","B-Tree","Heap","Trie"],a:1},
+{q:"Trie is mainly used for?",o:["Sorting","String Searching","MST","Hashing"],a:1},
+{q:"Which algorithm uses dynamic programming?",o:["Floyd Warshall","DFS","BFS","Selection Sort"],a:0},
+{q:"Longest Common Subsequence uses?",o:["Greedy","DP","Backtracking","Heap"],a:1},
+{q:"Which algorithm solves 0/1 Knapsack optimally?",o:["DP","DFS","BFS","Heap Sort"],a:0},
+{q:"Which data structure is used for priority scheduling?",o:["Queue","Heap","Array","Linked List"],a:1},
+{q:"Heap is generally implemented using?",o:["Graph","Array","Linked List","Queue"],a:1},
+{q:"Time complexity of inserting into heap?",o:["O(log n)","O(n²)","O(n)","O(1)"],a:0},
+{q:"Which algorithm detects cycle in graph?",o:["DFS","Bubble Sort","Binary Search","Merge Sort"],a:0},
+{q:"Which graph representation saves memory for sparse graph?",o:["Adjacency Matrix","Adjacency List","Array","Heap"],a:1},
+{q:"Worst case search in hash table?",o:["O(log n)","O(n)","O(1)","O(n log n)"],a:1},
+{q:"Which tree traversal uses queue?",o:["Inorder","Preorder","Postorder","Level Order"],a:3},
+{q:"Topological sorting works on?",o:["Undirected Graph","DAG","Tree","Heap"],a:1},
+{q:"Which algorithm is greedy?",o:["Kruskal","LCS","Merge Sort","Binary Search"],a:0},
+{q:"Which sorting algorithm requires least swaps?",o:["Selection Sort","Bubble Sort","Merge Sort","Quick Sort"],a:0},
+{q:"Which data structure is best for undo operation?",o:["Queue","Stack","Heap","Tree"],a:1},
+{q:"Amortized O(1) insertion occurs in?",o:["Dynamic Array","BST","Heap","Graph"],a:0}
+];
+
+const quiz=document.getElementById("quiz");
+let answered = {};
+
+questions.forEach((item,index)=>{
+    let card=document.createElement("div");
+    card.className="question-card";
+    let html=`<div class="question">${item.q}</div>`;
+    item.o.forEach((opt,i)=>{
+        html+=`<div class="option" onclick="checkAnswer(this,${i},${item.a},${index})">${String.fromCharCode(65+i)}. ${opt}</div>`;
+    });
+    card.innerHTML=html;
+    quiz.appendChild(card);
+});
+
+function checkAnswer(el,selected,correct,index){
+    const parent=el.parentElement;
+    if(parent.dataset.done) return;
+    parent.dataset.done=true;
+    answered[index]=selected===correct;
+    const options=parent.querySelectorAll(".option");
+    options.forEach((op,i)=>{
+        if(i===correct) op.classList.add("correct");
+    });
+    if(selected!==correct) el.classList.add("wrong");
+    updateScore();
+}
+
+function updateScore(){
+    let score=Object.values(answered).filter(v=>v).length;
+    document.getElementById("score").innerText=score;
+}
+
+function submitTest(){
+    let score=Object.values(answered).filter(v=>v).length;
+    alert(`Test Submitted!\nYour Score: ${score}/40`);
+}
+</script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Software Interview Roadmap — SUN SKILLS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="roadmap-modern.css" />
+  <style>
+    :root { --accent:#F59E0B; --accent-2:#EF4444; --accent-rgb:245,158,11; }
+
+    /* Hero */
+    .ir-hero { text-align:center; padding:60px 20px 40px; }
+    .ir-hero h1 { font-size:2.5rem; font-weight:900; background:linear-gradient(135deg,#F59E0B,#EF4444); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:12px; line-height:1.2; }
+    .ir-hero p { color:var(--text-muted); font-size:1.05rem; max-width:700px; margin:0 auto 28px; line-height:1.7; }
+    .ir-hero-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .ir-hero-btns a { padding:12px 28px; border-radius:14px; font-weight:700; font-size:0.95rem; text-decoration:none; transition:all 0.25s; display:inline-flex; align-items:center; gap:8px; }
+    .ir-btn-primary { background:linear-gradient(135deg,#F59E0B,#EF4444); color:#fff; box-shadow:0 4px 16px rgba(245,158,11,0.3); }
+    .ir-btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,158,11,0.45); }
+    .ir-btn-outline { border:2px solid var(--border-strong); color:var(--text); }
+    .ir-btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+
+    /* Stats */
+    .ir-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:16px; max-width:900px; margin:0 auto 20px; }
+    .ir-stat { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px 16px; text-align:center; }
+    .ir-stat h3 { font-size:2rem; font-weight:900; background:linear-gradient(135deg,#F59E0B,#EF4444); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .ir-stat p { color:var(--text-muted); font-size:0.82rem; font-weight:600; margin-top:4px; }
+
+    /* Section headers */
+    .ir-section { padding:50px 20px; }
+    .ir-section h2 { font-size:1.75rem; font-weight:800; margin-bottom:8px; }
+    .ir-section h2 .emoji { margin-right:8px; }
+    .ir-section .ir-sub { color:var(--text-muted); font-size:0.95rem; margin-bottom:24px; }
+
+    /* Card grid */
+    .ir-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .ir-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; transition:all 0.3s; }
+    .ir-card:hover { transform:translateY(-6px); border-color:var(--accent); box-shadow:0 12px 32px rgba(245,158,11,0.15); }
+    .ir-card h3 { font-size:1.1rem; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+    .ir-card ul { list-style:none; padding:0; }
+    .ir-card li { color:var(--text-muted); font-size:0.88rem; padding:4px 0; display:flex; align-items:center; gap:6px; }
+    .ir-card li::before { content:'→'; color:var(--accent); font-weight:700; }
+
+    /* Timeline */
+    .ir-timeline { position:relative; padding-left:32px; }
+    .ir-timeline::before { content:''; position:absolute; left:12px; top:0; bottom:0; width:2px; background:linear-gradient(180deg,var(--accent),var(--accent-2)); border-radius:2px; }
+    .ir-tl-item { position:relative; margin-bottom:24px; }
+    .ir-tl-item::before { content:''; position:absolute; left:-26px; top:6px; width:14px; height:14px; border-radius:50%; background:var(--accent); border:3px solid var(--bg); }
+    .ir-tl-item h4 { font-size:1rem; font-weight:700; margin-bottom:4px; }
+    .ir-tl-item p { color:var(--text-muted); font-size:0.88rem; }
+    .ir-tl-item .ir-tag { display:inline-block; padding:2px 10px; border-radius:8px; font-size:0.72rem; font-weight:700; margin-top:6px; }
+    .ir-tag-wk { background:rgba(245,158,11,0.15); color:#F59E0B; }
+    .ir-tag-mo { background:rgba(239,68,68,0.15); color:#EF4444; }
+
+    /* Interview round cards */
+    .ir-round { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; position:relative; overflow:hidden; }
+    .ir-round::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); }
+    .ir-round .ir-round-num { position:absolute; top:12px; right:16px; font-size:2.5rem; font-weight:900; color:rgba(245,158,11,0.1); }
+    .ir-round h3 { font-size:1.15rem; font-weight:800; margin-bottom:8px; }
+    .ir-round p { color:var(--text-muted); font-size:0.88rem; line-height:1.6; margin-bottom:12px; }
+    .ir-round ul { list-style:none; padding:0; }
+    .ir-round li { color:var(--text-muted); font-size:0.85rem; padding:3px 0; }
+    .ir-round li i { color:var(--accent); margin-right:6px; font-size:0.75rem; }
+
+    /* Formula banner */
+    .ir-formula { background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(239,68,68,0.08)); border:1px solid var(--border); border-radius:20px; padding:40px 30px; text-align:center; margin:20px 0; }
+    .ir-formula h2 { font-size:1.5rem; margin-bottom:20px; }
+    .ir-formula-items { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:16px; }
+    .ir-formula-chip { padding:8px 18px; border-radius:12px; background:var(--surface); border:1px solid var(--border); font-weight:700; font-size:0.88rem; }
+    .ir-formula-eq { font-size:2rem; font-weight:900; background:linear-gradient(135deg,#F59E0B,#EF4444); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin:12px 0; }
+
+    /* FAQ */
+    .ir-faq details { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 20px; margin-bottom:10px; cursor:pointer; }
+    .ir-faq summary { font-weight:700; font-size:0.95rem; list-style:none; display:flex; justify-content:space-between; align-items:center; }
+    .ir-faq summary::after { content:'+'; color:var(--accent); font-size:1.2rem; font-weight:700; }
+    .ir-faq details[open] summary::after { content:'−'; }
+    .ir-faq p { color:var(--text-muted); font-size:0.88rem; margin-top:10px; line-height:1.6; }
+
+    /* Resources */
+    .ir-res-link { display:flex; align-items:center; gap:10px; padding:12px 16px; background:var(--surface); border:1px solid var(--border); border-radius:12px; text-decoration:none; color:var(--text); font-weight:600; font-size:0.9rem; transition:all 0.2s; margin-bottom:8px; }
+    .ir-res-link:hover { border-color:var(--accent); transform:translateX(4px); }
+    .ir-res-link i { color:var(--accent); font-size:1.1rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <a href="roadmaps.html" class="back-btn"><i class="fas fa-arrow-left"></i> Roadmaps</a>
+    <div class="topbar-title">Software Interview Roadmap</div>
+  </div>
+
+  <div class="container">
+
+    <!-- ═══ HERO ═══ -->
+    <section class="ir-hero reveal">
+      <h1>Crack Any Software<br>Engineering Interview</h1>
+      <p>Learn Programming → Master DSA → Build Projects → Clear Interviews → Get Placed. A complete step-by-step roadmap from zero to offer letter.</p>
+      <div class="ir-hero-btns">
+        <a href="#programming" class="ir-btn-primary">🚀 Start Learning</a>
+        <a href="#timeline" class="ir-btn-outline">📚 Explore Roadmap</a>
+        <a href="#mock" class="ir-btn-outline">🎯 Practice Interviews</a>
+      </div>
+    </section>
+
+    <!-- ═══ STATS ═══ -->
+    <div class="ir-stats reveal">
+      <div class="ir-stat"><h3>500+</h3><p>DSA Problems</p></div>
+      <div class="ir-stat"><h3>100+</h3><p>Interview Qs</p></div>
+      <div class="ir-stat"><h3>50+</h3><p>Resources</p></div>
+      <div class="ir-stat"><h3>100%</h3><p>Roadmap</p></div>
+    </div>
+
+    <!-- ═══ PLACEMENT JOURNEY TIMELINE ═══ -->
+    <section id="timeline" class="ir-section reveal">
+      <h2><span class="emoji">🗺️</span> Placement Journey Timeline</h2>
+      <p class="ir-sub">Your 6-month plan from preparation to offer</p>
+      <div class="ir-timeline">
+        <div class="ir-tl-item"><h4>Month 1–2: Programming + DSA Basics</h4><p>Master one language, solve 200+ easy/medium problems on arrays, strings, linked lists.</p><span class="ir-tag ir-tag-wk">Weeks 1–8</span></div>
+        <div class="ir-tl-item"><h4>Month 3: Advanced DSA + Projects</h4><p>Trees, graphs, DP. Build 2–3 portfolio projects showcasing real skills.</p><span class="ir-tag ir-tag-wk">Weeks 9–12</span></div>
+        <div class="ir-tl-item"><h4>Month 4: CS Fundamentals + SQL</h4><p>OS, DBMS, CN concepts. Practice SQL queries, joins, indexing.</p><span class="ir-tag ir-tag-mo">Weeks 13–16</span></div>
+        <div class="ir-tl-item"><h4>Month 5: Mock Interviews + Resume</h4><p>Practice coding rounds, system design, behavioral questions. Polish resume.</p><span class="ir-tag ir-tag-mo">Weeks 17–20</span></div>
+        <div class="ir-tl-item"><h4>Month 6: Apply + Interview</h4><p>Apply to companies, clear OA rounds, ace technical + HR rounds, get offers!</p><span class="ir-tag ir-tag-mo">Weeks 21–24</span></div>
+      </div>
+    </section>
+
+    <!-- ═══ PROGRAMMING FUNDAMENTALS ═══ -->
+    <section id="programming" class="ir-section reveal">
+      <h2><span class="emoji">💻</span> Programming Fundamentals</h2>
+      <p class="ir-sub">Pick one language and master it — this is your foundation</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>🐍 Python</h3><ul><li>DSA & Algorithms</li><li>AI / ML</li><li>Automation & Scripting</li><li>Data Analytics</li></ul></div>
+        <div class="ir-card"><h3>☕ Java</h3><ul><li>Backend Development</li><li>Enterprise Applications</li><li>Spring Boot</li><li>Android Apps</li></ul></div>
+        <div class="ir-card"><h3>⚡ C++</h3><ul><li>Competitive Programming</li><li>DSA Mastery</li><li>Game Development</li><li>Systems Programming</li></ul></div>
+        <div class="ir-card"><h3>🟨 JavaScript</h3><ul><li>Frontend Development</li><li>Full Stack (Node.js)</li><li>React / Next.js</li><li>Mobile (React Native)</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ DSA PREPARATION ═══ -->
+    <section id="dsa" class="ir-section reveal">
+      <h2><span class="emoji">🧮</span> DSA Preparation</h2>
+      <p class="ir-sub">The #1 thing every company tests — master these patterns</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>📊 Arrays & Strings</h3><ul><li>Two Pointers</li><li>Sliding Window</li><li>Prefix Sum</li><li>Kadane's Algorithm</li></ul></div>
+        <div class="ir-card"><h3>🔗 Linked Lists</h3><ul><li>Singly / Doubly</li><li>Reverse & Merge</li><li>Cycle Detection</li><li>Fast & Slow Pointers</li></ul></div>
+        <div class="ir-card"><h3>🌳 Trees & Graphs</h3><ul><li>BFS / DFS</li><li>Binary Trees & BST</li><li>Dijkstra's Algorithm</li><li>Topological Sort</li></ul></div>
+        <div class="ir-card"><h3>🧩 Dynamic Programming</h3><ul><li>Memoization</li><li>Tabulation</li><li>Knapsack Variations</li><li>LCS / LIS</li></ul></div>
+        <div class="ir-card"><h3>📚 Stacks & Queues</h3><ul><li>Monotonic Stack</li><li>Next Greater Element</li><li>Min Stack</li><li>Sliding Window Max</li></ul></div>
+        <div class="ir-card"><h3>🔍 Searching & Sorting</h3><ul><li>Binary Search</li><li>Merge Sort / Quick Sort</li><li>Search in Rotated Array</li><li>K-th Element</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ SQL & DATABASES ═══ -->
+    <section id="sql" class="ir-section reveal">
+      <h2><span class="emoji">🗄️</span> SQL & Databases</h2>
+      <p class="ir-sub">Every interview tests SQL — master these topics</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>📝 Core SQL</h3><ul><li>SELECT, WHERE, ORDER BY</li><li>JOINs (Inner, Left, Right)</li><li>GROUP BY & HAVING</li><li>Subqueries</li></ul></div>
+        <div class="ir-card"><h3>🔧 Advanced</h3><ul><li>Window Functions</li><li>CTEs & Recursive Queries</li><li>Indexing & Optimization</li><li>Stored Procedures</li></ul></div>
+        <div class="ir-card"><h3>🏗️ Design</h3><ul><li>Normalization (1NF–3NF)</li><li>ER Diagrams</li><li>ACID Properties</li><li>NoSQL vs SQL</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ CS FUNDAMENTALS ═══ -->
+    <section id="cs-fundamentals" class="ir-section reveal">
+      <h2><span class="emoji">🎓</span> CS Fundamentals</h2>
+      <p class="ir-sub">Must-know subjects for technical interviews</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>🖥️ Operating Systems</h3><ul><li>Process Management</li><li>Threads & Concurrency</li><li>Memory Management</li><li>Deadlocks & Scheduling</li></ul></div>
+        <div class="ir-card"><h3>🌐 Computer Networks</h3><ul><li>TCP/IP & OSI Model</li><li>HTTP/HTTPS & DNS</li><li>Sockets & Protocols</li><li>Network Security</li></ul></div>
+        <div class="ir-card"><h3>🗃️ DBMS</h3><ul><li>Relational Model</li><li>Transactions & Isolation</li><li>Concurrency Control</li><li>Database Design</li></ul></div>
+        <div class="ir-card"><h3>🏛️ System Design</h3><ul><li>Scalability & Load Balancing</li><li>Caching & CDN</li><li>Microservices</li><li>Database Sharding</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ PROJECTS ═══ -->
+    <section id="projects" class="ir-section reveal">
+      <h2><span class="emoji">🛠️</span> Projects Section</h2>
+      <p class="ir-sub">Build 2–3 strong projects that showcase real skills</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>🌐 Full Stack Web App</h3><ul><li>React + Node.js + MongoDB</li><li>Auth + CRUD + Deploy</li><li>Real-world use case</li></ul></div>
+        <div class="ir-card"><h3>📊 Data Dashboard</h3><ul><li>Python + Flask + Charts</li><li>REST API integration</li><li>Data visualization</li></ul></div>
+        <div class="ir-card"><h3>🤖 AI/ML Project</h3><ul><li>Classification / Prediction</li><li>Model training & deployment</li><li>Real dataset</li></ul></div>
+        <div class="ir-card"><h3>📱 CLI Tool / Library</h3><ul><li>Solve a real problem</li><li>Published on GitHub/PyPI</li><li>Clean documentation</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ GIT & GITHUB ═══ -->
+    <section id="git" class="ir-section reveal">
+      <h2><span class="emoji">🔀</span> Git & GitHub</h2>
+      <p class="ir-sub">Version control is mandatory — learn these essentials</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>📦 Basics</h3><ul><li>git init, add, commit</li><li>Branching & Merging</li><li>Pull Requests</li><li>Resolving Conflicts</li></ul></div>
+        <div class="ir-card"><h3>🚀 Advanced</h3><ul><li>Rebase vs Merge</li><li>Cherry-pick & Stash</li><li>GitHub Actions (CI/CD)</li><li>README best practices</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ RESUME BUILDER ═══ -->
+    <section id="resume" class="ir-section reveal">
+      <h2><span class="emoji">📄</span> Resume Builder</h2>
+      <p class="ir-sub">Your resume is your first impression — make it count</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>✅ Do's</h3><ul><li>One page only</li><li>Quantify impact (numbers)</li><li>Tailor keywords to JD</li><li>Clean, readable format</li></ul></div>
+        <div class="ir-card"><h3>❌ Don'ts</h3><ul><li>No photo (unless required)</li><li>No irrelevant hobbies</li><li>No generic objectives</li><li>No spelling mistakes</li></ul></div>
+        <div class="ir-card"><h3>📋 Sections</h3><ul><li>Education & CGPA</li><li>Skills & Technologies</li><li>Projects (with links)</li><li>Experience / Internships</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ ONLINE ASSESSMENT ═══ -->
+    <section id="oa" class="ir-section reveal">
+      <h2><span class="emoji">💻</span> Online Assessment (OA)</h2>
+      <p class="ir-sub">The first technical filter — prepare smartly</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>📝 Aptitude</h3><ul><li>Quantitative (Time & Work)</li><li>Logical Reasoning</li><li>Verbal Ability</li><li>Data Interpretation</li></ul></div>
+        <div class="ir-card"><h3>🧑‍💻 Coding Round</h3><ul><li>2–3 problems in 60–90 min</li><li>Easy + Medium difficulty</li><li>Practice on HackerRank</li><li>Time management is key</li></ul></div>
+        <div class="ir-card"><h3>📖 MCQ Round</h3><ul><li>CS Fundamentals</li><li>SQL Queries</li><li>Pseudo-code tracing</li><li>Output prediction</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ TECHNICAL ROUND 1 ═══ -->
+    <section id="tech1" class="ir-section reveal">
+      <h2><span class="emoji">🎯</span> Technical Interview — Round 1</h2>
+      <p class="ir-sub">Coding + problem solving under pressure</p>
+      <div class="ir-grid">
+        <div class="ir-round"><span class="ir-round-num">01</span><h3>Live Coding</h3><p>Solve 1–2 DSA problems while explaining your thought process aloud.</p><ul><li><i class="fas fa-check"></i> Start with brute force, then optimize</li><li><i class="fas fa-check"></i> Discuss time & space complexity</li><li><i class="fas fa-check"></i> Write clean, bug-free code</li><li><i class="fas fa-check"></i> Test with edge cases</li></ul></div>
+        <div class="ir-round"><span class="ir-round-num">02</span><h3>Project Discussion</h3><p>Explain your projects: architecture, challenges, and what you learned.</p><ul><li><i class="fas fa-check"></i> Know every tech choice</li><li><i class="fas fa-check"></i> Explain trade-offs</li><li><i class="fas fa-check"></i> Show ownership & impact</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ TECHNICAL ROUND 2 ═══ -->
+    <section id="tech2" class="ir-section reveal">
+      <h2><span class="emoji">🔥</span> Technical Interview — Round 2</h2>
+      <p class="ir-sub">Advanced problem solving + deeper CS knowledge</p>
+      <div class="ir-grid">
+        <div class="ir-round"><span class="ir-round-num">01</span><h3>Harder DSA</h3><p>Graph problems, DP, or advanced data structures.</p><ul><li><i class="fas fa-check"></i> Graph algorithms (Dijkstra, BFS/DFS)</li><li><i class="fas fa-check"></i> Dynamic Programming patterns</li><li><i class="fas fa-check"></i> Trie, Segment Tree, Heap</li></ul></div>
+        <div class="ir-round"><span class="ir-round-num">02</span><h3>CS Deep Dive</h3><p>Detailed questions on OS, DBMS, CN, or System Design.</p><ul><li><i class="fas fa-check"></i> Process vs Thread</li><li><i class="fas fa-check"></i> Indexing & Query optimization</li><li><i class="fas fa-check"></i>TCP handshake & HTTP methods</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ CS FUNDAMENTALS ROUND ═══ -->
+    <section id="cs-round" class="ir-section reveal">
+      <h2><span class="emoji">📚</span> CS Fundamentals Round</h2>
+      <p class="ir-sub">Companies love testing core CS — be ready</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>🖥️ OS Questions</h3><ul><li>What is a deadlock?</li><li>Explain virtual memory</li><li>Process vs Thread</li><li>Scheduling algorithms</li></ul></div>
+        <div class="ir-card"><h3>🗃️ DBMS Questions</h3><ul><li>ACID properties explained</li><li>Normalization examples</li><li>SQL vs NoSQL</li><li>What is an index?</li></ul></div>
+        <div class="ir-card"><h3>🌐 Network Questions</h3><ul><li>What happens when you type a URL?</li><li>TCP vs UDP</li><li>Explain DNS resolution</li><li>HTTP status codes</li></ul></div>
+        <div class="ir-card"><h3>🏗️ OOP Questions</h3><ul><li>4 pillars of OOP</li><li>Abstract class vs Interface</li><li>Polymorphism examples</li><li>SOLID principles</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ SYSTEM DESIGN ═══ -->
+    <section id="system-design" class="ir-section reveal">
+      <h2><span class="emoji">🏗️</span> System Design</h2>
+      <p class="ir-sub">Required for mid/senior roles, asked in some fresher interviews too</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>🌐 URL Shortener</h3><ul><li>Hashing strategy</li><li>Database schema</li><li>Scalability considerations</li></ul></div>
+        <div class="ir-card"><h3>💬 Chat Application</h3><ul><li>WebSocket architecture</li><li>Message queue</li><li>Read receipts</li></ul></div>
+        <div class="ir-card"><h3>📰 News Feed</h3><ul><li>Fan-out pattern</li><li>Caching strategy</li><li>Pagination</li></ul></div>
+        <div class="ir-card"><h3>🛒 E-commerce</h3><ul><li>Payment flow</li><li>Inventory management</li><li>Search & recommendations</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ MANAGERIAL ROUND ═══ -->
+    <section id="managerial" class="ir-section reveal">
+      <h2><span class="emoji">🤝</span> Managerial Round</h2>
+      <p class="ir-sub">Assessing team fit, leadership, and work ethic</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>🎯 Common Questions</h3><ul><li>Tell me about a challenge you faced</li><li>How do you handle disagreements?</li><li>Describe your ideal work environment</li><li>Where do you see yourself in 5 years?</li></ul></div>
+        <div class="ir-card"><h3>⭐ STAR Method</h3><ul><li><strong>S</strong>ituation — set the context</li><li><strong>T</strong>ask — your responsibility</li><li><strong>A</strong>ction — what you did</li><li><strong>R</strong>esult — the outcome</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ HR ROUND ═══ -->
+    <section id="hr" class="ir-section reveal">
+      <h2><span class="emoji">💼</span> HR Round</h2>
+      <p class="ir-sub">The final gate — be confident and genuine</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>❓ Top Questions</h3><ul><li>Tell me about yourself</li><li>Why this company?</li><li>Strengths & Weaknesses</li><li>Salary expectations</li></ul></div>
+        <div class="ir-card"><h3>💡 Tips</h3><ul><li>Research the company</li><li>Be honest about gaps</li><li>Show enthusiasm</li><li>Ask good questions back</li></ul></div>
+        <div class="ir-card"><h3>📋 Negotiation</h3><ul><li>Know market salary</li><li>Don't give first number</li><li>Consider total package</li><li>Be polite but firm</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ OFFER LETTER ═══ -->
+    <section id="offer" class="ir-section reveal">
+      <h2><span class="emoji">🎉</span> Offer Letter</h2>
+      <p class="ir-sub">You got it! Here's what to check before accepting</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>📋 Checklist</h3><ul><li>CTC vs In-hand salary</li><li>Joining date & location</li><li>Role & designation</li><li>Stock options / RSUs</li></ul></div>
+        <div class="ir-card"><h3>⚖️ Compare Offers</h3><ul><li>Growth opportunities</li><li>Work-life balance</li><li>Tech stack & learning</li><li>Company culture</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ═══ MOCK INTERVIEW PRACTICE ═══ -->
+    <section id="mock" class="ir-section reveal">
+      <h2><span class="emoji">🎤</span> Mock Interview Practice</h2>
+      <p class="ir-sub">Practice makes perfect — use these resources</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>👥 Peer Mock Interviews</h3><ul><li>Practice with friends</li><li>Take turns as interviewer</li><li>Record and review</li></ul></div>
+        <div class="ir-card"><h3>🌐 Platforms</h3><ul><li>Pramp (free peer mocks)</li><li>InterviewBit (coding)</li><li>LeetCode Mock</li><li>HackerRank contests</li></ul></div>
+        <div class="ir-card"><h3>📝 Our Mock Tests</h3><ul><li>Python — 40 questions</li><li>Java — 25 questions</li><li>SQL — 22 questions</li><li>DSA — 40 questions</li></ul></div>
+      </div>
+      <div style="text-align:center;margin-top:20px;">
+        <a href="mock_tests.html" class="ir-btn-primary" style="display:inline-flex;padding:12px 28px;border-radius:14px;background:linear-gradient(135deg,#F59E0B,#EF4444);color:#fff;font-weight:700;text-decoration:none;box-shadow:0 4px 16px rgba(245,158,11,0.3);">🎯 Take a Mock Test</a>
+      </div>
+    </section>
+
+    <!-- ═══ PLACEMENT TRACKER ═══ -->
+    <section id="tracker" class="ir-section reveal">
+      <h2><span class="emoji">📊</span> Placement Tracker</h2>
+      <p class="ir-sub">Track your applications and stay organized</p>
+      <div class="ir-card" style="padding:30px;">
+        <h3>📋 Application Spreadsheet Template</h3>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;margin-top:12px;">
+            <thead>
+              <tr style="border-bottom:2px solid var(--border);">
+                <th style="text-align:left;padding:10px;color:var(--accent);font-size:0.85rem;">Company</th>
+                <th style="text-align:left;padding:10px;color:var(--accent);font-size:0.85rem;">Role</th>
+                <th style="text-align:left;padding:10px;color:var(--accent);font-size:0.85rem;">Applied</th>
+                <th style="text-align:left;padding:10px;color:var(--accent);font-size:0.85rem;">OA</th>
+                <th style="text-align:left;padding:10px;color:var(--accent);font-size:0.85rem;">R1</th>
+                <th style="text-align:left;padding:10px;color:var(--accent);font-size:0.85rem;">R2</th>
+                <th style="text-align:left;padding:10px;color:var(--accent);font-size:0.85rem;">HR</th>
+                <th style="text-align:left;padding:10px;color:var(--accent);font-size:0.85rem;">Status</th>
+              </tr>
+            </thead>
+            <tbody style="color:var(--text-muted);font-size:0.85rem;">
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px;">TCS</td><td>SDE</td><td>✅</td><td>✅</td><td>⏳</td><td>—</td><td>—</td><td>In Progress</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px;">Infosys</td><td>SE</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>⏳</td><td>HR Round</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px;">Wipro</td><td>SDE</td><td>✅</td><td>❌</td><td>—</td><td>—</td><td>—</td><td>Rejected</td></tr>
+              <tr><td style="padding:10px;">Accenture</td><td>ASE</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>🎉 Offer!</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ RESOURCES ═══ -->
+    <section id="resources" class="ir-section reveal">
+      <h2><span class="emoji">📚</span> Resources & Notes</h2>
+      <p class="ir-sub">Free and paid resources to accelerate your prep</p>
+      <a href="materials.html" class="ir-res-link"><i class="fas fa-book"></i> SUN SKILLS — Study Materials Library</a>
+      <a href="roadmaps.html" class="ir-res-link"><i class="fas fa-map"></i> SUN SKILLS — All Learning Roadmaps</a>
+      <a href="videos.html" class="ir-res-link"><i class="fas fa-play-circle"></i> SUN SKILLS — Video Tutorials</a>
+      <a href="https://leetcode.com" target="_blank" class="ir-res-link"><i class="fas fa-code"></i> LeetCode — DSA Practice</a>
+      <a href="https://www.geeksforgeeks.org" target="_blank" class="ir-res-link"><i class="fas fa-laptop-code"></i> GeeksforGeeks — CS Fundamentals</a>
+      <a href="https://neetcode.io" target="_blank" class="ir-res-link"><i class="fas fa-list-check"></i> NeetCode — DSA Roadmap</a>
+      <a href="https://takeuforward.org" target="_blank" class="ir-res-link"><i class="fas fa-forward"></i> Striver's SDE Sheet</a>
+    </section>
+
+    <!-- ═══ FAQ ═══ -->
+    <section id="faq" class="ir-section reveal">
+      <h2><span class="emoji">❓</span> Frequently Asked Questions</h2>
+      <p class="ir-sub">Common doubts answered</p>
+      <div class="ir-faq">
+        <details><summary>How many months do I need to prepare?</summary><p>4–6 months of dedicated preparation is enough for most product-based companies. Service-based companies can be cracked in 2–3 months with focused aptitude + basic coding practice.</p></details>
+        <details><summary>Which programming language should I choose?</summary><p>Python for ease and speed, Java for enterprise roles, C++ for competitive programming. Pick ONE and master it — the interviewer cares about problem-solving, not the language.</p></details>
+        <details><summary>How many DSA problems should I solve?</summary><p>Aim for 300–500 problems. Focus on patterns, not quantity. If you can identify the pattern (sliding window, two pointers, etc.) in a new problem, you're ready.</p></details>
+        <details><summary>Do I need System Design for fresher roles?</summary><p>Basic system design (how a URL shortener works, what is load balancing) is increasingly asked even in fresher interviews. Full system design is typically for 2+ years experience.</p></details>
+        <details><summary>How important are projects?</summary><p>Very important. Projects show you can build real things, not just solve puzzles. Have 2–3 solid projects on GitHub with clean README files and live demos if possible.</p></details>
+        <details><summary>Should I apply to many companies or few?</summary><p>Quality over quantity. Research each company, tailor your resume, and prepare specifically. But do apply to at least 20–30 companies to maximize your chances.</p></details>
+      </div>
+    </section>
+
+    <!-- ═══ SUCCESS STORIES ═══ -->
+    <section id="stories" class="ir-section reveal">
+      <h2><span class="emoji">🏆</span> Success Stories</h2>
+      <p class="ir-sub">Real placement stories to inspire you</p>
+      <div class="ir-grid">
+        <div class="ir-card" style="border-left:3px solid #10B981;"><h3>🎯 From Zero to TCS</h3><p style="color:var(--text-muted);font-size:0.88rem;line-height:1.6;">Started with no coding knowledge. Followed Python roadmap → 200 DSA problems → 2 projects. Cleared TCS Digital in 4 months of prep.</p></div>
+        <div class="ir-card" style="border-left:3px solid #3B82F6;"><h3>💡 Infosys in 3 Months</h3><p style="color:var(--text-muted);font-size:0.88rem;line-height:1.6;">Focused on aptitude + Java basics. Practiced mock tests daily. Cleared Infosys SP role with a package above expectations.</p></div>
+        <div class="ir-card" style="border-left:3px solid #8B5CF6;"><h3>🚀 Product Company Dream</h3><p style="color:var(--text-muted);font-size:0.88rem;line-height:1.6;">6 months of DSA + system design + 3 strong projects. Received offers from 2 product companies. Currently working at a startup as SDE-1.</p></div>
+      </div>
+    </section>
+
+    <!-- ═══ FINAL SUCCESS FORMULA ═══ -->
+    <section id="success" class="ir-section reveal">
+      <div class="ir-formula">
+        <h2>🏆 Final Success Formula</h2>
+        <div class="ir-formula-items">
+          <span class="ir-formula-chip">💻 Programming</span>
+          <span class="ir-formula-chip">🧮 DSA</span>
+          <span class="ir-formula-chip">🛠️ Projects</span>
+          <span class="ir-formula-chip">🗄️ DBMS</span>
+          <span class="ir-formula-chip">🖥️ OS</span>
+          <span class="ir-formula-chip">🌐 CN</span>
+          <span class="ir-formula-chip">📄 Resume</span>
+          <span class="ir-formula-chip">🎤 Mock Interviews</span>
+        </div>
+        <div class="ir-formula-eq">= Software Job Offer 🎉</div>
+        <p style="color:var(--text-muted);font-size:0.9rem;max-width:600px;margin:0 auto;">Consistency beats talent. Solve problems daily, build projects weekly, and never stop learning. Your dream job is closer than you think!</p>
+      </div>
+    </section>
+
+    <!-- ═══ COMMUNITY & CONTACT ═══ -->
+    <section id="community" class="ir-section reveal">
+      <h2><span class="emoji">🤝</span> Community & Contact</h2>
+      <p class="ir-sub">Join fellow learners and share your journey</p>
+      <div class="ir-grid">
+        <div class="ir-card"><h3>💬 Discussion Groups</h3><ul><li>Share interview experiences</li><li>Ask doubts & help others</li><li>Stay motivated together</li></ul></div>
+        <div class="ir-card"><h3>📧 Stay Updated</h3><ul><li>New materials & roadmaps</li><li>Interview tips & tricks</li><li>Job alerts & referrals</li></ul></div>
+        <div class="ir-card"><h3>🔗 Connect</h3><ul><li>LinkedIn community</li><li>Telegram study groups</li><li>YouTube channel</li></ul></div>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <div class="cta-banner reveal">
+      <h2>Ready to Start Your Journey? 🚀</h2>
+      <p>Begin with programming fundamentals and follow the roadmap step by step.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+        <a href="materials.html" class="cta-btn">📚 Start Learning</a>
+        <a href="mock_tests.html" class="cta-btn cta-btn-outline">🎯 Take Mock Test</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+  <script src="firebase.js"></script>
+    <script src="auth-gate.js"></script>
+
+  <script>
+  (function(){
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+    },{threshold:0.08});
+    document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>.NET Technologies Mock Test - 30 Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#f4f7fc;padding:20px;}
+.container{max-width:1000px;margin:auto;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.back-btn{padding:10px 16px;border-radius:12px;background:rgba(217,119,6,0.15);border:1px solid rgba(217,119,6,0.3);color:#d97706;font-weight:500;cursor:pointer;transition:all 0.2s ease;}
+.back-btn:hover{background:rgba(217,119,6,0.25);}
+h1{text-align:center;margin-bottom:20px;color:#78350f;}
+.question-card{background:#fff;margin-bottom:20px;padding:20px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);border-top:5px solid #d97706;}
+.question{font-weight:bold;margin-bottom:15px;color:#78350f;}
+.option{display:block;margin:8px 0;padding:12px;border:2px solid #ddd;border-radius:10px;cursor:pointer;transition:.3s;}
+.option:hover{background:#fffbeb;}
+.correct{background:#22c55e !important;color:#fff;border-color:#22c55e !important;}
+.wrong{background:#ef4444 !important;color:#fff;border-color:#ef4444 !important;}
+#scoreBox{position:sticky;top:10px;background:#78350f;color:white;padding:15px;text-align:center;border-radius:12px;margin-bottom:20px;font-weight:600;}
+.submit-btn{display:block;margin:20px auto;padding:12px 30px;background:linear-gradient(135deg, #d97706, #b45309);color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-size:1rem;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(217,119,6,0.3);}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+    <button class="back-btn" onclick="window.location.href='mock_tests.html'">← Back</button>
+    <h1>.NET Technologies Mock Test (30 Questions)</h1>
+    <div style="width:100px;"></div>
+</div>
+<div id="scoreBox">
+Score: <span id="score">0</span> / 30
+</div>
+<div id="quiz"></div>
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+</div>
+
+<script>
+const questions = [
+{q:"Which component provides a common execution environment for all .NET applications?",o:["CTS","CLR","FCL","ASP.NET"],a:1},
+{q:"What is the primary purpose of the Common Type System (CTS)?",o:["Database Connectivity","Memory Allocation","Interoperability between .NET languages","Web Hosting"],a:2},
+{q:"Which loop is most suitable when the number of iterations is known beforehand?",o:["While","Do While","For Next","For Each"],a:2},
+{q:"Which VB.NET loop does not require an explicit counter variable?",o:["For Loop","While Loop","For Each","Do Until"],a:2},
+{q:"Which statement is used to terminate unstructured error handling?",o:["On Error Resume","On Error Stop","On Error GoTo 0","Try Catch"],a:2},
+{q:"Which block always executes whether an exception occurs or not?",o:["Try","Catch","Finally","Throw"],a:2},
+{q:"In structured exception handling, which block contains code that may generate an exception?",o:["Catch","Try","Finally","Error"],a:1},
+{q:"What is the keyword used to define a property in VB.NET?",o:["Field","Variable","Property","Member"],a:2},
+{q:"Which keyword is used to initialize objects through constructors?",o:["Create","New","Init","Object"],a:1},
+{q:"What is the purpose of a destructor in VB.NET?",o:["Allocate Memory","Create Objects","Deallocate Resources","Create Classes"],a:2},
+{q:"Which OOP concept allows a derived class to acquire properties of a base class?",o:["Polymorphism","Inheritance","Encapsulation","Abstraction"],a:1},
+{q:"Which keyword makes a base class method overridable?",o:["Override","Virtual","Overridable","Inherits"],a:2},
+{q:"Which keyword is used in the derived class to override a method?",o:["Override","Overrides","Overridable","Inherit"],a:1},
+{q:"Method overloading allows:",o:["Multiple classes","Same method name with different parameters","Multiple inheritance","Same variables"],a:1},
+{q:"Polymorphism means:",o:["One task performed in different ways","One class only","Single inheritance","Single method"],a:0},
+{q:"Which keyword is used to define an interface in VB.NET?",o:["Class","Abstract","Interface","Implements"],a:2},
+{q:"Which namespace provides multithreading support in .NET?",o:["System.IO","System.Data","System.Threading","System.Web"],a:2},
+{q:"What is the smallest unit of execution scheduled by Windows?",o:["Process","Object","Thread","Module"],a:2},
+{q:"Which .NET feature automatically manages memory allocation and deallocation?",o:["CTS","CLR","FCL","ASP.NET"],a:1},
+{q:"Which intermediate language is generated by .NET compilers?",o:["JVM","Bytecode","CIL","Assembly"],a:2},
+{q:"ASP.NET pages generally use which file extension?",o:[".html",".asp",".aspx",".net"],a:2},
+{q:"Which ASP.NET attribute instructs elements to execute on the server?",o:["server=true","runat='server'","asp=true","execute=server"],a:1},
+{q:"Which hidden mechanism maintains control values between postbacks?",o:["Session","Cookies","View State","Cache"],a:2},
+{q:"Which event occurs when an ASP.NET page is loaded?",o:["Page_Init","Page_Load","Page_Start","Page_Run"],a:1},
+{q:"Which file is used for application-wide configuration and events?",o:["web.config","global.config","Global.asax","default.aspx"],a:2},
+{q:"Which HTML server control represents a hyperlink?",o:["HtmlImage","HtmlAnchor","HtmlForm","HtmlButton"],a:1},
+{q:"Which HTML control is used for file uploads?",o:["HtmlInputText","HtmlInputFile","HtmlInputButton","HtmlSelect"],a:1},
+{q:"Which ASP.NET control displays text information?",o:["Panel","Label","Table","Button"],a:1},
+{q:"Which ADO.NET object provides a forward-only, read-only stream of data?",o:["DataSet","Connection","DataReader","DataAdapter"],a:2},
+{q:"Which ADO.NET object establishes a physical connection to a data source?",o:["DataReader","Connection","Command","DataSet"],a:1}
+];
+
+const quiz=document.getElementById("quiz");
+let answered = {};
+
+questions.forEach((item,index)=>{
+    let card=document.createElement("div");
+    card.className="question-card";
+    let html=`<div class="question">${item.q}</div>`;
+    item.o.forEach((opt,i)=>{
+        html+=`<div class="option" onclick="checkAnswer(this,${i},${item.a},${index})">${String.fromCharCode(65+i)}. ${opt}</div>`;
+    });
+    card.innerHTML=html;
+    quiz.appendChild(card);
+});
+
+function checkAnswer(el,selected,correct,index){
+    const parent=el.parentElement;
+    if(parent.dataset.done) return;
+    parent.dataset.done=true;
+    answered[index]=selected===correct;
+    const options=parent.querySelectorAll(".option");
+    options.forEach((op,i)=>{
+        if(i===correct) op.classList.add("correct");
+    });
+    if(selected!==correct) el.classList.add("wrong");
+    updateScore();
+}
+
+function updateScore(){
+    let score=Object.values(answered).filter(v=>v).length;
+    document.getElementById("score").innerText=score;
+}
+
+function submitTest(){
+    let score=Object.values(answered).filter(v=>v).length;
+    alert(`Test Submitted!\nYour Score: ${score}/30`);
+}
+</script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>

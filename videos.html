@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Tutorials — SUN Skills Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="dashboard-light.css" />
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="nav-left">
+        <div class="logo">
+          <i class="fas fa-graduation-cap"></i>
+          <span>SUN SKILLS</span>
+        </div>
+      </div>
+      <div class="nav-center">
+        <div class="welcome-message">
+          <p class="welcome-text">Video Courses</p>
+          <p class="sub-text">Learn from expert tutorials</p>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="notification-btn">
+          <i class="fas fa-bell"></i>
+          <span class="badge">3</span>
+        </button>
+        <div class="profile-avatar">
+          <i class="fas fa-user"></i>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="content-container" style="padding: 2rem; max-width: 1400px; margin: 0 auto;">
+    <header class="page-header" style="margin-bottom: 2rem;">
+      <div>
+        <p class="eyebrow" style="color: #64748B; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem;">Video Library</p>
+        <h1 style="font-size: 2rem; font-weight: 700; color: #1E293B; margin-bottom: 0.5rem;">📺 Course Video Tutorials</h1>
+        <p style="color: #64748B; font-size: 1rem;">Watch curated YouTube video lessons for each course — only materials with video content are shown here.</p>
+      </div>
+      <div class="stats-card" style="background: linear-gradient(135deg, #EF4444, #F87171); padding: 1rem 1.5rem; border-radius: 12px; color: white; text-align: center; min-width: 120px;">
+        <span style="font-size: 0.875rem; opacity: 0.9;">Video Courses</span>
+        <strong id="videoCount" style="font-size: 1.5rem; font-weight: 700; display: block; margin-top: 0.25rem;">—</strong>
+      </div>
+    </header>
+
+    <section class="filter-panel" style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08); margin-bottom: 2rem; border: 1px solid #E2E8F0;">
+      <div class="filter-row" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <select id="videoLangFilter" style="padding: 0.75rem; border-radius: 12px; border: 1px solid #E2E8F0; background: #F8FAFC; color: #1E293B; font-size: 0.95rem;">
+          <option value="all">All Languages / Topics</option>
+          <option value="Python">Python</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="Java">Java</option>
+          <option value="C">C</option>
+          <option value="C#/.NET">C# / .NET</option>
+          <option value="SQL/Database">SQL / Database</option>
+          <option value="AWS/Cloud">AWS / Cloud</option>
+          <option value="Aptitude">Aptitude</option>
+          <option value="Cybersecurity">Cybersecurity</option>
+          <option value="Linux">Linux</option>
+          <option value="MongoDB">MongoDB</option>
+          <option value="SAP">SAP</option>
+          <option value="Networking">Networking</option>
+          <option value="English">English / HR</option>
+        </select>
+        <select id="videoCatFilter" style="padding: 0.75rem; border-radius: 12px; border: 1px solid #E2E8F0; background: #F8FAFC; color: #1E293B; font-size: 0.95rem;">
+          <option value="all">All Categories</option>
+          <option value="Programming Languages">Programming Languages</option>
+          <option value="Programming">DSA / Programming</option>
+          <option value="Database">Database</option>
+          <option value="Cloud Computing">Cloud Computing</option>
+          <option value="Cybersecurity">Cybersecurity</option>
+          <option value="App Development">App Development</option>
+          <option value="Enterprise Software">Enterprise Software</option>
+          <option value="Soft Skills">Soft Skills</option>
+          <option value="Aptitude & Reasoning">Aptitude & Reasoning</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="videos-grid" id="videosGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem;"></section>
+
+    <!-- Inline Player Section -->
+    <div class="inline-player-section" id="inlinePlayerSection" style="display:none; margin-top: 2rem;">
+      <div class="inline-player-card" style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08); border: 1px solid #E2E8F0;">
+        <div class="inline-player-header" style="display: flex; justify-content: space-between; align-items: start; gap: 1rem; margin-bottom: 1rem; flex-wrap:wrap;">
+          <div style="flex:1; min-width:220px;">
+            <h2 id="inlinePlayerTitle" style="font-size: 1.5rem; font-weight: 700; color: #1E293B; margin-bottom: 0.5rem;"></h2>
+            <p id="inlinePlayerMeta" style="color: #64748B; font-size: 0.875rem;"></p>
+          </div>
+          <div style="display:flex; gap:0.5rem; align-items:center;">
+            <div style="display:flex; gap:0.5rem; background:#F8FAFC; padding:6px; border-radius:10px;">
+              <button id="modeEmbedded" onclick="setPlayerMode('embedded')" style="padding:6px 10px; border-radius:8px; border:none; background:transparent; cursor:pointer; font-weight:600;">Embedded</button>
+              <button id="modeYouTube" onclick="setPlayerMode('youtube')" style="padding:6px 10px; border-radius:8px; border:none; background:transparent; cursor:pointer; font-weight:600;">YouTube</button>
+              <button id="modeInvidious" onclick="setPlayerMode('invidious')" style="padding:6px 10px; border-radius:8px; border:none; background:transparent; cursor:pointer; font-weight:600;">Invidious</button>
+              <button id="modePopup" onclick="setPlayerMode('popup')" style="padding:6px 10px; border-radius:8px; border:none; background:transparent; cursor:pointer; font-weight:600;">Popup</button>
+            </div>
+            <button class="close-player-btn" onclick="closeInlinePlayer()" style="padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid #E2E8F0; background: #F8FAFC; color: #64748B; cursor: pointer; font-size: 0.875rem;">✕ Close</button>
+          </div>
+        </div>
+        <div class="video-frame-wrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px;">
+          <iframe id="inlineYoutubePlayer" title="YouTube Video Player" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          <div id="inlinePlayerFallback" style="display:none; position:absolute; inset:0; padding:1.5rem; background:#f8fafc; color:#334155; font-size:0.95rem; line-height:1.6; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; gap:1rem; border-radius:12px;">
+            <div style="max-width:680px;">
+              <strong style="display:block; font-size:1rem; margin-bottom:0.5rem;">Local playback is not supported from file://</strong>
+              Open this page using a local server such as <code>python -m http.server 8000</code> and then use <code>http://localhost:8000/videos.html</code> for inline playback.
+            </div>
+            <a id="inlinePlayerFallbackLink" href="#" target="_blank" rel="noopener noreferrer" style="padding:0.75rem 1.25rem; background:#3b82f6; color:white; border-radius:12px; text-decoration:none; font-weight:600;">Open on YouTube</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation (Mobile) -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-items">
+      <a href="index.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="materials.html" class="bottom-nav-item">
+        <i class="fas fa-book"></i>
+        <span>Materials</span>
+      </a>
+      <a href="videos.html" class="bottom-nav-item active">
+        <i class="fas fa-play-circle"></i>
+        <span>Videos</span>
+      </a>
+      <a href="mock_tests.html" class="bottom-nav-item">
+        <i class="fas fa-clipboard-list"></i>
+        <span>Tests</span>
+      </a>
+      <a href="profile.html" class="bottom-nav-item">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </div>
+  </nav>
+
+  <script>
+    (function() {
+    })();
+  </script>
+  <script>
+    let allMaterials = [];
+
+    /* Built-in YouTube course videos for ALL programming languages / topics.
+       These are merged with materials.json (deduped by video ID) so every
+       language in the filter always has video content. */
+    const PROGRAMMING_VIDEOS = [
+      // ---- JavaScript ----
+      { id: 1001, title: "JavaScript Full Course for Beginners", description: "Complete JavaScript course covering fundamentals, the DOM, and real projects.", category: "Programming Languages", language: "JavaScript", youtubeVideo: "https://www.youtube.com/watch?v=PkZNo7MFNFg", duration: "3h 26m" },
+      { id: 1002, title: "JavaScript Programming - Full Course", description: "Hands-on JavaScript from syntax and functions to async and OOP.", category: "Programming Languages", language: "JavaScript", youtubeVideo: "https://www.youtube.com/watch?v=jS4aFq5-91M", duration: "7h 22m" },
+
+      // ---- Linux ----
+      { id: 1003, title: "Introduction to Linux – Full Course", description: "Learn the Linux command line, files, permissions and everyday tools.", category: "Cloud Computing", language: "Linux", youtubeVideo: "https://www.youtube.com/watch?v=sWbUDq4S6Y8", duration: "6h" },
+      { id: 1004, title: "Linux for Beginners - Full Course", description: "Master Linux basics, essential commands and the operating system from scratch.", category: "Cloud Computing", language: "Linux", youtubeVideo: "https://www.youtube.com/watch?v=pkZEKIXe3u4", duration: "4h" },
+
+      // ---- MongoDB ----
+      { id: 1005, title: "Learn MongoDB in 1 Hour", description: "A quick, practical introduction to MongoDB, collections and queries.", category: "Database", language: "MongoDB", youtubeVideo: "https://www.youtube.com/watch?v=c2M-rlkkT5o", duration: "1h" },
+      { id: 1006, title: "MongoDB Full Tutorial with Node.js & Mongoose", description: "Build a real project with MongoDB, Express and Mongoose.", category: "Database", language: "MongoDB", youtubeVideo: "https://www.youtube.com/watch?v=4yqu8YF29cU", duration: "2h" },
+
+      // ---- Networking ----
+      { id: 1007, title: "Computer Networking Course (Network+ Prep)", description: "Full college-level networking course: protocols, IPs, routing and troubleshooting.", category: "Cloud Computing", language: "Networking", youtubeVideo: "https://www.youtube.com/watch?v=qiQR5rTSshw", duration: "9h 24m" },
+      { id: 1008, title: "Computer Networking Fundamentals", description: "Core concepts, protocols and architectures of computer networks.", category: "Cloud Computing", language: "Networking", youtubeVideo: "https://www.youtube.com/watch?v=fQbBPa0ADvs", duration: "12h" },
+
+      // ---- SAP ----
+      { id: 1009, title: "SAP MM Full Course — Zero to Hero", description: "Complete SAP Materials Management tutorial for absolute beginners.", category: "Enterprise Software", language: "SAP", youtubeVideo: "https://www.youtube.com/watch?v=iaD-pyE03lc", duration: "Full Course" },
+      { id: 1010, title: "SAP MM Tutorial for Beginners", description: "Learn SAP MM basics and the procurement (P2P) process step by step.", category: "Enterprise Software", language: "SAP", youtubeVideo: "https://www.youtube.com/watch?v=iwSIjwce_Tg", duration: "Tutorial" },
+
+      // ---- English / HR ----
+      { id: 1011, title: "40 Most Asked HR Interview Questions", description: "Common HR interview questions with clear, practical model answers.", category: "Soft Skills", language: "English", youtubeVideo: "https://www.youtube.com/watch?v=zIm_k9j0C50", duration: "Guide" },
+      { id: 1012, title: "HR Round Interview Questions & Answers", description: "Tips and sample answers to pass your HR interview round.", category: "Soft Skills", language: "English", youtubeVideo: "https://www.youtube.com/watch?v=ZNQiPOY-en4", duration: "Guide" },
+
+      // ---- Python ----
+      { id: 1014, title: "Python for Placements & Interviews", description: "Python programming focused on placement and interview problem solving.", category: "Programming Languages", language: "Python", youtubeVideo: "https://www.youtube.com/watch?v=pkYVOmU3MgA", duration: "Course" },
+
+      // ---- Java ----
+      { id: 1015, title: "Java Full Course for Beginners", description: "Complete Java tutorial covering core Java, OOP and placement essentials.", category: "Programming Languages", language: "Java", youtubeVideo: "https://www.youtube.com/watch?v=eIrMbAQSU34", duration: "Full Course" },
+      { id: 1016, title: "Learn Java 8 - Full Tutorial for Beginners", description: "Complete Java 8 course covering OOP and core Java for placements and interviews.", category: "Programming Languages", language: "Java", youtubeVideo: "https://www.youtube.com/watch?v=grEKMHGYyns", duration: "Full Course" },
+
+      // ---- C ----
+      { id: 1017, title: "C Programming Full Course", description: "C programming for beginners — complete tutorial with examples.", category: "Programming Languages", language: "C", youtubeVideo: "https://www.youtube.com/watch?v=KJgsSFOSQv0", duration: "4h" },
+
+      // ---- C# / .NET ----
+      { id: 1018, title: "C# Tutorial - Full Course for Beginners", description: "Learn C# and .NET to build robust applications from scratch.", category: "Programming Languages", language: "C#/.NET", youtubeVideo: "https://www.youtube.com/watch?v=GhQdlIFylQ8", duration: "Full Course" },
+
+      // ---- SQL / Database ----
+      { id: 1019, title: "SQL Tutorial - Full Database Course", description: "Master SQL and relational databases with this complete beginner course.", category: "Database", language: "SQL/Database", youtubeVideo: "https://www.youtube.com/watch?v=HXV3zeQKqGY", duration: "Full Course" },
+
+      // ---- AWS / Cloud ----
+      { id: 1020, title: "AWS Cloud Practitioner Course", description: "Prepare for the AWS Cloud Practitioner certification with this full course.", category: "Cloud Computing", language: "AWS/Cloud", youtubeVideo: "https://www.youtube.com/watch?v=SOTamWNgDKc", duration: "Course" },
+      { id: 1021, title: "AWS Web Services Notes & Guide", description: "AWS fundamentals and study notes explained for beginners.", category: "Cloud Computing", language: "AWS/Cloud", youtubeVideo: "https://www.youtube.com/watch?v=3hLmDS179YE", duration: "Course" },
+
+      // ---- Cybersecurity ----
+      { id: 1022, title: "Cyber Security Full Course for Beginners", description: "Learn cybersecurity and ethical hacking fundamentals from experts.", category: "Cybersecurity", language: "Cybersecurity", youtubeVideo: "https://www.youtube.com/watch?v=U_P23SqJaDc", duration: "Full Course" },
+
+      // ---- Aptitude ----
+      { id: 1023, title: "Aptitude Preparation for Placements", description: "Quantitative aptitude and reasoning to crack placement tests and interviews.", category: "Aptitude & Reasoning", language: "Aptitude", youtubeVideo: "https://www.youtube.com/watch?v=hlyal4sR0m8", duration: "Course" }
+    ];
+
+    // YouTube videos that are removed/unavailable (verified via oEmbed) — excluded from the catalog
+    const BLOCKED_VIDEO_IDS = new Set([
+      '7yZ92ECLxas', 'fW_OS4P0K3E', 'Lzh_C4tH16Q', '81rHTasI2g0',
+      'TYlUQ2GYv5Q', 'hZ1DEtz90O4', 'RBSGKTKN0K4', 'Mbk2e1iR9Y0', 'IPvYjXCsT5c'
+    ]);
+
+    function getYoutubeId(url) {
+      if (!url) return null;
+      const m = url.match(/[?&]v=([a-zA-Z0-9_-]+)/);
+      return m ? m[1] : null;
+    }
+    function getYoutubeThumbnail(url) {
+      const id = getYoutubeId(url);
+      return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : null;
+    }
+
+    function renderVideos(items) {
+      const grid = document.getElementById('videosGrid');
+      const countEl = document.getElementById('videoCount');
+      if (!grid) return;
+      if (countEl) countEl.textContent = items.length;
+
+      if (items.length === 0) {
+        grid.innerHTML = '<p style="color: #64748B; text-align: center; padding: 2rem;">No video courses match your search.</p>';
+        return;
+      }
+
+      grid.innerHTML = items.map(m => {
+        const thumb = getYoutubeThumbnail(m.youtubeVideo);
+        const vid = getYoutubeId(m.youtubeVideo);
+        return `
+          <article class="video-card" data-video-id="${m.id}" onclick="playInline(${m.id})" style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08); border: 1px solid #E2E8F0; transition: all 0.3s ease; cursor: pointer;">
+            <div class="vc-thumb-wrap" style="position: relative; padding-bottom: 56.25%; overflow: hidden;">
+              <img src="${thumb}" alt="${m.title}" class="vc-thumb" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" />
+              <div class="vc-overlay" onclick="playInline(${m.id})" style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; cursor: pointer;">
+                <div class="vc-play-icon">
+                  <svg viewBox="0 0 68 48" width="64" height="44">
+                    <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#FF0000"/>
+                    <path d="M45 24L27 14v20" fill="#fff"/>
+                  </svg>
+                </div>
+                <span class="vc-watch-label" style="color: white; font-weight: 600; margin-top: 0.5rem;">Watch Tutorial</span>
+              </div>
+              <div class="vc-duration-badge" style="position: absolute; bottom: 8px; right: 8px; background: rgba(0, 0, 0, 0.7); color: white; padding: 0.25rem 0.5rem; border-radius: 6px; font-size: 0.75rem; font-weight: 500;">▶ ${m.duration || 'Video'}</div>
+            </div>
+            <div class="vc-body" style="padding: 1.5rem;">
+              <div class="vc-badges" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                <span class="badge" style="padding: 0.5rem 1rem; border-radius: 8px; background: #EFF6FF; color: #3B82F6; font-size: 0.75rem; font-weight: 500;">${m.category}</span>
+                ${m.language ? `<span class="badge badge-lang" style="padding: 0.5rem 1rem; border-radius: 8px; background: #F3E8FF; color: #8B5CF6; font-size: 0.75rem; font-weight: 500;">🌐 ${m.language}</span>` : ''}
+              </div>
+              <h3 class="vc-title" style="font-size: 1.125rem; font-weight: 700; color: #1E293B; margin-bottom: 0.5rem; line-height: 1.4;">${m.title}</h3>
+              <p class="vc-desc" style="color: #64748B; font-size: 0.875rem; margin-bottom: 1rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${m.description}</p>
+              <div class="vc-actions" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <button class="vc-btn-play" onclick="playInline(${m.id})" style="flex: 1; padding: 0.75rem 1rem; border-radius: 12px; background: linear-gradient(135deg, #3B82F6, #60A5FA); color: white; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+                  Play Here
+                </button>
+                <a class="vc-btn-yt" href="${m.youtubeVideo}" target="_blank" rel="noopener noreferrer" style="padding: 0.75rem 1rem; border-radius: 12px; background: #F8FAFC; color: #64748B; border: 1px solid #E2E8F0; font-weight: 500; font-size: 0.875rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" fill="#FF0000"/>
+                    <polygon points="9.75,15.02 15.5,11.75 9.75,8.48" fill="#fff"/>
+                  </svg>
+                  YouTube
+                </a>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+      
+      // Add hover effect and card click-to-play behavior
+      grid.querySelectorAll('.video-card').forEach(card => {
+        const cardId = Number(card.dataset.videoId);
+        const overlay = card.querySelector('.vc-overlay');
+
+        if (overlay) {
+          overlay.addEventListener('click', (event) => {
+            event.stopPropagation();
+            playInline(cardId);
+          });
+        }
+
+        card.addEventListener('click', (event) => {
+          if (event.target.closest('a') || event.target.closest('.vc-btn-play')) return;
+          playInline(cardId);
+        });
+
+        card.addEventListener('mouseenter', () => {
+          card.querySelector('.vc-overlay').style.opacity = '1';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.querySelector('.vc-overlay').style.opacity = '0';
+        });
+      });
+    }
+
+    function filterVideos() {
+      const lang = document.getElementById('videoLangFilter').value;
+      const cat = document.getElementById('videoCatFilter').value;
+
+      const filtered = allMaterials.filter(m => {
+        const vid = getYoutubeId(m.youtubeVideo);
+        if (!vid) return false;
+        const matchLang = lang === 'all' || m.language === lang;
+        const matchCat = cat === 'all' || m.category === cat;
+        return matchLang && matchCat;
+      });
+
+      renderVideos(filtered);
+    }
+
+    function playInline(id) {
+      const m = allMaterials.find(x => x.id === id);
+      if (!m) return;
+      const vid = getYoutubeId(m.youtubeVideo);
+      if (!vid) return;
+
+      const section = document.getElementById('inlinePlayerSection');
+      const player = document.getElementById('inlineYoutubePlayer');
+      const fallback = document.getElementById('inlinePlayerFallback');
+      const fallbackLink = document.getElementById('inlinePlayerFallbackLink');
+      const titleEl = document.getElementById('inlinePlayerTitle');
+      const metaEl = document.getElementById('inlinePlayerMeta');
+      const supportedOrigin = window.location.protocol === 'http:' || window.location.protocol === 'https:';
+
+      if (titleEl) titleEl.textContent = m.title;
+      if (metaEl) metaEl.textContent = `${m.category} • ${m.language || 'General'}`;
+      if (fallbackLink) {
+        fallbackLink.href = m.youtubeVideo;
+      }
+
+      if (player) {
+        player.src = '';
+      }
+
+      if (!section) return;
+      section.style.display = 'block';
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      if (!supportedOrigin) {
+        if (fallback) fallback.style.display = 'flex';
+        if (player) player.style.display = 'none';
+        return;
+      }
+
+      if (fallback) fallback.style.display = 'none';
+      if (player) {
+        player.style.display = 'block';
+        const origin = encodeURIComponent(window.location.origin);
+        // Respect selected playback mode
+        const mode = window._preferredPlayerMode || 'embedded';
+        if (mode === 'embedded') {
+          player.src = `https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&rel=0&modestbranding=1&playsinline=1&origin=${origin}`;
+        } else if (mode === 'youtube') {
+          // Open YouTube in a new tab and keep inline player for reference
+          window.open(m.youtubeVideo, '_blank', 'noopener');
+          player.src = '';
+        } else if (mode === 'invidious') {
+          // Use a public Invidious instance (may vary). We fallback to yewtu for now.
+          player.src = `https://yewtu.cafe/watch?v=${vid}&autoplay=1`;
+        } else if (mode === 'popup') {
+          window.open(`https://www.youtube.com/watch?v=${vid}`, '_blank', 'noopener');
+          player.src = '';
+        } else {
+          player.src = `https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&rel=0&modestbranding=1&playsinline=1&origin=${origin}`;
+        }
+      }
+    }
+
+    function setPlayerMode(mode) {
+      window._preferredPlayerMode = mode;
+      // update active button styles
+      ['embedded','youtube','invidious','popup'].forEach(m => {
+        const btn = document.getElementById('mode' + (m.charAt(0).toUpperCase() + m.slice(1)));
+        if (!btn) return;
+        if (m === mode) {
+          btn.style.background = '#3b82f6';
+          btn.style.color = '#fff';
+        } else {
+          btn.style.background = 'transparent';
+          btn.style.color = '';
+        }
+      });
+    }
+
+    function closeInlinePlayer() {
+      const section = document.getElementById('inlinePlayerSection');
+      const player = document.getElementById('inlineYoutubePlayer');
+      const fallback = document.getElementById('inlinePlayerFallback');
+      if (player) {
+        player.src = '';
+        player.style.display = 'block';
+      }
+      if (fallback) fallback.style.display = 'none';
+      if (section) section.style.display = 'none';
+    }
+
+    document.getElementById('videoLangFilter').addEventListener('change', filterVideos);
+    document.getElementById('videoCatFilter').addEventListener('change', filterVideos);
+
+    async function loadVideos() {
+      let fetched = [];
+      try {
+        const res = await fetch('materials.json');
+        fetched = await res.json();
+      } catch (err) {
+        console.error('Unable to load materials.json — using built-in videos only.', err);
+      }
+
+      // Merge fetched materials with built-in programming videos,
+      // keeping only items that have a YouTube video (deduped by video ID)
+      const seen = new Set();
+      allMaterials = [...fetched, ...PROGRAMMING_VIDEOS].filter(m => {
+        const vid = getYoutubeId(m.youtubeVideo);
+        if (!vid || seen.has(vid) || BLOCKED_VIDEO_IDS.has(vid)) return false;
+        seen.add(vid);
+        return true;
+      });
+
+      filterVideos();
+    }
+
+    loadVideos();
+  </script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+  <script src="firebase.js"></script>
+    <script src="auth-gate.js"></script>
+</body>
+</html>

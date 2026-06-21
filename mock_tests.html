@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mock Tests — SUN Skills Hub</title>
+  <meta name="description" content="Practice mock tests and challenge your knowledge." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="dashboard-light.css" />
+  <style>
+    :root {
+      --accent: #3b82f6;
+      --surface: #ffffff;
+      --bg: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --muted: #64748b;
+      --code-bg: #0f172a;
+      --code-text: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); padding-bottom: 90px; }
+
+    /* ── Top hero ── */
+    .mock-hero { text-align:center; padding:32px 20px 20px; background:linear-gradient(135deg,#eff6ff,#f5f3ff); border-bottom:1px solid var(--border); }
+    .mock-hero h1 { font-size:2rem; font-weight:800; background:linear-gradient(135deg,#3b82f6,#8b5cf6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:6px; }
+    .mock-hero p { color:var(--muted); font-size:0.95rem; }
+
+    /* ── Page wrapper ── */
+    .page-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    /* ── Mock test grid ── */
+    .mock-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 20px;
+    }
+    .mock-card {
+      background:#fff; border:1px solid var(--border); border-radius:20px;
+      padding:28px 24px; text-align:center; transition:all 0.3s ease;
+      position:relative; overflow:hidden; box-shadow:0 4px 6px rgba(0,0,0,0.07);
+    }
+    .mock-card:hover { transform:translateY(-5px); box-shadow:0 16px 32px rgba(0,0,0,0.11); }
+    .mock-card.study-card { border:2px solid #bfdbfe; background:linear-gradient(135deg,#eff6ff,#f5f3ff); }
+    .new-badge { position:absolute; top:12px; right:12px; background:linear-gradient(135deg,#3b82f6,#8b5cf6); color:#fff; font-size:0.68rem; font-weight:700; padding:3px 9px; border-radius:99px; letter-spacing:0.5px; }
+    .mock-icon { width:68px; height:68px; border-radius:18px; display:flex; align-items:center; justify-content:center; margin:0 auto 18px; font-size:2rem; }
+    .mock-icon.python  { background:#EFF6FF; border:1px solid #BFDBFE; }
+    .mock-icon.java    { background:#FFF7ED; border:1px solid #FED7AA; }
+    .mock-icon.sql     { background:#ECFDF5; border:1px solid #A7F3D0; }
+    .mock-icon.cjava   { background:#FEF2F2; border:1px solid #FECACA; }
+    .mock-icon.react   { background:#ECFEFF; border:1px solid #A5F3FC; }
+    .mock-icon.da      { background:#F5F3FF; border:1px solid #DDD6FE; }
+    .mock-icon.fs      { background:#FDF2F8; border:1px solid #FBCFE8; }
+    .mock-icon.dotnet  { background:#FFFBEB; border:1px solid #FDE68A; }
+    .mock-icon.sap     { background:#F8FAFC; border:1px solid #CBD5E1; }
+    .mock-icon.eth     { background:#ECFDF5; border:1px solid #A7F3D0; }
+    .mock-icon.dsa     { background:#EEF2FF; border:1px solid #C7D2FE; }
+    .mock-card h3 { color:var(--text); font-size:1.2rem; font-weight:700; margin-bottom:6px; }
+    .mock-count { color:var(--muted); font-size:0.82rem; margin-bottom:12px; }
+    .mock-card p { color:var(--muted); font-size:0.88rem; margin-bottom:22px; line-height:1.6; }
+    .mock-start {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:11px 26px; border-radius:12px; font-weight:600;
+      font-size:0.9rem; text-decoration:none; transition:all 0.2s ease; border:none; cursor:pointer;
+    }
+    .mock-start.python { background:linear-gradient(135deg,#3b82f6,#2563eb); color:#fff; }
+    .mock-start.python:hover { box-shadow:0 8px 20px rgba(59,130,246,0.4); }
+    .mock-start.java   { background:linear-gradient(135deg,#e97a1f,#f59e0b); color:#fff; }
+    .mock-start.java:hover { box-shadow:0 8px 20px rgba(233,122,31,0.4); }
+    .mock-start.sql    { background:linear-gradient(135deg,#10b981,#059669); color:#fff; }
+    .mock-start.sql:hover { box-shadow:0 8px 20px rgba(16,185,129,0.4); }
+    .mock-start.cjava  { background:linear-gradient(135deg,#dc2626,#b91c1c); color:#fff; }
+    .mock-start.cjava:hover { box-shadow:0 8px 20px rgba(220,38,38,0.4); }
+    .mock-start.react  { background:linear-gradient(135deg,#06b6d4,#0891b2); color:#fff; }
+    .mock-start.react:hover { box-shadow:0 8px 20px rgba(6,182,212,0.4); }
+    .mock-start.da     { background:linear-gradient(135deg,#7c3aed,#6d28d9); color:#fff; }
+    .mock-start.da:hover { box-shadow:0 8px 20px rgba(124,58,237,0.4); }
+    .mock-start.fs     { background:linear-gradient(135deg,#ec4899,#db2777); color:#fff; }
+    .mock-start.fs:hover { box-shadow:0 8px 20px rgba(236,72,153,0.4); }
+    .mock-start.dotnet { background:linear-gradient(135deg,#d97706,#b45309); color:#fff; }
+    .mock-start.dotnet:hover { box-shadow:0 8px 20px rgba(217,119,6,0.4); }
+    .mock-start.sap    { background:linear-gradient(135deg,#475569,#334155); color:#fff; }
+    .mock-start.sap:hover { box-shadow:0 8px 20px rgba(71,85,105,0.4); }
+    .mock-start.eth    { background:linear-gradient(135deg,#10b981,#059669); color:#fff; }
+    .mock-start.eth:hover { box-shadow:0 8px 20px rgba(16,185,129,0.4); }
+    .mock-start.dsa    { background:linear-gradient(135deg,#6366f1,#4338ca); color:#fff; }
+    .mock-start.dsa:hover { box-shadow:0 8px 20px rgba(99,102,241,0.4); }
+
+    /* stats row */
+    .stats-row { display:flex; gap:12px; margin-top:20px; }
+    .stat-chip { background:#fff; border:1px solid var(--border); border-radius:10px; padding:10px 18px; text-align:center; flex:1; }
+    .stat-chip strong { display:block; font-size:1.3rem; font-weight:800; color:var(--text); }
+    .stat-chip span { font-size:0.75rem; color:var(--muted); }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="nav-left">
+        <div class="logo"><i class="fas fa-graduation-cap"></i><span>SUN SKILLS</span></div>
+      </div>
+      <div class="nav-center">
+        <div class="welcome-message">
+          <p class="welcome-text">Mock Tests</p>
+          <p class="sub-text">Test your knowledge</p>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="notification-btn"><i class="fas fa-bell"></i><span class="badge">3</span></button>
+        <div class="profile-avatar"><i class="fas fa-user"></i></div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="mock-hero">
+    <h1>Mock Tests</h1>
+    <p>Pick a test and challenge yourself!</p>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- ══ Mock Test Cards ══ -->
+    <div class="mock-grid">
+
+        <!-- Python -->
+        <div class="mock-card">
+          <div class="mock-icon python">🐍</div>
+          <h3>Python Programming</h3>
+          <div class="mock-count">40 Questions</div>
+          <p>Data types, loops, functions, OOP, slicing, modules, exception handling, and built-in methods.</p>
+          <a class="mock-start python" href="python_mock_test.html">Start Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+        <!-- Java -->
+        <div class="mock-card">
+          <div class="mock-icon java">☕</div>
+          <h3>Java Programming</h3>
+          <div class="mock-count">25 Questions</div>
+          <p>String manipulation, arrays, permutations, matrix operations, and core Java concepts.</p>
+          <a class="mock-start java" href="java_mock_test.html">Start Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+        <!-- SQL -->
+        <div class="mock-card">
+          <div class="mock-icon sql">🗄️</div>
+          <h3>SQL &amp; Databases</h3>
+          <div class="mock-count">22 Questions</div>
+          <p>UNION, constraints, indexes, ALTER TABLE, views, auto-increment, TRUNCATE vs DROP, and more.</p>
+          <a class="mock-start sql" href="sql_mock_test.html">Start Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+        <!-- Core Java -->
+        <div class="mock-card">
+          <div class="mock-icon cjava">🔥</div>
+          <h3>Core Java</h3>
+          <div class="mock-count">50 Questions</div>
+          <p>OOP principles, collections, exceptions, threading, I/O streams, access modifiers, and JVM internals.</p>
+          <a class="mock-start cjava" href="core_java_mock_test.html">Start Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+        <!-- React -->
+        <div class="mock-card">
+          <div class="mock-icon react">⚛️</div>
+          <h3>React JS</h3>
+          <div class="mock-count">30 Questions</div>
+          <p>JSX, hooks, Virtual DOM, component lifecycle, state management, Redux, routing, and performance.</p>
+          <a class="mock-start react" href="react_mock_test.html">Start Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+        <!-- Data Analytics -->
+        <div class="mock-card">
+          <div class="mock-icon da">📊</div>
+          <h3>Python for Data Analytics</h3>
+          <div class="mock-count">30 Questions</div>
+          <p>Data analytics lifecycle, IPython magic commands, data structures, operators, and model deployment.</p>
+          <a class="mock-start da" href="python_data_analytics_mock_test.html">Start Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+        <!-- Full Stack -->
+        <div class="mock-card">
+          <div class="mock-icon fs">🌐</div>
+          <h3>Full Stack Development</h3>
+          <div class="mock-count">30 Questions</div>
+          <p>HTML fundamentals, tags, attributes, forms, tables, lists, semantic elements, and web structure.</p>
+          <a class="mock-start fs" href="fullstack_mock_test.html">Start Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+        <!-- .NET -->
+        <div class="mock-card">
+          <div class="mock-icon dotnet">🟣</div>
+          <h3>.NET Technologies</h3>
+          <div class="mock-count">30 Questions</div>
+          <p>CLR, CTS, VB.NET, OOP, ASP.NET, ADO.NET, exception handling, multithreading, and server controls.</p>
+          <a class="mock-start dotnet" href="dotnet_mock_test.html">Start Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+        <!-- SAP MM -->
+        <div class="mock-card">
+          <div class="mock-icon sap">📦</div>
+          <h3>SAP MM</h3>
+          <div class="mock-count">30 Questions</div>
+          <p>Material Management, organizational structure, master data, procurement types, and inventory management.</p>
+          <a class="mock-start sap" href="sap_mm_mock_test.html">Start Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+        <!-- Ethical Hacking -->
+        <div class="mock-card">
+          <div class="mock-icon eth">🛡️</div>
+          <h3>Ethical Hacking</h3>
+          <div class="mock-count">40 Questions</div>
+          <p>Hacker types, attack methods, security tools, penetration testing phases, network sniffing, and vulnerability assessment.</p>
+          <a class="mock-start eth" href="ethical_hacking_mock_test.html">Start Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+        <!-- DSA -->
+        <div class="mock-card">
+          <div class="mock-icon dsa">🧮</div>
+          <h3>DSA</h3>
+          <div class="mock-count">40 Questions</div>
+          <p>Data structures, sorting algorithms, trees, graphs, hashing, dynamic programming, and complexity analysis.</p>
+          <a class="mock-start dsa" href="dsa_mock_test.html">Start Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+      </div><!-- /mock-grid -->
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-chip"><strong>367</strong><span>Total Questions</span></div>
+        <div class="stat-chip"><strong>11</strong><span>Subjects</span></div>
+        <div class="stat-chip"><strong>∞</strong><span>Attempts</span></div>
+      </div>
+    </div><!-- /page-wrapper -->
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-items">
+      <a href="index.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="materials.html" class="bottom-nav-item"><i class="fas fa-book"></i><span>Materials</span></a>
+      <a href="videos.html" class="bottom-nav-item"><i class="fas fa-play-circle"></i><span>Videos</span></a>
+      <a href="mock_tests.html" class="bottom-nav-item active"><i class="fas fa-clipboard-list"></i><span>Tests</span></a>
+      <a href="profile.html" class="bottom-nav-item"><i class="fas fa-user"></i><span>Profile</span></a>
+    </div>
+  </nav>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+  <script src="firebase.js"></script>
+    <script src="auth-gate.js"></script>
+</body>
+</html>

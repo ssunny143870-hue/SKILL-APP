@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP MM Mock Test - 30 Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#f4f7fc;padding:20px;}
+.container{max-width:1000px;margin:auto;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.back-btn{padding:10px 16px;border-radius:12px;background:rgba(71,85,105,0.15);border:1px solid rgba(71,85,105,0.3);color:#475569;font-weight:500;cursor:pointer;transition:all 0.2s ease;}
+.back-btn:hover{background:rgba(71,85,105,0.25);}
+h1{text-align:center;margin-bottom:20px;color:#1e293b;}
+.question-card{background:#fff;margin-bottom:20px;padding:20px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);border-top:5px solid #475569;}
+.question{font-weight:bold;margin-bottom:15px;color:#1e293b;}
+.option{display:block;margin:8px 0;padding:12px;border:2px solid #ddd;border-radius:10px;cursor:pointer;transition:.3s;}
+.option:hover{background:#f1f5f9;}
+.correct{background:#22c55e !important;color:#fff;border-color:#22c55e !important;}
+.wrong{background:#ef4444 !important;color:#fff;border-color:#ef4444 !important;}
+#scoreBox{position:sticky;top:10px;background:#1e293b;color:white;padding:15px;text-align:center;border-radius:12px;margin-bottom:20px;font-weight:600;}
+.submit-btn{display:block;margin:20px auto;padding:12px 30px;background:linear-gradient(135deg, #475569, #334155);color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-size:1rem;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(71,85,105,0.3);}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+    <button class="back-btn" onclick="window.location.href='mock_tests.html'">← Back</button>
+    <h1>SAP MM Mock Test (30 Questions)</h1>
+    <div style="width:100px;"></div>
+</div>
+<div id="scoreBox">
+Score: <span id="score">0</span> / 30
+</div>
+<div id="quiz"></div>
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+</div>
+
+<script>
+const questions = [
+{q:"What does SAP MM stand for?",o:["Material Management","Material Module","Management Material","Master Material"],a:0},
+{q:"Which SAP MM activity ensures no shortage of materials?",o:["Inventory Control","Material Management","Warehouse Transfer","Production Planning"],a:1},
+{q:"Which data remains constant over time in SAP?",o:["Transactional Data","Master Data","Temporary Data","Archived Data"],a:1},
+{q:"Which organizational unit is highest in SAP hierarchy?",o:["Plant","Company","Client","Company Code"],a:2},
+{q:"Which unit is an independent accounting entity?",o:["Plant","Storage Location","Company Code","Purchasing Group"],a:2},
+{q:"Plant is mainly associated with?",o:["Accounting","Manufacturing Activities","Vendor Creation","Invoice Posting"],a:1},
+{q:"Which unit physically stores stock?",o:["Company Code","Plant","Storage Location","Purchasing Group"],a:2},
+{q:"Which organization is responsible for procurement?",o:["Storage Location","Plant","Purchasing Organization","Client"],a:2},
+{q:"Purchasing Group is responsible for?",o:["Financial Statements","Daily Procurement Activities","Production","Inventory Audit"],a:1},
+{q:"SAP IMG transaction code is?",o:["MM01","ME21N","SPRO","MIGO"],a:2},
+{q:"Company creation transaction code?",o:["OX15","OX02","OX10","OX09"],a:0},
+{q:"Company Code creation transaction code?",o:["OX09","OX10","OX02","OME4"],a:2},
+{q:"Plant creation transaction code?",o:["OX10","OX08","OX02","ME11"],a:0},
+{q:"Storage Location transaction code?",o:["OX15","OX09","OX08","MMNR"],a:1},
+{q:"Purchasing Organization transaction code?",o:["OX08","OX15","OX10","OBD3"],a:0},
+{q:"Purchasing Group transaction code?",o:["MM01","OME4","ME01","ME11"],a:1},
+{q:"Material Master creation transaction code?",o:["ME21N","MM01","XK01","ME11"],a:1},
+{q:"Vendor Master creation transaction code?",o:["MM01","ME01","XK01","MIGO"],a:2},
+{q:"Purchase Info Record transaction code?",o:["ME11","ME21N","ME01","MIRO"],a:0},
+{q:"Source List maintenance transaction code?",o:["MM02","ME11","ME01","MIGO"],a:2},
+{q:"Purchase Order creation transaction code?",o:["ME21N","ME11","MM01","MIRO"],a:0},
+{q:"Goods Receipt transaction code?",o:["MIRO","MIGO","ME21N","ME11"],a:1},
+{q:"Invoice Posting transaction code?",o:["MIGO","ME21N","MIRO","MM01"],a:2},
+{q:"Movement Type for Goods Receipt is?",o:["101","201","301","401"],a:0},
+{q:"Which procurement type involves vendor-owned stock at customer premises?",o:["Pipeline","Consignment","Subcontracting","Internal"],a:1},
+{q:"Which procurement type uses materials like water and electricity?",o:["Pipeline","Consignment","Stock Transfer","Contract"],a:0},
+{q:"Which procurement type involves external vendor manufacturing from supplied components?",o:["Subcontracting","Pipeline","Consignment","Internal Procurement"],a:0},
+{q:"Material Number generated automatically is called?",o:["External Assignment","Internal Assignment","Manual Assignment","Batch Assignment"],a:1},
+{q:"Vendor data maintained at purchasing organization level is called?",o:["Accounting Data","Client Data","Purchasing Data","Storage Data"],a:2},
+{q:"Which document contains combined information of Vendor and Material?",o:["Purchase Order","Source List","Purchase Info Record","Invoice"],a:2}
+];
+
+const quiz=document.getElementById("quiz");
+let answered = {};
+
+questions.forEach((item,index)=>{
+    let card=document.createElement("div");
+    card.className="question-card";
+    let html=`<div class="question">${item.q}</div>`;
+    item.o.forEach((opt,i)=>{
+        html+=`<div class="option" onclick="checkAnswer(this,${i},${item.a},${index})">${String.fromCharCode(65+i)}. ${opt}</div>`;
+    });
+    card.innerHTML=html;
+    quiz.appendChild(card);
+});
+
+function checkAnswer(el,selected,correct,index){
+    const parent=el.parentElement;
+    if(parent.dataset.done) return;
+    parent.dataset.done=true;
+    answered[index]=selected===correct;
+    const options=parent.querySelectorAll(".option");
+    options.forEach((op,i)=>{
+        if(i===correct) op.classList.add("correct");
+    });
+    if(selected!==correct) el.classList.add("wrong");
+    updateScore();
+}
+
+function updateScore(){
+    let score=Object.values(answered).filter(v=>v).length;
+    document.getElementById("score").innerText=score;
+}
+
+function submitTest(){
+    let score=Object.values(answered).filter(v=>v).length;
+    alert(`Test Submitted!\nYour Score: ${score}/30`);
+}
+</script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>

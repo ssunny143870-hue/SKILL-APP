@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Material — SUN Skills Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #1a1a2e; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+    .viewer-bar { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 1rem; background: #16213e; border-bottom: 1px solid #0f3460; flex-shrink: 0; }
+    .viewer-bar .left { display: flex; align-items: center; gap: 0.75rem; }
+    .viewer-bar .title { color: #e2e8f0; font-size: 0.85rem; font-weight: 600; max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 0.4rem 0.9rem; border: none; border-radius: 8px; background: #3B82F6; color: #fff; font-size: 0.82rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 0.2s; }
+    .back-btn:hover { background: #2563EB; }
+    .brand { color: #64748B; font-size: 0.75rem; font-weight: 500; }
+    .pdf-frame { flex: 1; border: none; width: 100%; background: #2d2d44; }
+    /* Block right-click download */
+    .pdf-frame { pointer-events: auto; }
+    .overlay-msg { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 999; justify-content: center; align-items: center; }
+    .overlay-msg.show { display: flex; }
+    .overlay-box { background: #fff; padding: 2rem; border-radius: 16px; text-align: center; max-width: 360px; }
+    .overlay-box i { font-size: 2.5rem; color: #EF4444; margin-bottom: 1rem; }
+    .overlay-box h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: #1E293B; }
+    .overlay-box p { font-size: 0.88rem; color: #64748B; }
+  </style>
+</head>
+<body>
+  <div class="viewer-bar">
+    <div class="left">
+      <a href="javascript:history.back()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+      <span class="title" id="docTitle">Loading...</span>
+    </div>
+    <span class="brand"><i class="fas fa-lock" style="margin-right:4px;"></i> View Only</span>
+  </div>
+  <iframe id="pdfFrame" class="pdf-frame"></iframe>
+
+  <div class="overlay-msg" id="downloadBlock">
+    <div class="overlay-box">
+      <i class="fas fa-ban"></i>
+      <h3>Download Disabled</h3>
+      <p>This material is for viewing only. Please use the site to access resources.</p>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get('file');
+    const name = params.get('name') || file || 'Document';
+
+    document.title = name + ' — SUN Skills Hub';
+    document.getElementById('docTitle').textContent = name;
+
+    if (file) {
+      // Use embedded PDF viewer with toolbar disabled to prevent download
+      const pdfUrl = encodeURIComponent(file);
+      document.getElementById('pdfFrame').src = file + '#toolbar=0&navpanes=0&scrollbar=1&view=FitH';
+    } else {
+      document.getElementById('docTitle').textContent = 'No file specified';
+    }
+
+    // Block keyboard shortcuts for download (Ctrl+S, Ctrl+P)
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S' || e.key === 'p' || e.key === 'P')) {
+        e.preventDefault();
+        const overlay = document.getElementById('downloadBlock');
+        overlay.classList.add('show');
+        setTimeout(() => overlay.classList.remove('show'), 2000);
+      }
+    });
+
+    // Block right-click context menu on the page
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>

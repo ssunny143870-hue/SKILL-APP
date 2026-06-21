@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Study Material — SUN Skills Hub</title>
+  <meta name="description" content="Study Python basics, number programs, strings, and sorting algorithms alongside the Python mock test." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="dashboard-light.css" />
+  <style>
+    :root {
+      --accent: #3b82f6;
+      --accent-dark: #2563eb;
+      --surface: #ffffff;
+      --bg: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --muted: #64748b;
+      --green: #10b981;
+      --purple: #8b5cf6;
+      --code-bg: #0f172a;
+      --code-text: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding-bottom: 80px;
+    }
+
+    /* ── Page layout ── */
+    .page-wrapper {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    @media (max-width: 900px) {
+      .page-wrapper { grid-template-columns: 1fr; }
+    }
+
+    /* ── Hero ── */
+    .study-hero {
+      text-align: center;
+      padding: 32px 20px 20px;
+      background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .study-hero h1 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+    .study-hero p { color: var(--muted); font-size: 0.95rem; }
+
+    /* ── Study Panel (LEFT) ── */
+    .study-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+      height: fit-content;
+      position: sticky;
+      top: 80px;
+    }
+
+    .study-panel-header {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      padding: 20px 24px;
+      color: white;
+    }
+    .study-panel-header h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .study-panel-header p { font-size: 0.82rem; opacity: 0.85; }
+
+    /* Topic tabs */
+    .topic-tabs {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 16px 12px;
+      border-bottom: 1px solid var(--border);
+      background: #f8fafc;
+    }
+    .topic-tab {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+    .topic-tab:hover { background: #eff6ff; color: var(--accent); }
+    .topic-tab.active {
+      background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+      color: var(--accent);
+      font-weight: 600;
+      border: 1px solid #bfdbfe;
+    }
+    .topic-tab .tab-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .topic-tab.active .tab-icon { background: rgba(59,130,246,0.12); }
+
+    /* Content area */
+    .study-content {
+      padding: 20px 24px;
+      max-height: 580px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e1 transparent;
+    }
+    .study-content::-webkit-scrollbar { width: 4px; }
+    .study-content::-webkit-scrollbar-track { background: transparent; }
+    .study-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+
+    .topic-section { display: none; }
+    .topic-section.active { display: block; }
+
+    .topic-section h2 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #eff6ff;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .content-block { margin-bottom: 20px; }
+    .content-block h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .content-block h3::before {
+      content: '';
+      width: 3px; height: 16px;
+      background: var(--accent);
+      border-radius: 99px;
+      flex-shrink: 0;
+    }
+    .content-block p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 8px;
+    }
+
+    /* Code block */
+    .code-block {
+      background: var(--code-bg);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 10px 0;
+      overflow-x: auto;
+    }
+    .code-block pre {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: var(--code-text);
+      white-space: pre;
+      line-height: 1.6;
+    }
+    .code-block .comment { color: #64748b; }
+    .code-block .keyword { color: #93c5fd; }
+    .code-block .string { color: #6ee7b7; }
+    .code-block .output { color: #fde68a; }
+
+    /* Tag list */
+    .tag-list {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;
+    }
+    .tag {
+      padding: 4px 10px; border-radius: 6px;
+      background: #eff6ff; color: var(--accent);
+      font-size: 0.78rem; font-weight: 600;
+      border: 1px solid #bfdbfe;
+    }
+    .tag.green { background: #f0fdf4; color: #059669; border-color: #a7f3d0; }
+    .tag.purple { background: #f5f3ff; color: #7c3aed; border-color: #ddd6fe; }
+    .tag.orange { background: #fff7ed; color: #d97706; border-color: #fed7aa; }
+
+    /* Complexity badge */
+    .complexity {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 99px;
+      background: #fef3c7; color: #b45309;
+      font-size: 0.8rem; font-weight: 700;
+      border: 1px solid #fde68a; margin-top: 6px;
+    }
+
+    /* Divider */
+    .divider {
+      border: none; border-top: 1px dashed #e2e8f0; margin: 16px 0;
+    }
+
+    /* ── Right Panel ── */
+    .right-panel { display: flex; flex-direction: column; gap: 24px; }
+
+    /* Mock test card */
+    .mock-card-featured {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .mock-card-featured::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    }
+    .mock-icon-big {
+      width: 90px; height: 90px; border-radius: 22px;
+      background: #eff6ff; border: 1px solid #bfdbfe;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem; margin: 0 auto 20px;
+    }
+    .mock-card-featured h2 {
+      font-size: 1.5rem; font-weight: 800; color: var(--text); margin-bottom: 6px;
+    }
+    .mock-card-featured .mock-count {
+      color: var(--muted); font-size: 0.88rem; margin-bottom: 12px;
+    }
+    .mock-card-featured p { color: var(--muted); font-size: 0.95rem; margin-bottom: 28px; line-height: 1.6; }
+    .start-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 36px; border-radius: 14px;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white; font-weight: 700; font-size: 1.05rem;
+      text-decoration: none; transition: all 0.3s ease;
+      box-shadow: 0 4px 14px rgba(59,130,246,0.35);
+    }
+    .start-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,0.45); }
+
+    /* Tips card */
+    .tips-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+    }
+    .tips-card h3 {
+      font-size: 1rem; font-weight: 700; color: var(--text);
+      margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+    }
+    .tip-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 0; border-bottom: 1px solid #f1f5f9;
+    }
+    .tip-item:last-child { border-bottom: none; }
+    .tip-icon {
+      width: 30px; height: 30px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem; flex-shrink: 0;
+      background: #eff6ff;
+    }
+    .tip-item p { font-size: 0.875rem; color: var(--muted); line-height: 1.5; }
+    .tip-item strong { color: var(--text); }
+
+    /* Quick links */
+    .quick-links {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      border-radius: 20px;
+      padding: 24px;
+      color: white;
+    }
+    .quick-links h3 { font-size: 1rem; font-weight: 700; margin-bottom: 16px; opacity: 0.9; }
+    .link-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .quick-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px; border-radius: 12px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.85); font-size: 0.85rem; font-weight: 500;
+      text-decoration: none; transition: all 0.2s ease;
+    }
+    .quick-link:hover { background: rgba(255,255,255,0.15); color: white; transform: translateY(-1px); }
+
+    /* Progress tracker */
+    .progress-tracker {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+    }
+    .progress-tracker h3 {
+      font-size: 1rem; font-weight: 700; color: var(--text);
+      margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+    }
+    .progress-item { margin-bottom: 14px; }
+    .progress-item .label {
+      display: flex; justify-content: space-between;
+      font-size: 0.85rem; color: var(--muted); margin-bottom: 5px;
+    }
+    .progress-item .label strong { color: var(--text); }
+    .pbar { height: 6px; background: #e2e8f0; border-radius: 99px; overflow: hidden; }
+    .pbar-fill { height: 100%; border-radius: 99px; transition: width 1s ease; }
+    .pbar-fill.blue { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+    .pbar-fill.green { background: linear-gradient(90deg, #10b981, #34d399); }
+    .pbar-fill.purple { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+    .pbar-fill.orange { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="nav-left">
+        <div class="logo">
+          <i class="fas fa-graduation-cap"></i>
+          <span>SUN SKILLS</span>
+        </div>
+      </div>
+      <div class="nav-center">
+        <div class="welcome-message">
+          <p class="welcome-text">Python Study + Test</p>
+          <p class="sub-text">Learn &amp; Practice Together</p>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="notification-btn">
+          <i class="fas fa-bell"></i>
+          <span class="badge">3</span>
+        </button>
+        <div class="profile-avatar">
+          <i class="fas fa-user"></i>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <div class="study-hero">
+    <h1><i class="fab fa-python" style="-webkit-text-fill-color:#3b82f6;"></i> Python Study Material</h1>
+    <p>Study the notes on the left, then test yourself with the mock test on the right.</p>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="page-wrapper">
+
+    <!-- ── LEFT: Study Panel ── -->
+    <aside class="study-panel">
+      <div class="study-panel-header">
+        <h2><i class="fas fa-book-open"></i> Study Notes</h2>
+        <p>4 Topics · Click a tab to read</p>
+      </div>
+
+      <!-- Topic Tabs -->
+      <div class="topic-tabs">
+        <button class="topic-tab active" onclick="showTopic('basics', this)" id="tab-basics">
+          <div class="tab-icon">🐍</div>
+          Python Basics
+        </button>
+        <button class="topic-tab" onclick="showTopic('numbers', this)" id="tab-numbers">
+          <div class="tab-icon">🔢</div>
+          Number Programs
+        </button>
+        <button class="topic-tab" onclick="showTopic('strings', this)" id="tab-strings">
+          <div class="tab-icon">🔤</div>
+          String Programs
+        </button>
+        <button class="topic-tab" onclick="showTopic('sorting', this)" id="tab-sorting">
+          <div class="tab-icon">📊</div>
+          Sorting Algorithms
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="study-content">
+
+        <!-- BASICS -->
+        <div class="topic-section active" id="section-basics">
+          <h2>🐍 Python Basics</h2>
+
+          <div class="content-block">
+            <h3>Introduction</h3>
+            <p>Python is a high-level, interpreted, object-oriented programming language. Easy to learn and widely used for Web Development, AI, Machine Learning, Data Science, Automation.</p>
+          </div>
+
+          <div class="content-block">
+            <h3>Key Features</h3>
+            <div class="tag-list">
+              <span class="tag">Easy Syntax</span>
+              <span class="tag green">Open Source</span>
+              <span class="tag purple">Platform Independent</span>
+              <span class="tag orange">OOP Support</span>
+              <span class="tag">Large Community</span>
+            </div>
+          </div>
+
+          <div class="content-block">
+            <h3>Hello World</h3>
+            <div class="code-block">
+              <pre><span class="keyword">print</span>(<span class="string">"Hello World"</span>)
+
+<span class="comment"># Output:</span>
+<span class="output">Hello World</span></pre>
+            </div>
+          </div>
+
+          <div class="content-block">
+            <h3>Variables</h3>
+            <div class="code-block">
+              <pre>name   = <span class="string">"John"</span>
+age    = <span class="output">20</span>
+salary = <span class="output">25000</span>
+active = <span class="keyword">True</span></pre>
+            </div>
+          </div>
+
+          <div class="content-block">
+            <h3>Data Types</h3>
+            <div class="tag-list">
+              <span class="tag">int</span>
+              <span class="tag">float</span>
+              <span class="tag green">str</span>
+              <span class="tag purple">bool</span>
+              <span class="tag">list</span>
+              <span class="tag">tuple</span>
+              <span class="tag orange">dict</span>
+              <span class="tag">set</span>
+            </div>
+          </div>
+
+          <div class="content-block">
+            <h3>Conditional Statements</h3>
+            <div class="code-block">
+              <pre><span class="keyword">if</span> condition:
+    <span class="keyword">print</span>(<span class="string">"True"</span>)
+<span class="keyword">else</span>:
+    <span class="keyword">print</span>(<span class="string">"False"</span>)</pre>
+            </div>
+          </div>
+
+          <div class="content-block">
+            <h3>Functions</h3>
+            <div class="code-block">
+              <pre><span class="keyword">def</span> add(a, b):
+    <span class="keyword">return</span> a + b
+
+result = add(<span class="output">3</span>, <span class="output">7</span>)
+<span class="keyword">print</span>(result)  <span class="comment"># 10</span></pre>
+            </div>
+          </div>
+
+          <div class="content-block">
+            <h3>Operators</h3>
+            <div class="tag-list">
+              <span class="tag">Arithmetic</span>
+              <span class="tag green">Comparison</span>
+              <span class="tag purple">Logical</span>
+              <span class="tag orange">Assignment</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- NUMBER PROGRAMS -->
+        <div class="topic-section" id="section-numbers">
+          <h2>🔢 Number Programs</h2>
+
+          <div class="content-block">
+            <h3>Even or Odd</h3>
+            <div class="code-block">
+              <pre>num = <span class="keyword">int</span>(<span class="keyword">input</span>())
+
+<span class="keyword">if</span> num % <span class="output">2</span> == <span class="output">0</span>:
+    <span class="keyword">print</span>(<span class="string">"Even"</span>)
+<span class="keyword">else</span>:
+    <span class="keyword">print</span>(<span class="string">"Odd"</span>)</pre>
+            </div>
+            <p>If divisible by 2 → Even, otherwise Odd.</p>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="content-block">
+            <h3>Prime Number</h3>
+            <div class="code-block">
+              <pre><span class="keyword">def</span> isPrime(n):
+    <span class="keyword">if</span> n <= <span class="output">1</span>:
+        <span class="keyword">return False</span>
+    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="keyword">range</span>(<span class="output">2</span>, <span class="keyword">int</span>(n**<span class="output">0.5</span>)+<span class="output">1</span>):
+        <span class="keyword">if</span> n % i == <span class="output">0</span>:
+            <span class="keyword">return False</span>
+    <span class="keyword">return True</span></pre>
+            </div>
+            <div class="tag-list">
+              <span class="tag">Examples: 2, 3, 5, 7, 11, 13</span>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="content-block">
+            <h3>Factorial</h3>
+            <div class="code-block">
+              <pre><span class="comment"># 5! = 5×4×3×2×1 = 120</span>
+
+<span class="keyword">def</span> factorial(n):
+    <span class="keyword">if</span> n == <span class="output">0</span>:
+        <span class="keyword">return</span> <span class="output">1</span>
+    <span class="keyword">return</span> n * factorial(n-<span class="output">1</span>)
+
+<span class="keyword">print</span>(factorial(<span class="output">5</span>))  <span class="comment"># 120</span></pre>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="content-block">
+            <h3>Armstrong Number</h3>
+            <div class="code-block">
+              <pre><span class="comment"># 153 → 1³ + 5³ + 3³ = 153 ✓</span>
+
+n = <span class="output">153</span>
+digits = [<span class="keyword">int</span>(d) <span class="keyword">for</span> d <span class="keyword">in</span> <span class="keyword">str</span>(n)]
+total  = <span class="keyword">sum</span>(d**<span class="keyword">len</span>(digits) <span class="keyword">for</span> d <span class="keyword">in</span> digits)
+<span class="keyword">print</span>(total == n)  <span class="comment"># True</span></pre>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="content-block">
+            <h3>Perfect Number</h3>
+            <div class="code-block">
+              <pre><span class="comment"># 6 → factors: 1+2+3 = 6 ✓</span>
+
+n = <span class="output">6</span>
+s = <span class="keyword">sum</span>(i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="keyword">range</span>(<span class="output">1</span>, n) <span class="keyword">if</span> n % i == <span class="output">0</span>)
+<span class="keyword">print</span>(s == n)  <span class="comment"># True</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- STRINGS -->
+        <div class="topic-section" id="section-strings">
+          <h2>🔤 String Programs</h2>
+
+          <div class="content-block">
+            <h3>Basic Operations</h3>
+            <div class="code-block">
+              <pre>name = <span class="string">"Python"</span>
+
+<span class="keyword">len</span>(name)        <span class="comment"># 6</span>
+name.<span class="keyword">upper</span>()     <span class="comment"># PYTHON</span>
+name.<span class="keyword">lower</span>()     <span class="comment"># python</span>
+name[::-<span class="output">1</span>]       <span class="comment"># nohtyP  (reverse)</span></pre>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="content-block">
+            <h3>Palindrome Check</h3>
+            <div class="code-block">
+              <pre>word = <span class="string">"madam"</span>
+<span class="keyword">print</span>(word == word[::-<span class="output">1</span>])  <span class="comment"># True</span>
+
+<span class="comment"># madam reversed = madam ✓</span></pre>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="content-block">
+            <h3>Anagram Check</h3>
+            <div class="code-block">
+              <pre>a = <span class="string">"listen"</span>
+b = <span class="string">"silent"</span>
+
+<span class="keyword">print</span>(<span class="keyword">sorted</span>(a) == <span class="keyword">sorted</span>(b))
+<span class="comment"># True — same characters!</span></pre>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="content-block">
+            <h3>Count Vowels</h3>
+            <div class="code-block">
+              <pre>text  = <span class="string">"Hello World"</span>
+count = <span class="output">0</span>
+
+<span class="keyword">for</span> ch <span class="keyword">in</span> text:
+    <span class="keyword">if</span> ch <span class="keyword">in</span> <span class="string">"aeiouAEIOU"</span>:
+        count += <span class="output">1</span>
+
+<span class="keyword">print</span>(count)  <span class="comment"># 3</span></pre>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="content-block">
+            <h3>String Formatting</h3>
+            <div class="tag-list">
+              <span class="tag">f-strings</span>
+              <span class="tag green">.format()</span>
+              <span class="tag purple">% operator</span>
+              <span class="tag orange">.join()</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SORTING -->
+        <div class="topic-section" id="section-sorting">
+          <h2>📊 Sorting Algorithms</h2>
+
+          <div class="content-block">
+            <h3>Bubble Sort</h3>
+            <p>Compare adjacent elements and swap if out of order. Repeat until sorted.</p>
+            <div class="code-block">
+              <pre><span class="keyword">for</span> i <span class="keyword">in</span> <span class="keyword">range</span>(<span class="keyword">len</span>(arr)):
+    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="keyword">range</span>(<span class="output">0</span>, <span class="keyword">len</span>(arr)-i-<span class="output">1</span>):
+        <span class="keyword">if</span> arr[j] > arr[j+<span class="output">1</span>]:
+            arr[j], arr[j+<span class="output">1</span>] = arr[j+<span class="output">1</span>], arr[j]</pre>
+            </div>
+            <span class="complexity">⏱ O(n²)</span>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="content-block">
+            <h3>Selection Sort</h3>
+            <p>Find the minimum element and place it at the front. Repeat for remaining array.</p>
+            <span class="complexity">⏱ O(n²)</span>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="content-block">
+            <h3>Insertion Sort</h3>
+            <p>Pick each element and insert it into the correct position in the sorted portion.</p>
+            <span class="complexity">⏱ O(n²) · Best: O(n)</span>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="content-block">
+            <h3>Merge Sort</h3>
+            <p>Divide and Conquer — split array into halves, sort each half, then merge.</p>
+            <div class="code-block">
+              <pre><span class="keyword">def</span> merge_sort(arr):
+    <span class="keyword">if</span> <span class="keyword">len</span>(arr) <= <span class="output">1</span>:
+        <span class="keyword">return</span> arr
+    mid   = <span class="keyword">len</span>(arr) // <span class="output">2</span>
+    left  = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    <span class="keyword">return</span> merge(left, right)</pre>
+            </div>
+            <span class="complexity">⏱ O(n log n)</span>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="content-block">
+            <h3>Quick Sort</h3>
+            <p>Choose a pivot. Place elements smaller than pivot to its left, larger to its right. Recurse.</p>
+            <div class="code-block">
+              <pre><span class="keyword">def</span> quicksort(arr):
+    <span class="keyword">if</span> <span class="keyword">len</span>(arr) <= <span class="output">1</span>:
+        <span class="keyword">return</span> arr
+    pivot = arr[<span class="keyword">len</span>(arr)//<span class="output">2</span>]
+    left  = [x <span class="keyword">for</span> x <span class="keyword">in</span> arr <span class="keyword">if</span> x < pivot]
+    mid   = [x <span class="keyword">for</span> x <span class="keyword">in</span> arr <span class="keyword">if</span> x == pivot]
+    right = [x <span class="keyword">for</span> x <span class="keyword">in</span> arr <span class="keyword">if</span> x > pivot]
+    <span class="keyword">return</span> quicksort(left) + mid + quicksort(right)</pre>
+            </div>
+            <span class="complexity">⏱ O(n log n) avg</span>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="content-block">
+            <h3>Complexity Summary</h3>
+            <div class="tag-list">
+              <span class="tag">Bubble: O(n²)</span>
+              <span class="tag">Selection: O(n²)</span>
+              <span class="tag green">Merge: O(n log n)</span>
+              <span class="tag green">Quick: O(n log n)</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /study-content -->
+    </aside>
+
+    <!-- ── RIGHT: Mock Test + extras ── -->
+    <div class="right-panel">
+
+      <!-- Featured Mock Test -->
+      <div class="mock-card-featured">
+        <div class="mock-icon-big">🐍</div>
+        <h2>Python Programming Mock Test</h2>
+        <div class="mock-count">40 Questions · Timed</div>
+        <p>Covers data types, operators, loops, functions, OOP, slicing, modules, exception handling, and built-in methods. Study the notes on the left before you begin!</p>
+        <a class="start-btn" href="python_mock_test.html">
+          <i class="fas fa-play-circle"></i>
+          Start Mock Test
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-tracker">
+        <h3><i class="fas fa-chart-line" style="color:#3b82f6;"></i> Topic Readiness</h3>
+        <div class="progress-item">
+          <div class="label"><strong>Python Basics</strong><span>75%</span></div>
+          <div class="pbar"><div class="pbar-fill blue" style="width:75%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="label"><strong>Number Programs</strong><span>60%</span></div>
+          <div class="pbar"><div class="pbar-fill green" style="width:60%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="label"><strong>String Programs</strong><span>80%</span></div>
+          <div class="pbar"><div class="pbar-fill purple" style="width:80%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="label"><strong>Sorting Algorithms</strong><span>45%</span></div>
+          <div class="pbar"><div class="pbar-fill orange" style="width:45%"></div></div>
+        </div>
+      </div>
+
+      <!-- Tips -->
+      <div class="tips-card">
+        <h3><i class="fas fa-lightbulb" style="color:#f59e0b;"></i> Exam Tips</h3>
+        <div class="tip-item">
+          <div class="tip-icon">📌</div>
+          <p><strong>Read the study notes first</strong> — especially Python Basics before attempting the mock test.</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-icon">⏱</div>
+          <p><strong>Time yourself</strong> — aim for under 1 minute per question in the real exam.</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-icon">🔄</div>
+          <p><strong>Review wrong answers</strong> — revisit the relevant study note section after the test.</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-icon">💡</div>
+          <p><strong>Focus on OOP and exceptions</strong> — most frequently asked in Python interviews.</p>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="quick-links">
+        <h3>🔗 Other Mock Tests</h3>
+        <div class="link-grid">
+          <a href="java_mock_test.html" class="quick-link">☕ Java</a>
+          <a href="sql_mock_test.html" class="quick-link">🗄️ SQL</a>
+          <a href="core_java_mock_test.html" class="quick-link">🔥 Core Java</a>
+          <a href="react_mock_test.html" class="quick-link">⚛️ React JS</a>
+          <a href="dsa_mock_test.html" class="quick-link">🧮 DSA</a>
+          <a href="mock_tests.html" class="quick-link">📋 All Tests</a>
+        </div>
+      </div>
+
+    </div><!-- /right-panel -->
+  </div><!-- /page-wrapper -->
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-items">
+      <a href="index.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i><span>Home</span>
+      </a>
+      <a href="materials.html" class="bottom-nav-item">
+        <i class="fas fa-book"></i><span>Materials</span>
+      </a>
+      <a href="videos.html" class="bottom-nav-item">
+        <i class="fas fa-play-circle"></i><span>Videos</span>
+      </a>
+      <a href="mock_tests.html" class="bottom-nav-item active">
+        <i class="fas fa-clipboard-list"></i><span>Tests</span>
+      </a>
+      <a href="profile.html" class="bottom-nav-item">
+        <i class="fas fa-user"></i><span>Profile</span>
+      </a>
+    </div>
+  </nav>
+
+  <script>
+    function showTopic(key, btn) {
+      // Deactivate all tabs and sections
+      document.querySelectorAll('.topic-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.topic-section').forEach(s => s.classList.remove('active'));
+
+      // Activate selected
+      btn.classList.add('active');
+      const section = document.getElementById('section-' + key);
+      if (section) section.classList.add('active');
+    }
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>

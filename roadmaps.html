@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Roadmaps — SUN Skills Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="dashboard-light.css" />
+  <style>
+    :root {
+      --accent: #6366f1;
+    }
+    .roadmaps-hero {
+      text-align: center;
+      padding: 48px 20px 32px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(6, 182, 212, 0.08));
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 32px;
+    }
+    .roadmaps-hero h1 {
+      font-size: 2.25rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #4f46e5, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .roadmaps-hero p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .roadmap-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+    .roadmap-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-main);
+    }
+    .rm-accent-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: var(--rm-color);
+    }
+    .rm-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      background: var(--rm-color);
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    .roadmap-card h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+    .roadmap-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    .rm-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      font-weight: 700;
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+    }
+    .rm-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rm-link {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      transition: color 0.2s;
+    }
+    .roadmap-card:hover .rm-link {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="nav-left">
+        <a class="logo" href="index.html">
+          <i class="fas fa-graduation-cap"></i>
+          <span>SUN SKILLS</span>
+        </a>
+      </div>
+      <div class="nav-center">
+        <div class="welcome-message">
+          <p class="welcome-text">Roadmaps</p>
+          <p class="sub-text">Structured learning paths</p>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="notification-btn">
+          <i class="fas fa-bell"></i>
+          <span class="badge">3</span>
+        </button>
+        <div class="profile-avatar" onclick="window.location.href='profile.html'">OM</div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="roadmaps-hero">
+    <h1>If → Then Career Roadmaps</h1>
+    <p>Follow expert-curated guided paths to master skills and land your dream role.</p>
+  </div>
+
+  <div class="content-container">
+    <div class="roadmap-grid">
+
+      <!-- LangChain Roadmap -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #10B981, #059669);" onclick="window.location.href='langchain-roadmap.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fas fa-link"></i></div>
+        <h3>LangChain Developer 2026</h3>
+        <p>Connect LLMs with tools, memory, databases, and agents to build production RAG systems.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> 10 Phases</span>
+          <span>~60 Hours</span>
+        </div>
+      </article>
+
+      <!-- LLM Developer Roadmap -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #8B5CF6, #6D28D9);" onclick="window.location.href='llm-roadmap.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fas fa-brain"></i></div>
+        <h3>LLM Developer 2026</h3>
+        <p>Master prompt engineering, fine-tuning, embeddings, and deployment workflows for Large Language Models.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> 8 Phases</span>
+          <span>~50 Hours</span>
+        </div>
+      </article>
+
+      <!-- Vector DB Roadmap -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #EF4444, #B91C1C);" onclick="window.location.href='vectordb-roadmap.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fas fa-database"></i></div>
+        <h3>Vector Databases 2026</h3>
+        <p>Learn semantic search, indexing, data ingestion, and vector embeddings optimization using Pinecone, Chroma, and pgvector.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> 6 Phases</span>
+          <span>~35 Hours</span>
+        </div>
+      </article>
+
+      <!-- Generative AI Roadmap -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #06B6D4, #0891B2);" onclick="window.location.href='generative-ai-roadmap.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+        <h3>Generative AI 2026</h3>
+        <p>A complete conceptual and practical guide to GANs, Diffusion Models, VAEs, and transformer networks.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> 9 Phases</span>
+          <span>~55 Hours</span>
+        </div>
+      </article>
+
+      <!-- Core Python Roadmap -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #3B82F6, #1D4ED8);" onclick="window.location.href='python_study.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fab fa-python"></i></div>
+        <h3>Python Developer Track</h3>
+        <p>Master Python syntax, object-oriented programming, data structures, and algorithms for technical interviews.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> Core Path</span>
+          <span>Placement Ready</span>
+        </div>
+      </article>
+
+      <!-- Java Developer Roadmap -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #F59E0B, #D97706);" onclick="window.location.href='java_mock_test.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fab fa-java"></i></div>
+        <h3>Java Placement Track</h3>
+        <p>Complete learning track covering OOP concepts, collections, sorting, recursion, and company-specific quizes.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> Interview Prep</span>
+          <span>Instant Test</span>
+        </div>
+      </article>
+
+      <!-- TypeScript Roadmap -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #3178C6, #235A97);" onclick="window.location.href='typescript-roadmap.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fas fa-code"></i></div>
+        <h3>TypeScript Roadmap 2026</h3>
+        <p>Master static typing, generics, React + TS, Node.js backend, ORMs, and full-stack deployment in 6 months.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> 20 Phases</span>
+          <span>~6 Months</span>
+        </div>
+      </article>
+
+      <!-- Python Roadmap 2026 -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #3776AB, #FFD43B);" onclick="window.location.href='python-roadmap.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fab fa-python"></i></div>
+        <h3>Python Roadmap 2026</h3>
+        <p>From fundamentals to AI/ML, backend, automation, cloud &amp; cybersecurity — the complete Python mastery path.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> 16 Phases</span>
+          <span>~8 Months</span>
+        </div>
+      </article>
+
+      <!-- JavaScript Roadmap 2026 -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #F7DF1E, #E8D44D);" onclick="window.location.href='javascript-roadmap.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fab fa-js-square"></i></div>
+        <h3>JavaScript Roadmap 2026</h3>
+        <p>Master JS fundamentals, DOM, React, Node.js, Express, databases &amp; deployment — the complete full-stack path.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> 19 Phases</span>
+          <span>~8 Months</span>
+        </div>
+      </article>
+
+      <!-- C Programming Roadmap -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #00599C, #6495ED);" onclick="window.location.href='c-programming-roadmap.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fas fa-microchip"></i></div>
+        <h3>C Programming 2026</h3>
+        <p>Master the foundation of computing — variables, pointers, structures, file handling, and data structures.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> 12 Phases</span>
+          <span>~4 Months</span>
+        </div>
+      </article>
+
+      <!-- Java Roadmap -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #ED8B00, #5382A1);" onclick="window.location.href='java-dev-roadmap.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fab fa-java"></i></div>
+        <h3>Java Roadmap 2026</h3>
+        <p>From OOP basics to Spring Boot, collections, multithreading, JDBC, and microservices deployment.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> 15 Phases</span>
+          <span>~6 Months</span>
+        </div>
+      </article>
+
+      <!-- SQL Roadmap -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #336791, #F29111);" onclick="window.location.href='sql-roadmap.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fas fa-database"></i></div>
+        <h3>SQL Roadmap 2026</h3>
+        <p>DDL, DML, joins, subqueries, window functions, stored procedures — master every SQL skill.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> 12 Phases</span>
+          <span>~3 Months</span>
+        </div>
+      </article>
+
+      <!-- C# Roadmap -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #68217A, #9B4DCA);" onclick="window.location.href='csharp-roadmap.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fas fa-code"></i></div>
+        <h3>C# Roadmap 2026</h3>
+        <p>OOP, LINQ, async, ASP.NET Core, Entity Framework, and Azure deployment — the complete .NET path.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> 14 Phases</span>
+          <span>~5 Months</span>
+        </div>
+      </article>
+
+      <!-- React JS Roadmap -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #61DAFB, #2196F3);" onclick="window.location.href='react-roadmap.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fab fa-react"></i></div>
+        <h3>React JS Roadmap 2026</h3>
+        <p>Components, hooks, routing, state management, Next.js, testing, and deployment — the full React journey.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> 14 Phases</span>
+          <span>~4 Months</span>
+        </div>
+      </article>
+
+      <!-- Node.js Roadmap -->
+      <article class="roadmap-card" style="--rm-color: linear-gradient(135deg, #339933, #215732);" onclick="window.location.href='nodejs-roadmap.html'">
+        <div class="rm-accent-bar"></div>
+        <div class="rm-icon"><i class="fab fa-node-js"></i></div>
+        <h3>Node.js Roadmap 2026</h3>
+        <p>Express, REST APIs, databases, authentication, WebSockets, Docker, and deployment — complete backend mastery.</p>
+        <div class="rm-meta">
+          <span><i class="fas fa-layer-group"></i> 13 Phases</span>
+          <span>~4 Months</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- Bottom Navigation (Mobile) -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-items">
+      <a href="index.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="materials.html" class="bottom-nav-item">
+        <i class="fas fa-book"></i>
+        <span>Materials</span>
+      </a>
+      <a href="roadmaps.html" class="bottom-nav-item active">
+        <i class="fas fa-map"></i>
+        <span>Roadmaps</span>
+      </a>
+      <a href="mock_tests.html" class="bottom-nav-item">
+        <i class="fas fa-clipboard-list"></i>
+        <span>Tests</span>
+      </a>
+      <a href="profile.html" class="bottom-nav-item">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+  <script src="firebase.js"></script>
+    <script src="auth-gate.js"></script>
+</body>
+</html>

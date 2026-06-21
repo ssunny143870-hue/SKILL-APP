@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Stack Development Mock Test - 30 Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#f4f7fc;padding:20px;}
+.container{max-width:1000px;margin:auto;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.back-btn{padding:10px 16px;border-radius:12px;background:rgba(236,72,153,0.15);border:1px solid rgba(236,72,153,0.3);color:#db2777;font-weight:500;cursor:pointer;transition:all 0.2s ease;}
+.back-btn:hover{background:rgba(236,72,153,0.25);}
+h1{text-align:center;margin-bottom:20px;color:#831843;}
+.question-card{background:#fff;margin-bottom:20px;padding:20px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);border-top:5px solid #ec4899;}
+.question{font-weight:bold;margin-bottom:15px;color:#831843;}
+.option{display:block;margin:8px 0;padding:12px;border:2px solid #ddd;border-radius:10px;cursor:pointer;transition:.3s;}
+.option:hover{background:#fdf2f8;}
+.correct{background:#22c55e !important;color:#fff;border-color:#22c55e !important;}
+.wrong{background:#ef4444 !important;color:#fff;border-color:#ef4444 !important;}
+#scoreBox{position:sticky;top:10px;background:#831843;color:white;padding:15px;text-align:center;border-radius:12px;margin-bottom:20px;font-weight:600;}
+.submit-btn{display:block;margin:20px auto;padding:12px 30px;background:linear-gradient(135deg, #ec4899, #db2777);color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-size:1rem;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(236,72,153,0.3);}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+    <button class="back-btn" onclick="window.location.href='mock_tests.html'">← Back</button>
+    <h1>Full Stack Development Mock Test (30 Questions)</h1>
+    <div style="width:100px;"></div>
+</div>
+<div id="scoreBox">
+Score: <span id="score">0</span> / 30
+</div>
+<div id="quiz"></div>
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+</div>
+
+<script>
+const questions = [
+{q:"Who is known as the Father of HTML?",o:["Brendan Eich","Tim Berners-Lee","Dennis Ritchie","Bjarne Stroustrup"],a:1},
+{q:"Which HTML version introduced support for CSS and scripting improvements?",o:["HTML 1.0","HTML 2.0","HTML 3.2","HTML 4.01"],a:3},
+{q:"What is the primary purpose of the <!DOCTYPE> declaration?",o:["Creates a title","Defines HTML version","Creates body","Adds metadata"],a:1},
+{q:"Which HTML tag contains metadata about a document?",o:["body","title","head","meta"],a:2},
+{q:"Which tag is used to define the largest heading?",o:["h6","heading","h1","head"],a:2},
+{q:"Which attribute provides additional information about an element?",o:["value","name","attribute","property"],a:2},
+{q:"What is the correct syntax for an HTML attribute?",o:["tag(value)","tag:value","attribute=value","attribute='value'"],a:3},
+{q:"Which tag creates a hyperlink?",o:["link","a","href","url"],a:1},
+{q:"Which attribute specifies the destination URL of a hyperlink?",o:["src","target","href","link"],a:2},
+{q:"Which HTML tag is considered an empty element?",o:["p","div","img","span"],a:2},
+{q:"Which attribute specifies an alternate text for an image?",o:["src","alt","title","target"],a:1},
+{q:"Which tag is used to insert an image?",o:["picture","image","img","src"],a:2},
+{q:"Which HTML element is a block-level element?",o:["span","a","img","div"],a:3},
+{q:"Which HTML element is an inline element?",o:["div","p","span","section"],a:2},
+{q:"Which formatting tag provides semantic importance and displays bold text?",o:["b","strong","mark","u"],a:1},
+{q:"Which tag highlights text?",o:["mark","highlight","strong","big"],a:0},
+{q:"Which tag displays text in italic with semantic meaning?",o:["i","italic","em","b"],a:2},
+{q:"Which tag creates a superscript effect?",o:["sub","sup","small","big"],a:1},
+{q:"Which tag creates a subscript effect?",o:["sup","small","sub","ins"],a:2},
+{q:"Which HTML element defines a paragraph?",o:["para","text","p","pg"],a:2},
+{q:"Which tag inserts a line break?",o:["break","lb","br","hr"],a:2},
+{q:"Which tag draws a horizontal line?",o:["line","hr","br","rule"],a:1},
+{q:"Which tag is used to create a table row?",o:["td","tr","th","table"],a:1},
+{q:"Which tag defines a table header cell?",o:["tr","td","th","thead"],a:2},
+{q:"Which tag creates an ordered list?",o:["ul","ol","li","dl"],a:1},
+{q:"Which tag creates an unordered list?",o:["ol","li","ul","dl"],a:2},
+{q:"Which tag is used for list items?",o:["list","li","item","dt"],a:1},
+{q:"Which form control allows selecting only one option?",o:["Checkbox","Textarea","Radio Button","Select"],a:2},
+{q:"Which input type validates email format automatically in HTML5?",o:["text","mail","email","validate"],a:2},
+{q:"Which element groups related form controls together?",o:["group","fieldset","legend","formgroup"],a:1}
+];
+
+const quiz=document.getElementById("quiz");
+let answered = {};
+
+questions.forEach((item,index)=>{
+    let card=document.createElement("div");
+    card.className="question-card";
+    let html=`<div class="question">${item.q}</div>`;
+    item.o.forEach((opt,i)=>{
+        html+=`<div class="option" onclick="checkAnswer(this,${i},${item.a},${index})">${String.fromCharCode(65+i)}. ${opt}</div>`;
+    });
+    card.innerHTML=html;
+    quiz.appendChild(card);
+});
+
+function checkAnswer(el,selected,correct,index){
+    const parent=el.parentElement;
+    if(parent.dataset.done) return;
+    parent.dataset.done=true;
+    answered[index]=selected===correct;
+    const options=parent.querySelectorAll(".option");
+    options.forEach((op,i)=>{
+        if(i===correct) op.classList.add("correct");
+    });
+    if(selected!==correct) el.classList.add("wrong");
+    updateScore();
+}
+
+function updateScore(){
+    let score=Object.values(answered).filter(v=>v).length;
+    document.getElementById("score").innerText=score;
+}
+
+function submitTest(){
+    let score=Object.values(answered).filter(v=>v).length;
+    alert(`Test Submitted!\nYour Score: ${score}/30`);
+}
+</script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>

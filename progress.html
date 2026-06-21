@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Progress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell materials-shell">
+    <aside class="sidebar">
+      <div class="brand">LearnHub</div>
+      <nav class="sidebar-nav">
+        <a href="index.html">Dashboard</a>
+        <a href="materials.html">Skills</a>
+        <a href="roadmaps.html">Roadmaps</a>
+        <a href="materials.html">All Materials</a>
+        <a href="bookmarks.html">Bookmarks</a>
+        <a class="active" href="progress.html">Progress</a>
+        <a href="profile.html">Profile</a>
+        <a href="settings.html">Settings</a>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <header class="page-header">
+        <button class="back-button" onclick="window.history.back()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+          </svg>
+          Back
+        </button>
+        <div>
+          <p class="eyebrow">Insights</p>
+          <h1>Progress</h1>
+          <p>Track your completed materials, saved study items, and learning momentum.</p>
+        </div>
+      </header>
+      <section class="filter-panel">
+        <div class="overview-card compact-card">
+          <h3>Learning streak</h3>
+          <p>Your progress dashboard is ready to show completed resources and saved targets.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <footer class="bottom-nav">
+    <a href="index.html">Home</a>
+    <a href="materials.html">Skills</a>
+    <a href="materials.html">All Materials</a>
+    <a class="active" href="progress.html">Progress</a>
+    <a href="profile.html">Profile</a>
+  </footer>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="auth-gate.js"></script>
+</body>
+</html>
